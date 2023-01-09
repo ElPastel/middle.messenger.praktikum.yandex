@@ -1,0 +1,27 @@
+.container.flex-center      
+    .form__box.form__box-large.flex-form
+        h2.form__title.form__title-large Sign Up
+        form.form__content.form__content-large.flex-center.mb-s
+            .form__group
+                label.form__label(for='email') E-mail
+                input#email.form__input(type='email', placeholder=' pochta@yandex.ru', required)
+            .form__group
+                label.form__label(for='login') Login
+                input#login.form__input(type='text', placeholder=' IvanIvanov001', required)
+            .form__group
+                label.form__label(for='firs_name') Name
+                input#first_name.form__input(type='text', placeholder=' Ivan', required)
+            .form__group
+                label.form__label(for='second_name') Last name
+                input#second_name.form__input(type='text', placeholder=' Ivanov', required)
+            .form__group
+                label.form__label(for='phone') Phone
+                input#phone.form__input(type='tel', placeholder=' 89091234567', required, maxlength='11', minlength='11')
+            .form__group
+                label.form__label(for='password') Password
+                input#password.form__input(type='password', placeholder=' ••••••••', required, minlength='8')
+        .form__btns.flex-form 
+            button.btn__main 
+                a.link-btn(href='/chats') Create an account
+            button.btn__secondary 
+                a.link(href='/signin') Sign in
