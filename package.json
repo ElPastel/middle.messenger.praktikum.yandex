@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "npm run build && node server.js",
-    "dev": "parcel public/index.html --open --no-cache --port 3000",
+    "dev": "parcel public/index.html --open --no-cache --port 3000 --no-source-maps",
     "build": "parcel build public/index.html --no-cache --no-source-maps"
   },
   "repository": {

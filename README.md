@@ -1,11 +1,15 @@
 ## Overview
 
-CozyChat is a web Messenger project
+CozyChat is a web Messenger project uses **Pug** templates and is implemented as SPA.
 
-[Netlify link](https://cozychat.netlify.app/)
+## Links
+[Netlify domen](https://cozychat.netlify.app/)
 
 [Figma layout](https://www.figma.com/file/iOLdvFrkIuP11QJQK08kOr/Messenger-UI?node-id=0%3A1&t=hFrBn0NgpiOaQb68-0)
 
 ## Installation
-Open a terminal and run `npm start`
+In order to install all dependencies open a terminal and run `npm install`,
+then use `npm run start` in order to build the project and start local server at 3000 port.
+Use `npm run dev` in order to run project in the development mode,
+and `npm run build` to make the production version to the `dist` folder
 
