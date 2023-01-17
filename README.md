@@ -12,4 +12,3 @@ In order to install all dependencies open a terminal and run `npm install`,
 then use `npm run start` in order to build the project and start local server at 3000 port.
 Use `npm run dev` in order to run project in the development mode,
 and `npm run build` to make the production version to the `dist` folder
-
