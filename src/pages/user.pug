@@ -1,0 +1,22 @@
+.container.flex-center      
+    .form__box.form__box-large.flex-form
+        img.avatar(src=`${avatar}` alt='User avatar')
+        h2.displayname #{display_name}
+        .userdata
+            p.profile__subtitle E-mail  
+            p #{email}
+            p.profile__subtitle Login  
+            p #{login}
+            p.profile__subtitle Name  
+            p #{first_name}
+            p.profile__subtitle Last name  
+            p #{second_name}
+            p.profile__subtitle Display name  
+            p #{display_name}
+            p.profile__subtitle Phone  
+            p #{phone}
+        .form__btns.flex-form
+            button.btn__main(type='submit')  
+                a.link-btn(href='/edituser') Edit profile
+            button.btn__secondary 
+                a.link(href='/chats') Back to chats

@@ -1,0 +1,237 @@
+* {
+    padding: 0;
+    margin: 0;    
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+// Variables
+$primary-color: #eee;
+$color-secondary: #9898B0;
+$color-tertiary: #807788;
+$peach-color: #e4794c;
+$peach-color-dark: #b6613d;
+$form-color:rgba(238, 238, 238, 0.3);
+$main-text-color: #343A4F;
+
+
+// Helpers
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.2rem;
+}
+
+.flex-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mb-s {
+    margin-bottom: 4.6rem;
+}
+
+.mb-m {
+    margin-bottom: 6rem;
+}
+
+.mb-l {
+    margin-bottom: 12rem;
+}
+
+// General
+.container {
+    margin: 0 auto;
+    height: 100vh;
+}
+
+.btn__main {
+    width: 28rem;
+    height: 3.7rem;
+    background: $peach-color;
+    border: 1px solid $peach-color;
+    border-radius: 8px;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+
+    &:hover {
+        background-color: $peach-color-dark;
+        border-color: $peach-color-dark;
+        text-decoration: none;
+    }
+
+    &:first-child:hover {
+        text-decoration: none;
+    }
+}
+
+.btn__secondary {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: $main-text-color;
+    font-style: normal;
+    background-color: $form-color;
+    border: none;
+}
+
+.link:link, .link:visited {
+    color: $main-text-color;
+    text-decoration: none;
+    font-size: 1.3rem;
+}
+
+.link:hover, .link:active {
+    text-decoration: underline;
+}
+
+.link-btn:link, .link-btn:visited {
+    color: $primary-color;
+    text-decoration: none;
+}
+
+// Sections
+body {
+    font-family: 'Roboto', sans-serif;
+    color: $main-text-color;
+    background-image: linear-gradient(rgba(238, 238, 238, 0.6), rgba(238, 238, 238, 0.6)), url(background-main.jpg);
+}
+
+.main {
+    max-width: 120rem;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+// Home page
+.nav__title{
+    font-size: 2.4rem;
+}
+
+.nav__list {
+    gap: 1.6rem;
+    list-style: none;
+}
+
+// Error page
+.error__number {
+    font-size: 5.2rem;
+    color: $main-text-color; 
+}
+
+.error__text {
+    font-size: 4rem;
+    color: $main-text-color;
+    margin-bottom: 6.6rem;
+}
+
+// SIGN IN FORM
+.form__box {
+    height: 45rem;    
+    width: 34rem;
+    background-color: $form-color;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 1.2rem;
+}
+
+.form__title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 5rem 0;
+    color: $main-text-color;
+}
+
+.form__content {
+    gap: 1.6rem;
+    // margin-bottom: 12rem;
+}
+
+//
+.form__group--btn {
+    align-items: center;
+}
+
+.form__label {
+    display: block;
+    font-weight: 500;
+    font-size: 1rem;
+    color: $color-tertiary;
+    margin-bottom: 0.6rem;
+}
+
+.form__input {
+    width: 28rem;
+    height: 3.3rem;
+    background: $primary-color;
+    border: 1px solid $color-secondary;
+    border-radius: 5px;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: $main-text-color;
+    letter-spacing: 1px;
+
+    &::-webkit-input-placeholder {
+        color: $color-secondary;
+    }
+
+    &:focus-visible{
+        outline-color: #9898B0;
+    }
+}
+
+.form__btns {
+    gap: 1.4rem;
+}
+
+// SIGN-UP FORM
+.form__box-large {
+    height: 57.5rem;
+}
+
+.form__title-large {
+    margin: 3rem 0;
+}
+
+.form__content-large {
+    gap: 1rem;
+}
+
+// User profile
+.avatar {
+    width: 12rem;
+    height: 12rem;
+    margin: 4rem 0;
+    background-image: url(avataricon.png);
+    background-color: $primary-color;
+    color: $primary-color;
+    border-radius: 50%;
+}
+
+.userdata {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 2rem;
+    row-gap: 1rem;
+
+    font-size: 1.3rem;
+    margin: 4rem 4rem 9rem 4rem;
+}
+
+.profile__subtitle {
+    color: $color-secondary;
+}
+
+// Edit
+.form__content-m {
+    margin-bottom: 4rem;
+}

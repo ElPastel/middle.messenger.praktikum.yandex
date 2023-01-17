@@ -1,0 +1,30 @@
+$primary-color: #eee;
+$peach-color: #e4794c;
+$peach-color-dark: #b6613d;
+
+.btn__main {
+    width: 28rem;
+    height: 3.7rem;
+    background: $peach-color;
+    border: 1px solid $peach-color;
+    border-radius: 8px;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+
+    &:hover {
+        background-color: $peach-color-dark;
+        border-color: $peach-color-dark;
+        text-decoration: none;
+    }
+
+    &:first-child:hover {
+        text-decoration: none;
+    }
+}
+
+.link-btn:link, .link-btn:visited {
+    color: $primary-color;
+    text-decoration: none;
+}
