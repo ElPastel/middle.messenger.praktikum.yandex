@@ -1,6 +1,6 @@
 import Block from '../../modules/block';
-import './ChatSelection.scss';
-import template from './ChatSelection.pug';
+import './chatSelection.scss';
+import template from './chatSelection.pug';
 import Button from '../button/btn';
 import Input from '../input/input';
 import MessageBlock from '../messageBlock/messageBlock';
