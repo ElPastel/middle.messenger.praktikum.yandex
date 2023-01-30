@@ -1,0 +1,48 @@
+$main-text-color: #343a4f;
+$user-background: rgb(228 121 76 / 10%);
+$companion-background: #f8f8f8;
+
+.msg-component-user {
+    display: flex;
+}
+
+.msg-component-companion {
+    display: flex;
+    justify-content: right;
+}
+
+.text-box-user {
+    display: inline-block;
+    background-color: $user-background;
+    padding: 1rem;
+    margin: 0.5rem 2rem;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    max-width: 40rem;
+    position: relative;
+}
+
+.text-box-companion {
+    display: inline-block;
+    background-color: $companion-background;
+    padding: 1rem;
+    margin: 0.5rem 2rem;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    max-width: 40rem;
+}
+
+.msg-text {
+    font-size: 1.5rem;
+    color: $main-text-color;
+}
+
+.msg-date {
+    display: inline-block;
+    max-width: fit-content;
+    font-size: 0.9rem;
+    text-align: right;
+    padding-left: 1rem;
+}
