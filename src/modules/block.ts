@@ -2,33 +2,33 @@ import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
 import Templator from 'pug';
 
+type V = string | number | (() => void) | Block<T>;
+type T = Record<string, V> | {};
+type Children = Record<string, Block<T>>;
 
-export default abstract class Block<Props extends object> {
+export default abstract class Block<Props extends T = {}> {
 	static EVENTS = {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
 		FLOW_CDU: 'flow:component-did-update',
 		FLOW_RENDER: 'flow:render',
-	};
+	} as const;
 
 	private _element: HTMLElement;
-	private _meta: { tagName: string, props: Record<string, any> };
+	private _meta: { tagName: string, props: Props };
 	private _id: string = makeUUID();
-	protected class: string;
 	protected eventBus: () => EventBus;
-	protected props: Record<string, any>;
-	protected children: Record<string, Block<Props>>;
+	protected props: Props;
+	protected children: Children;
 
 	constructor(tagName = 'div', propsAndChildren: Props) {
-		const eventBus: any = new EventBus();
+		const eventBus = new EventBus();
 		const { children, props } = this._getChildren(propsAndChildren);
-		if (props.class) this.class = props.class;
-
 		this.props = this._makePropsProxy({
 			...props,
-			_id: this._id,
-			class: this.class,
-		});
+			_id: this._id
+		}) as Props;
+
 		this.children = children;
 
 		this._meta = {
@@ -115,12 +115,12 @@ export default abstract class Block<Props extends object> {
 				this._removeEvents();
 				this._element.innerHTML = '';
 				this._element.appendChild(block)
-			} 
+			}
 		}
 		this._addEvents();
 	}
 
-	abstract render(): DocumentFragment; 
+	abstract render(): DocumentFragment;
 
 	public getContent(): HTMLElement {
 		return this.element;
@@ -145,12 +145,6 @@ export default abstract class Block<Props extends object> {
 
 	private _createDocumentElement(tagName: string): HTMLElement {
 		const element = document.createElement(tagName);
-		// Add class
-		if (Array.isArray(this.class)) {
-			this.class.forEach((cl) => element.classList.add(cl));
-		} else {
-			element.classList.add(this.class);
-		}
 		// Add id
 		element.setAttribute('data-id', this._id);
 		// Add attributes
@@ -163,9 +157,9 @@ export default abstract class Block<Props extends object> {
 		return element;
 	}
 
-	private _getChildren(propsAndChildren: Props): { props: Record<string, any>, children: Record<string, Block<Props>> } {
-		const children: { [key: string]: Block<Props> } = {};
-		const props: Record<string, any> = {};
+	private _getChildren(propsAndChildren: Props): { props: Props, children: Children } {
+		const children: Children = {};
+		const props = {} as Props;
 
 		Object.entries(propsAndChildren).forEach(([key, value]) => {
 			if (value instanceof Block) {
@@ -208,7 +202,7 @@ export default abstract class Block<Props extends object> {
 		});
 
 		const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
-		fragment.innerHTML = Templator.render(template, propsAndStubs);	
+		fragment.innerHTML = Templator.render(template, propsAndStubs);
 
 		Object.values(this.children).forEach(child => {
 			const stub = fragment.content.querySelector(`[data-id="${child._id}"]`) as HTMLElement;

@@ -1,13 +1,10 @@
 import Block from '../../modules/block';
 import './chatEmpty.scss';
 import template from './chatEmpty.pug';
+import { Props } from '../../modules/types';
 
-interface IChatEmpty {
-    class: string;
- }
-
-class ChatEmpty extends Block<IChatEmpty> {
-	constructor(props: IChatEmpty) {
+class ChatEmpty extends Block<Props> {
+	constructor(props: Props) {
 		super('section', props);
 	}
 

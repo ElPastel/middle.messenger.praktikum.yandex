@@ -1,18 +1,10 @@
 import Block from '../../modules/block';
 import './chats.scss';
 import template from './chats.pug';
-import ChatSelection from '../chatSelection/chatSelection';
-import ChatView from '../chatView/chatView';
-import ChatEmpty from '../chatEmpty/chatEmpty';
+import { Props } from '../../modules/types';
 
-interface IChats {
-    class?: string;
-    sectionSelection: ChatSelection;
-    sectionView: ChatView | ChatEmpty;
-}
-
-class Chats extends Block<IChats> {
-    constructor(props: IChats) {
+class Chats extends Block<Props> {
+    constructor(props: Props) {
         super('div', props);
     }
 

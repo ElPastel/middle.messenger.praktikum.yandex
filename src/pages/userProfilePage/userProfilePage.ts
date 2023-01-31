@@ -4,21 +4,21 @@ import Layout from '../layout/layout';
 import userData from '../../user-data';
 
 const buttonMain = new Button({
-    class: 'btn__main',
+    classAttr: 'btn__main',
     route: 'edituser',
     value: 'Edit profile',
     linkColor: 'main'
 });
 
 const buttonSecondary = new Button({
-    class: 'btn__secondary',
+    classAttr: 'btn__secondary',
     route: 'chats',
     value: 'Back to chats',
     linkColor: 'secondary'
 });
 
 const user = new User({
-    class: 'form__box',
+    classAttr: 'form__box',
     displayName: userData.display_name,
     firstName: userData.first_name,
     secondName: userData.second_name,
@@ -30,7 +30,7 @@ const user = new User({
 });
 
 const layout = new Layout({
-    class: ['container', 'flex-center'],
+    classAttr: 'container flex-center',
     content: user
 })
 

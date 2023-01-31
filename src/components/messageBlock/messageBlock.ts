@@ -1,20 +1,10 @@
 import Block from '../../modules/block';
 import './messageBlock.scss';
 import template from './messageBlock.pug';
+import { Props } from '../../modules/types';
 
-interface IMessageBlock {
-	class: string;
-	displayName: string;
-	lastMessage: string;
-	messageDate: Date | string;
-	newMessages?: number;
-	avatarSource?: string;
-	hiddenClass?: string;
-	events?: { [key: string]: (e: Event) => void };
-}
-
-class MessageBlock extends Block<IMessageBlock> {
-	constructor(props: IMessageBlock) {
+class MessageBlock extends Block<Props> {
+	constructor(props: Props) {
 		super('div', props);
 	}
 

@@ -1,22 +1,10 @@
 import Block from '../../modules/block';
 import './chatView.scss';
 import template from './chatView.pug';
-import Button from '../button/btn';
-import Input from '../input/input';
+import { Props } from '../../modules/types';
 
-interface IChatView {
-    class: string;
-	buttonMore: Button;
-	buttonFile: Button;
-	buttonSend: Button;
-	input: Input;
-	displayName: string;
-	avatar?: string;
-	events?: { [key: string]: (e: Event) => void };
-  }
-
-class ChatView extends Block<IChatView> {
-	constructor(props: IChatView) {
+class ChatView extends Block<Props> {
+	constructor(props: Props) {
 		super('section', props);
 	}
 

@@ -4,21 +4,21 @@ import Layout from "../layout/layout";
 
 
 const button = new Button({
-    class: 'btn__secondary',
+    classAttr: 'btn__secondary',
     route: '',
     value: 'Back to homepage',
     linkColor: 'secondary'
 });
 
 const error500 = new Error({
-    class: ['error', 'container','flex-center'],
+    classAttr: 'error container flex-center',
     button: button,
     errorNumber: 500,
-	errorText: 'Oops! something went wrong.',
+    errorText: 'Oops! something went wrong.',
 });
 
 const layout = new Layout({
-    class: ['container','flex-center'],
+    classAttr: 'container flex-center',
     content: error500,
 })
 

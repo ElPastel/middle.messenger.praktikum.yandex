@@ -1,23 +1,10 @@
 import Block from '../../modules/block';
-import './user.scss'; 
+import './user.scss';
 import template from './user.pug';
-import Button from '../button/btn';
+import { Props } from '../../modules/types';
 
-interface IUser {
-    class?: string;
-    displayName: string;
-    firstName: string;
-    secondName: string;
-    email: string;
-    login: string;
-    phone: string;
-    buttonMain: Button;
-    buttonSecondary: Button;
-    events?: { [key: string]: (e: Event) => void };
-}
-
-class User extends Block<IUser> {
-    constructor(props: IUser) {
+class User extends Block<Props> {
+    constructor(props: Props) {
         super('div', props);
     }
     render(): DocumentFragment {

@@ -1,5 +1,5 @@
-const userData = {
-  id: 123,
+const userData: Record<string, string | number> = {
+	id: 123,
 	first_name: 'Ivan',
 	second_name: 'Ivanov',
 	display_name: 'Ivan Ivanov',

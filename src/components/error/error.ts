@@ -1,18 +1,10 @@
 import Block from '../../modules/block';
-import './error.scss'; // .error.container.flex-center
+import './error.scss'; 
 import template from './error.pug';
-import Button from '../button/btn';
+import { Props } from '../../modules/types';
 
-interface IIError {
-    button: Button;
-    errorNumber: number;
-    errorText: string;
-    class?: string | string[];
-    events?: { [key: string]: (e: Event) => void };
-}
-
-class Error extends Block<IIError> {
-    constructor(props: IIError) {
+class Error extends Block<Props> {
+    constructor(props: Props) {
         super('div', props);
     }
 

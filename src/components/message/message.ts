@@ -1,17 +1,10 @@
 import Block from '../../modules/block';
 import './message.scss';
 import template from './message.pug';
+import { Props } from '../../modules/types';
 
-interface IMessage {
-    class: string;
-    msgText?: string;
-    msgType: string;
-    date: string
-    events?: { [key: string]: (e: Event) => void };
-}
-
-class Message extends Block<IMessage> {
-    constructor(props: IMessage) {
+class Message extends Block<Props> {
+    constructor(props: Props) {
         super('div', props);
     }
 
@@ -22,7 +15,6 @@ class Message extends Block<IMessage> {
             msgText: this.props.msgText,
             events: this.props.events,
         })
-
     }
 }
 

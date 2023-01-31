@@ -7,35 +7,35 @@ import ChatView from '../../components/chatView/chatView';
 import ChatSelection from '../../components/chatSelection/chatSelection';
 
 export const buttonMenu = new Button({
-    class: 'btn__menu',
+    classAttr: 'btn__menu',
     route: '',
     value: '',
     icon: 'menu'
 });
 
 export const buttonMore = new Button({
-    class: 'btn__more',
+    classAttr: 'btn__more',
     route: '',
     value: '',
     icon: 'more_vert'
 });
 
 export const buttonFile = new Button({
-    class: 'btn__file',
+    classAttr: 'btn__file',
     route: '',
     value: '',
     icon: 'attach_file'
 });
 
 export const buttonSend = new Button({
-    class: 'btn__send',
+    classAttr: 'btn__send',
     route: '',
     value: '',
     icon: 'send'
 });
 
 const inputMenu = new Input({
-    class: 'input__menu',
+    classAttr: 'input__menu',
     nameAttr: 'search',
     placeholderAttr: 'Search',
     typeAttr: 'text',
@@ -43,7 +43,7 @@ const inputMenu = new Input({
 });
 
 const inputMsg = new Input({
-    class: 'input__msg',
+    classAttr: 'input__msg',
     nameAttr: 'message',
     placeholderAttr: 'Message',
     typeAttr: 'text',
@@ -51,7 +51,7 @@ const inputMsg = new Input({
 });
 
 const messageBlock1 = new MessageBlock({
-    class: 'message-block',
+    classAttr: 'message-block',
     displayName: 'Michael Scott',
     lastMessage: 'No! God, please! NOOOO',
     messageDate: '12:45',
@@ -61,7 +61,7 @@ const messageBlock1 = new MessageBlock({
 });
 
 const messageBlock2 = new MessageBlock({
-    class: 'message-block',
+    classAttr: 'message-block',
     displayName: 'Dwight Schrute',
     lastMessage: 'I hate Jim',
     messageDate: '21:04',
@@ -71,7 +71,7 @@ const messageBlock2 = new MessageBlock({
 });
 
 const messageBlock3 = new MessageBlock({
-    class: 'message-block',
+    classAttr: 'message-block',
     displayName: 'Pam Beesly',
     lastMessage: 'Dunder Mifflin, this is Pam',
     messageDate: 'Mon',
@@ -81,7 +81,7 @@ const messageBlock3 = new MessageBlock({
 
 
 const sectionSelection = new ChatSelection({
-    class: 'section__chat-selection',
+    classAttr: 'section__chat-selection',
     button: buttonMenu,
     input: inputMenu,
     messageBlock1: messageBlock1,
@@ -90,7 +90,7 @@ const sectionSelection = new ChatSelection({
 });
 
 const sectionView = new ChatView({
-    class: 'section__chat-view',
+    classAttr: 'section__chat-view',
     buttonMore: buttonMore,
     buttonFile: buttonFile,
     buttonSend: buttonSend,

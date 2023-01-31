@@ -1,22 +1,10 @@
 import Block from '../../modules/block';
 import './chatSelection.scss';
 import template from './chatSelection.pug';
-import Button from '../button/btn';
-import Input from '../input/input';
-import MessageBlock from '../messageBlock/messageBlock';
+import { Props } from '../../modules/types';
 
-interface IChatSelection {
-	class: string;
-	button: Button;
-	input: Input;
-	messageBlock1: MessageBlock;
-	messageBlock2: MessageBlock;
-	messageBlock3: MessageBlock;
-	events?: { [key: string]: (e: Event) => void };
-  }
-
-class ChatSelection extends Block<IChatSelection> {
-	constructor(props: IChatSelection) {
+class ChatSelection extends Block<Props> {
+	constructor(props: Props) {
 		super('section', props);
 	}
 

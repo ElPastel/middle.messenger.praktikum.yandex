@@ -1,24 +1,15 @@
 import Block from '../../modules/block';
 import './layout.scss'; 
-import layoutTmpl from './layout.pug';
-import LoginForm from '../../components/loginForm/loginForm';
-import RegistrationForm from '../../components/registrationForm/registrationForm';
-import User from '../../components/user/user';
-import Chats from '../../components/chatSelection/chatSelection';
-import Error from '../../components/error/error';
+import template from './layout.pug';
+import { Props } from '../../modules/types';
 
-interface ILayout {
-	class?: string | string[];
-	content: LoginForm | RegistrationForm | User | Chats | Error;
-}
-
-class Layout extends Block<ILayout> {
-	constructor(props: ILayout) {
+class Layout extends Block<Props> {
+	constructor(props: Props) {
 		super('div', props);
 	}
 
 	render(): DocumentFragment {
-		return this.compile(layoutTmpl(), {
+		return this.compile(template(), {
 			class: this.props.class,
 			content: this.props.content
 		})

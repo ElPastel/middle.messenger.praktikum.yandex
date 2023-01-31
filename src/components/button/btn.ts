@@ -1,18 +1,10 @@
 import Block from '../../modules/block';
 import './btn.scss';
 import template from './btn.pug';
+import { Props } from '../../modules/types';
 
-interface IButton {
-	route?: string;
-	value?: string;
-	class?: string;
-	linkColor?: string;
-	icon?: string;
-    events?: { [key: string]: (e: Event) => void };
-}
-
-class Button extends Block<IButton> {
-	constructor(props: IButton) {
+class Button extends Block<Props> {
+	constructor(props: Props) {
 		super('button', props);
 		if (this.element.classList.contains('btn__main')) this.element.setAttribute('type', 'submit');
 	}

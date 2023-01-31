@@ -7,7 +7,7 @@ import { focusHandler, blurHandler, submitHandler } from '../../utils/handlers';
 
 const inputEmail = new InputBlock({
     input: new Input({
-        class: 'form__input',
+        classAttr: 'form__input',
         nameAttr: 'email',
         placeholderAttr: 'pochta@yandex.ru',
         typeAttr: 'email',
@@ -24,7 +24,7 @@ const inputEmail = new InputBlock({
 
 const inputLogin = new InputBlock({
     input: new Input({
-        class: 'form__input',
+        classAttr: 'form__input',
         nameAttr: 'login',
         placeholderAttr: 'IvanIvanov001',
         typeAttr: 'text',
@@ -34,14 +34,14 @@ const inputLogin = new InputBlock({
             blur: e => blurHandler(e)
         }
     }),
-    class: 'form__group',
+    classAttr: 'form__group',
     labelText: 'Login',
     forAttr: 'login',
 });
 
 const inputFirstName = new InputBlock({
     input: new Input({
-        class: 'form__input',
+        classAttr: 'form__input',
         nameAttr: 'first_name',
         placeholderAttr: 'Ivan',
         typeAttr: 'text',
@@ -51,14 +51,14 @@ const inputFirstName = new InputBlock({
             blur: e => blurHandler(e)
         }
     }),
-    class: 'form__group',
+    classAttr: 'form__group',
     forAttr: 'first_name',
     labelText: 'Name',
 });
 
 const inputSecondName = new InputBlock({
     input: new Input({
-        class: 'form__input',
+        classAttr: 'form__input',
         nameAttr: 'second_name',
         placeholderAttr: 'Ivanov',
         typeAttr: 'text',
@@ -68,7 +68,7 @@ const inputSecondName = new InputBlock({
             blur: e => blurHandler(e)
         }
     }),
-    class: 'form__group',
+    classAttr: 'form__group',
     forAttr: 'second_name',
     labelText: 'Last name',
 });
@@ -76,7 +76,7 @@ const inputSecondName = new InputBlock({
 
 const inputPhone = new InputBlock({
     input: new Input({
-        class: 'form__input',
+        classAttr: 'form__input',
         nameAttr: 'phone',
         placeholderAttr: '89091234567',
         typeAttr: 'tel',
@@ -86,14 +86,14 @@ const inputPhone = new InputBlock({
             blur: e => blurHandler(e)
         }
     }),
-    class: 'form__group',
+    classAttr: 'form__group',
     forAttr: 'phone',
     labelText: 'Phone',
 });
 
 const inputPassword = new InputBlock({
     input: new Input({
-        class: 'form__input',
+        classAttr: 'form__input',
         nameAttr: 'password',
         placeholderAttr: '••••••••',
         typeAttr: 'password',
@@ -103,27 +103,27 @@ const inputPassword = new InputBlock({
             blur: e => blurHandler(e)
         }
     }),
-    class: 'form__group',
+    classAttr: 'form__group',
     forAttr: 'email',
     labelText: 'Password',
 });
 
 const buttonMain = new Button({
-    class: 'btn__main',
+    classAttr: 'btn__main',
     route: 'chats',
     value: 'Create an account',
     linkColor: 'main',
 });
 
 const buttonSecondary = new Button({
-    class: 'btn__secondary',
+    classAttr: 'btn__secondary',
     route: 'signin',
     value: 'Sign in',
     linkColor: 'secondary'
 });
 
 const registrationForm = new RegistrationForm({
-    class: 'form__box',
+    classAttr: 'form__box',
     title: 'Sign up',
     buttonMain: buttonMain,
     buttonSecondary: buttonSecondary,
@@ -139,7 +139,7 @@ const registrationForm = new RegistrationForm({
 });
 
 const layout = new Layout({
-    class: ['container', 'flex-center'],
+    classAttr: 'container flex-center',
     content: registrationForm,
 })
 

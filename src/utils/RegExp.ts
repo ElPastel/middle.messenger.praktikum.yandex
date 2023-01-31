@@ -1,4 +1,8 @@
-const regExp = {
+type TRegExp = {
+  [key: string]: RegExp;
+}
+
+const regExp: TRegExp = {
   first_name: /^[A-ZА-ЯЁ][a-zа-яё]*(?:-[A-ZА-ЯЁ][a-zа-яё]*)?\r?$/,  
   second_name: /^[A-ZА-ЯЁ][a-zа-яё]*(?:-[A-ZА-ЯЁ][a-zа-яё]*)?\r?$/,  
   login: /^(?=.*[a-zA-Z])([a-zA-Z0-9-_]){3,20}$/,

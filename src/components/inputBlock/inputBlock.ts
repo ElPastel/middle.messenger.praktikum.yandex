@@ -1,18 +1,10 @@
 import Block from '../../modules/block';
 import './inputBlock.scss';
 import template from './inputBlock.pug';
-import Input from '../input/input';
+import { Props } from '../../modules/types';
 
-interface IInputBlock {
-	input: Input;
-	forAttr: string;
-	labelText: string;
-	class?: string;
-	events?: { [key: string]: (e: Event) => void };
-  }
-
-class InputBlock extends Block<IInputBlock> {
-	constructor(props: IInputBlock) {
+class InputBlock extends Block<Props> {
+	constructor(props: Props) {
 		super('div', props);
 	}
 
