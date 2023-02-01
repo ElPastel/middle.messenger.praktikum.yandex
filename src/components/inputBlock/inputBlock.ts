@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, { T } from '../../modules/block';
 import './inputBlock.scss';
 import template from './inputBlock.pug';
-import { Props } from '../../modules/types';
 
-class InputBlock extends Block<Props> {
-	constructor(props: Props) {
+class InputBlock extends Block<T> {
+	constructor(props: T) {
 		super('div', props);
 	}
 

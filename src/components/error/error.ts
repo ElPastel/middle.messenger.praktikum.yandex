@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, {T} from '../../modules/block';
 import './error.scss'; 
 import template from './error.pug';
-import { Props } from '../../modules/types';
 
-class Error extends Block<Props> {
-    constructor(props: Props) {
+class Error extends Block<T> {
+    constructor(props: T) {
         super('div', props);
     }
 

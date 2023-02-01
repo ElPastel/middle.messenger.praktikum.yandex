@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, {T} from '../../modules/block';
 import './user.scss';
 import template from './user.pug';
-import { Props } from '../../modules/types';
 
-class User extends Block<Props> {
-    constructor(props: Props) {
+class User extends Block<T> {
+    constructor(props: T) {
         super('div', props);
     }
     render(): DocumentFragment {

@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, {T} from '../../modules/block';
 import './chatView.scss';
 import template from './chatView.pug';
-import { Props } from '../../modules/types';
 
-class ChatView extends Block<Props> {
-	constructor(props: Props) {
+class ChatView extends Block<T> {
+	constructor(props: T) {
 		super('section', props);
 	}
 

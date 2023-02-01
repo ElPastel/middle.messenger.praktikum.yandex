@@ -2,11 +2,11 @@ import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
 import Templator from 'pug';
 
-type V = string | number | (() => void) | Block<T>;
-type T = Record<string, V> | {};
+type V = string | number | Record<string, (e: Event) => void> | Block<T>;
+export type T = Record<string, V>;
 type Children = Record<string, Block<T>>;
 
-export default abstract class Block<Props extends T = {}> {
+export default abstract class Block<Props extends T> {
 	static EVENTS = {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
@@ -126,13 +126,13 @@ export default abstract class Block<Props extends T = {}> {
 		return this.element;
 	}
 
-	private _makePropsProxy<Props extends object>(props: Props): Props {
+	private _makePropsProxy<Props extends T>(props: Props): Props {
 		return new Proxy(props, {
 			get(target: any, prop: string) {
 				const value = target[prop];
 				return typeof value === 'function' ? value.bind(target) : value;
 			},
-			set(target: any, prop: string, value: any) {
+			set(target: T, prop: string, value: any) {
 				target[prop] = value;
 				this.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
 				return true;
@@ -159,7 +159,7 @@ export default abstract class Block<Props extends T = {}> {
 
 	private _getChildren(propsAndChildren: Props): { props: Props, children: Children } {
 		const children: Children = {};
-		const props = {} as Props;
+		const props = {} as T;
 
 		Object.entries(propsAndChildren).forEach(([key, value]) => {
 			if (value instanceof Block) {
@@ -169,7 +169,7 @@ export default abstract class Block<Props extends T = {}> {
 			}
 		});
 
-		return { children, props };
+		return { children, props: (props as Props) };
 	}
 
 	private _addEvents(): void {

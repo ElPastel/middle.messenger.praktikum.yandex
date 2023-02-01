@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, { T } from '../../modules/block';
 import './input.scss';
 import template from './input.pug';
-import { Props } from '../../modules/types';
 
-class Input extends Block<Props> {
-	constructor(props: Props) {
+class Input extends Block<T> {
+	constructor(props: T) {
 		super('input', props);
 	}
 
@@ -15,6 +14,7 @@ class Input extends Block<Props> {
 			placeholderAttr: this.props.placeholderAttr,
 			typeAttr: this.props.typeAttr,
 			valueAttr: this.props.valueAttr,
+			events: this.props.events
 		});
 	}
 }

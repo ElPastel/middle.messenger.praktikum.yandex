@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, {T} from '../../modules/block';
 import './messageBlock.scss';
 import template from './messageBlock.pug';
-import { Props } from '../../modules/types';
 
-class MessageBlock extends Block<Props> {
-	constructor(props: Props) {
+class MessageBlock extends Block<T> {
+	constructor(props: T) {
 		super('div', props);
 	}
 

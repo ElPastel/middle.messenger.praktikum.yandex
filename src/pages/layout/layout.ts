@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, {T} from '../../modules/block';
 import './layout.scss'; 
 import template from './layout.pug';
-import { Props } from '../../modules/types';
 
-class Layout extends Block<Props> {
-	constructor(props: Props) {
+class Layout extends Block<T> {
+	constructor(props: T) {
 		super('div', props);
 	}
 

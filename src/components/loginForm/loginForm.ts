@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, {T} from '../../modules/block';
 import './loginForm.scss';
 import template from './loginForm.pug';
-import { Props } from '../../modules/types';
 
-class LoginForm extends Block<Props> {
-    constructor(props: Props) {
+class LoginForm extends Block<T> {
+    constructor(props: T) {
         super('div', props);
     }
 

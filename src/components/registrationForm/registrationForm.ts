@@ -1,11 +1,10 @@
-import Block from '../../modules/block';
+import Block, {T} from '../../modules/block';
 import './registrationForm.scss';
 import template from './registrationForm.pug';
-import { Props } from '../../modules/types';
 
-class RegistrationForm extends Block<Props> {
-    constructor(props: Props) {
-        super('div', props);
+class RegistrationForm extends Block<T> {
+    constructor(props: T) {
+        super('div', props);        
     }
 
     render(): DocumentFragment {
@@ -20,6 +19,7 @@ class RegistrationForm extends Block<Props> {
             inputSecondName: this.props.inputSecondName,
             inputPhone: this.props.phone,
             inputPassword: this.props.inputPassword,
+            events: this.props.events
         })
     }
 }

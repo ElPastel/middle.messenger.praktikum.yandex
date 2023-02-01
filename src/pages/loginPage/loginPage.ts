@@ -3,7 +3,8 @@ import Button from '../../components/button/btn';
 import LoginForm from '../../components/loginForm/loginForm';
 import Layout from '../layout/layout';
 import InputBlock from '../../components/inputBlock/inputBlock';
-import { focusHandler, blurHandler, submitHandler } from '../../utils/handlers';
+import { inputHandlers, submitHandler } from '../../utils/handlers';
+
 
 const inputLogin = new InputBlock({
     input: new Input({
@@ -12,10 +13,7 @@ const inputLogin = new InputBlock({
         placeholderAttr: 'IvanIvanov001',
         typeAttr: 'text',
         valueAttr: '',
-        events: {
-            focus: e => focusHandler(e),
-            blur: e => blurHandler(e)
-        }
+        events: inputHandlers
     }),
     classAttr: 'form__group',
     labelText: 'Login',
@@ -29,10 +27,7 @@ const inputPassword = new InputBlock({
         placeholderAttr: '••••••••',
         typeAttr: 'password',
         valueAttr: '',
-        events: {
-            focus: e => focusHandler(e),
-            blur: e => blurHandler(e)
-        }
+        events: inputHandlers
     }),
     classAttr: 'form__group',
     forAttr: 'email',
@@ -61,9 +56,7 @@ const loginForm = new LoginForm({
     buttonSecondary: buttonSecondary,
     inputLogin: inputLogin,
     inputPassword: inputPassword,
-    events: {
-        submit: e => submitHandler(e),
-    }
+    events: submitHandler
 });
 
 const layout = new Layout({

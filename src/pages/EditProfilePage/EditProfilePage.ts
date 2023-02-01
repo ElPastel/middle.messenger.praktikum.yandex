@@ -4,8 +4,7 @@ import RegistrationForm from '../../components/registrationForm/registrationForm
 import Layout from '../layout/layout';
 import userData from '../../user-data';
 import InputBlock from '../../components/inputBlock/inputBlock';
-import { focusHandler, blurHandler, submitHandler } from '../../utils/handlers';
-
+import { inputHandlers, submitHandler } from '../../utils/handlers';
 
 const inputEmail = new InputBlock({
     input: new Input({
@@ -14,10 +13,7 @@ const inputEmail = new InputBlock({
         placeholderAttr: 'pochta@yandex.ru',
         typeAttr: 'email',
         valueAttr: userData.email,
-        events: {
-            focus: e => focusHandler(e),
-            blur: e => blurHandler(e)
-        }
+        events: inputHandlers
     }),
     classAttr: 'form__group',
     forAttr: 'email',
@@ -31,10 +27,7 @@ const inputLogin = new InputBlock({
         placeholderAttr: 'IvanIvanov001',
         typeAttr: 'text',
         valueAttr: userData.login,
-        events: {
-            focus: e => focusHandler(e),
-            blur: e => blurHandler(e)
-        }
+        events: inputHandlers
     }),
     classAttr: 'form__group',
     labelText: 'Login',
@@ -48,10 +41,7 @@ const inputFirstName = new InputBlock({
         placeholderAttr: 'Ivan',
         typeAttr: 'text',
         valueAttr: userData.first_name,
-        events: {
-            focus: e => focusHandler(e),
-            blur: e => blurHandler(e)
-        }
+        events: inputHandlers
     }),
     classAttr: 'form__group',
     forAttr: 'first_name',
@@ -65,10 +55,7 @@ const inputSecondName = new InputBlock({
         placeholderAttr: 'Ivanov',
         typeAttr: 'text',
         valueAttr: userData.second_name,
-        events: {
-            focus: e => focusHandler(e),
-            blur: e => blurHandler(e)
-        }
+        events: inputHandlers
     }),
     classAttr: 'form__group',
     forAttr: 'second_name',
@@ -82,10 +69,7 @@ const inputPhone = new InputBlock({
         placeholderAttr: '89091234567',
         typeAttr: 'tel',
         valueAttr: userData.phone,
-        events: {
-            focus: e => focusHandler(e),
-            blur: e => blurHandler(e)
-        }
+        events: inputHandlers
     }),
     classAttr: 'form__group',
     forAttr: 'phone',
@@ -116,9 +100,7 @@ const registrationForm = new RegistrationForm({
     inputFirstName: inputFirstName,
     inputSecondName: inputSecondName,
     inputPhone: inputPhone,
-    events: {
-        submit: e => submitHandler(e),
-    }
+    events: submitHandler
 });
 
 const layout = new Layout({

@@ -5,14 +5,14 @@ function isValid(key: string, value: string): boolean {
 	return pattern.test(value);
 }
 
-export function focusHandler(e: Event) {
+function focusHandler(e: Event) {
 	const input = e.target as HTMLInputElement;
 	const errorMsg = document.querySelector(`.error-${input.name}`);
 	if (errorMsg) errorMsg.classList.add('nonvisible');
 	input.classList.remove('unvalid-input');
 }
 
-export function blurHandler(e: Event) {
+function blurHandler(e: Event) {
 	const input = e.target as HTMLInputElement;
 	const errorMsg = document.querySelector(`.error-${input.name}`);
 
@@ -25,7 +25,7 @@ export function blurHandler(e: Event) {
 	}
 }
 
-export function submitHandler(e: Event) {
+function submitForm(e: Event) {
 	e.preventDefault();
 	const formData: { [key: string]: string } = {};
 	const inputs = document.querySelectorAll('input');
@@ -39,4 +39,12 @@ export function submitHandler(e: Event) {
 	if (formIsValid) console.log(formData);
 }
 
+export const inputHandlers = {
+	focus: (e: Event) => focusHandler(e),
+	blur: (e: Event) => blurHandler(e)
+};
+
+export const submitHandler = {
+	submit: (e: Event) => submitForm(e),
+}
 

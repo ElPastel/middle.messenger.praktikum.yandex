@@ -1,10 +1,9 @@
-import Block from '../../modules/block';
+import Block, {T} from '../../modules/block';
 import './btn.scss';
 import template from './btn.pug';
-import { Props } from '../../modules/types';
 
-class Button extends Block<Props> {
-	constructor(props: Props) {
+class Button extends Block<T> {
+	constructor(props: T) {
 		super('button', props);
 		if (this.element.classList.contains('btn__main')) this.element.setAttribute('type', 'submit');
 	}

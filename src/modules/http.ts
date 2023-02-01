@@ -12,7 +12,9 @@ type Options = {
     timeout?: number;
 };
 
-function queryStringify(data: {[key: string]: any} = {}): string {
+type HTTPMethod = (url: string, options?: Options) => Promise<XMLHttpRequest>
+
+function queryStringify(data: { [key: string]: any } = {}): string {
     if (!data || typeof data !== 'object') {
         throw new Error('Data must be object');
     }
@@ -24,19 +26,19 @@ function queryStringify(data: {[key: string]: any} = {}): string {
 }
 
 class HttpTransport {
-    get = (url: string, options: Options = {}): Promise<XMLHttpRequest> => {
+    get: HTTPMethod = (url, options = {}) => {
         return this.request(url + queryStringify(options.data), { ...options, method: METHODS.GET }, options.timeout);
     };
 
-    post = (url: string, options: Options = {}): Promise<XMLHttpRequest> => {
+    post: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
     };
 
-    put = (url: string, options: Options = {}): Promise<XMLHttpRequest> => {
+    put: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
     };
 
-    delete = (url: string, options: Options = {}): Promise<XMLHttpRequest> => {
+    delete: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
     };
 
