@@ -1,0 +1,28 @@
+$primary-color: #eee;
+$color-secondary: #9898b0;
+
+.avatar {
+    width: 12rem;
+    height: 12rem;
+    background-image: url("../../../public/avataricon.png");
+    background-color: $primary-color;
+    color: $primary-color;
+    border-radius: 50%;
+}
+
+.title__displayname {
+    font-size: 1.3rem;
+}
+
+.profile__subtitle {
+    color: $color-secondary;
+}
+
+.userdata {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 2rem;
+    row-gap: 1rem;
+    font-size: 1.3rem;
+    margin: 2rem 0;
+}

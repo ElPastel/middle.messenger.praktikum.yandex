@@ -1,0 +1,94 @@
+$primary-color: #eee;
+$color-secondary: #9898b0;
+$main-text-color: #343a4f;
+$peach-color: #e4794c;
+$chats-border-color: #eaeaea;
+
+.section__chat-view {
+    display: grid;
+    grid-template-rows: 5.4rem auto 5.4rem;
+    justify-items: stretch;
+    background-color: #fff;
+}
+
+.nav__chat-view {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    border-bottom: 1px solid $chats-border-color;
+}
+
+.nav__user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.nav__user img {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-image: url("../../../public/avataricon.png");
+    background-color: $primary-color;
+    color: $primary-color;
+    border-radius: 50%;
+}
+
+.nav__user-displayname {
+    font-size: 1.3rem;
+}
+
+.btn__more,
+.btn__file {
+    height: 2.4rem;
+    width: 2.4rem;
+    border: none;
+    background-color: #fff;
+}
+
+.send-msg-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 2rem;
+    border-top: 1px solid $chats-border-color;
+}
+
+.input__msg {
+    width: 95rem;
+    height: 3rem;
+    padding-left: 1.5rem;
+    background: $primary-color;
+    border: 1px solid $primary-color;
+    border-radius: 30px;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: $main-text-color;
+    letter-spacing: 1px;
+
+    &::placeholder {
+        color: $color-secondary;
+    }
+
+    &:focus-visible {
+        outline-color: $primary-color;
+    }
+}
+
+.btn__send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 3rem;
+    background-color: $peach-color;
+    border-radius: 3rem;
+    border: none;
+    color: #eee;
+
+    .material-symbols-outlined {
+        padding-left: 0.5rem;
+    }
+}

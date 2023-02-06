@@ -1,0 +1,8 @@
+.block-avatar
+    img.chat-avatar(src=`${avatarSource}`)
+.block-text
+    h4.title__displayname #{displayName}
+    p.last-message #{lastMessage}
+.block-data
+    .block-date #{messageDate}
+    div(class=`new-message${hiddenClass}`) #{newMessages}

@@ -1,21 +1,21 @@
 $primary-color: #eee;
 $peach-color: #e4794c;
 $peach-color-dark: #b6613d;
+$main-text-color: #343a4f;
+$form-color: rgba(238 238 238 / 30%);
 
 .btn__main {
     width: 28rem;
     height: 3.7rem;
-    background: $peach-color;
-    border: 1px solid $peach-color;
-    border-radius: 8px;
-
-    font-family: 'Roboto', sans-serif;
+    background-color: $peach-color;
+    border: none;
+    border-radius: 30px;
+    font-family: Roboto, sans-serif;
     font-weight: 500;
     font-size: 1.3rem;
 
     &:hover {
         background-color: $peach-color-dark;
-        border-color: $peach-color-dark;
         text-decoration: none;
     }
 
@@ -24,7 +24,29 @@ $peach-color-dark: #b6613d;
     }
 }
 
-.link-btn:link, .link-btn:visited {
+.link__main:link,
+.link__main:visited {
     color: $primary-color;
     text-decoration: none;
+}
+
+.btn__secondary {
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    color: $main-text-color;
+    font-style: normal;
+    background-color: $form-color;
+    border: none;
+}
+
+.link__secondary:link,
+.link__secondary:visited {
+    color: $main-text-color;
+    text-decoration: none;
+    font-size: 1.3rem;
+}
+
+.link__secondary:hover,
+.link__secondary:active {
+    text-decoration: underline;
 }

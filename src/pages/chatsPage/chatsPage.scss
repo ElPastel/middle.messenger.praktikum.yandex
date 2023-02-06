@@ -1,0 +1,135 @@
+$primary-color: #eee;
+$color-secondary: #9898b0;
+$color-tertiary: #807788;
+$peach-color: #e4794c;
+$peach-color-dark: #b6613d;
+$form-color: rgba(238 238 238 / 30%);
+$main-text-color: #343a4f;
+$chat-container-color: #fbfbfb;
+$search-input-color: #efefef;
+$chats-border-color: #eaeaea;
+$msg-block-hover: rgb(228 121 76 / 30%);
+
+.container__chats {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    height: 100vh;
+}
+
+.section__chat-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: $chat-container-color;
+    border-right: 1px solid $chats-border-color;
+}
+
+.section__chat-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.nav__chat {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid $chats-border-color;
+}
+
+.btn__nav {
+    height: 3.7rem;
+    width: 3.7rem;
+    border: none;
+    background-color: $chat-container-color;
+}
+
+.nav__input {
+    width: 25rem;
+    height: 3rem;
+    background: $search-input-color;
+    border: none;
+    border-radius: 30px;
+    padding-left: 1.5rem;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: $main-text-color;
+    letter-spacing: 1px;
+
+    &::placeholder {
+        color: $color-secondary;
+        text-align: center;
+    }
+
+    &:focus-visible {
+        outline-color: $search-input-color;
+    }
+}
+
+.container-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.message-block {
+    display: grid;
+    grid-template-columns: 7rem 1fr 4.5rem;
+    height: 7rem;
+    border-bottom: 1px solid $chats-border-color;
+
+    &:hover {
+        background-color: $msg-block-hover;
+    }
+}
+
+.block-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-avatar {
+    background-color: $search-input-color;
+    height: 4.7rem;
+    width: 4.7rem;
+    border-radius: 50%;
+}
+
+.block-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.block-data {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem 0;
+    justify-content: space-between;
+}
+
+.new-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    border: none;
+    background-color: $peach-color;
+    color: $chat-container-color;
+    font-size: 1.1rem;
+}
+
+.new-message-hidden {
+    visibility: hidden;
+}

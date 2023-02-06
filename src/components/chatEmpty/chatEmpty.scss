@@ -1,0 +1,12 @@
+$main-text-color: #343a4f;
+$msg-field-background: #fff;
+
+.section__chat-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $msg-field-background;
+    font-size: 1.2rem;
+    color: $main-text-color;
+    font-weight: 400;
+}

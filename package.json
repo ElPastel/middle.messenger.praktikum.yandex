@@ -10,7 +10,9 @@
   "scripts": {
     "start": "npm run build && node server.js",
     "dev": "parcel public/index.html --open --no-cache --port 3000 --no-source-maps",
-    "build": "parcel build public/index.html --no-cache --no-source-maps"
+    "build": "parcel build public/index.html --no-cache --no-source-maps",
+    "style": "stylelint **/*.scss",
+    "eslint": "eslint --ext .ts src/"
   },
   "repository": {
     "type": "git",
@@ -18,27 +20,37 @@
   },
   "author": "",
   "license": "ISC",
+  "browserlist": "> 0.5%, last 2 versions, not dead",
   "bugs": {
     "url": "https://github.com/ElPastel/middle.messenger.praktikum.yandex/issues"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=12.0.0",
+    "browsers": ">= 50%"
   },
   "homepage": "https://github.com/ElPastel/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
     "@parcel/transformer-inline-string": "^2.8.2",
     "@parcel/transformer-pug": "^2.8.2",
     "@parcel/transformer-sass": "^2.8.2",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
     "assert": "^2.0.0",
     "buffer": "^5.7.1",
+    "eslint": "^8.32.0",
     "os-browserify": "^0.3.0",
     "parcel": "^2.8.2",
     "parcel-transformer-pug-precompile": "^1.0.6",
     "path-browserify": "^1.0.1",
-    "process": "^0.11.10"
+    "prettier": "^2.8.3",
+    "process": "^0.11.10",
+    "stylelint": "^14.16.1",
+    "stylelint-config-standard-scss": "^6.1.0",
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "uuid": "^9.0.0"
   }
 }
