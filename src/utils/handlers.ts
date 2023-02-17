@@ -1,3 +1,4 @@
+import authController from "../controllers/authController";
 import regExp from "./RegExp";
 
 function isValid(key: string, value: string): boolean {
@@ -25,7 +26,7 @@ function blurHandler(e: Event) {
 	}
 }
 
-function submitForm(e: Event) {
+export function submitForm(e: Event, form: string) {
 	e.preventDefault();
 	const formData: { [key: string]: string } = {};
 	const inputs = document.querySelectorAll('input');
@@ -36,7 +37,11 @@ function submitForm(e: Event) {
 
 	const formIsValid = Object.entries(formData).every(([key, value]) => isValid(key, value))
 
-	if (formIsValid) console.log(formData);
+	if (formIsValid) {
+		console.log(formData);
+		if (form === 'signin') authController.signin(formData);
+		if (form === 'signup') authController.signup(formData);
+	}
 }
 
 export const inputHandlers = {
@@ -44,7 +49,26 @@ export const inputHandlers = {
 	blur: (e: Event) => blurHandler(e)
 };
 
-export const submitHandler = {
-	submit: (e: Event) => submitForm(e),
+export const submitHandlerLog = {
+	submit: (e: Event) => submitForm(e, 'signin'),
 }
 
+export const submitHandlerReg = {
+	submit: (e: Event) => submitForm(e, 'signup'),
+}
+
+export const hideMenuHandler = {
+	click: (e: Event) => {
+		e.preventDefault;
+		const menu = document.querySelector('.menu');
+		menu?.classList.toggle('menu-hide');
+	},
+}
+
+export const logoutHandler = {
+	click: () => {	
+		authController.logout();		
+	},
+}
+
+export const fetch = authController.fetchUser(); 

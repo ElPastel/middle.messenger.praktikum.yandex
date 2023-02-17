@@ -4,7 +4,7 @@ import template from './chatView.pug';
 
 class ChatView extends Block<T> {
 	constructor(props: T) {
-		super('section', props);
+		super(props, 'section');
 	}
 
 	render() {

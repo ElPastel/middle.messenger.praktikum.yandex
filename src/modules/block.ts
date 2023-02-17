@@ -21,7 +21,7 @@ export default abstract class Block<Props extends T> {
 	protected props: Props;
 	protected children: Children;
 
-	constructor(tagName = 'div', propsAndChildren: Props) {
+	constructor(propsAndChildren: Props, tagName = 'div') {
 		const eventBus = new EventBus();
 		const { children, props } = this._getChildren(propsAndChildren);
 		this.props = this._makePropsProxy({
@@ -43,7 +43,7 @@ export default abstract class Block<Props extends T> {
 	}
 
 	private _registerEvents(eventBus: EventBus): void {
-		eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+		eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
@@ -54,10 +54,13 @@ export default abstract class Block<Props extends T> {
 		this._element = this._createDocumentElement(tagName);
 	}
 
-	protected init(): void {
+	private _init(): void {
+		this.init();
 		this._createResources();
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
+
+	protected init() {}
 
 	private _componentDidMount(): void {
 		this.componentDidMount();

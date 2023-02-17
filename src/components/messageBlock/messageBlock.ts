@@ -4,7 +4,7 @@ import template from './messageBlock.pug';
 
 class MessageBlock extends Block<T> {
 	constructor(props: T) {
-		super('div', props);
+		super(props, 'div');
 	}
 
 	render() {

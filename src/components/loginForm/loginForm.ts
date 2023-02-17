@@ -4,7 +4,7 @@ import template from './loginForm.pug';
 
 class LoginForm extends Block<T> {
     constructor(props: T) {
-        super('div', props);
+        super(props, 'div');
     }
 
     render() {

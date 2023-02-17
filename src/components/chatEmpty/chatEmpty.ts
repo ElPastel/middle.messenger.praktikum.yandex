@@ -4,7 +4,7 @@ import template from './chatEmpty.pug';
 
 class ChatEmpty extends Block<T> {
 	constructor(props: T) {
-		super('section', props);
+		super(props, 'section');
 	}
 
 	render() {

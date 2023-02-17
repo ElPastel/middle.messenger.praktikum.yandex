@@ -4,7 +4,7 @@ import template from './chatSelection.pug';
 
 class ChatSelection extends Block<T> {
 	constructor(props: T) {
-		super('section', props);
+		super(props, 'section');
 	}
 
 	render() {

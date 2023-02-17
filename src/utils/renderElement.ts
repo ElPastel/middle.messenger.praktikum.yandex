@@ -5,7 +5,6 @@ export default function renderElement(query: string, block: Block<T>): HTMLEleme
 	if (!root) {
 		throw new Error('Root not found');
 	}
-
 	root.appendChild(block.getContent());
 	return root;
 }

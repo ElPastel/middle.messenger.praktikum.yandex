@@ -4,7 +4,7 @@ import template from './input.pug';
 
 class Input extends Block<T> {
 	constructor(props: T) {
-		super('input', props);
+		super(props, 'input');
 	}
 
 	render() {

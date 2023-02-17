@@ -4,7 +4,7 @@ import template from './registrationForm.pug';
 
 class RegistrationForm extends Block<T> {
     constructor(props: T) {
-        super('div', props);        
+        super(props, 'div');        
     }
 
     render(): DocumentFragment {

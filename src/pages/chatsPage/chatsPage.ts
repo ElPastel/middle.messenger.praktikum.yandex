@@ -5,12 +5,16 @@ import MessageBlock from '../../components/messageBlock/messageBlock';
 import Chats from '../../components/chats/chats';
 import ChatView from '../../components/chatView/chatView';
 import ChatSelection from '../../components/chatSelection/chatSelection';
+import ChatMenu from '../../components/chatMenu/chatMenu';
+import { hideMenuHandler, logoutHandler } from '../../utils/handlers';
+import router from '../../modules/router';
 
 export const buttonMenu = new Button({
     classAttr: 'btn__menu',
     route: '',
     value: '',
-    icon: 'menu'
+    icon: 'menu',
+    events: hideMenuHandler
 });
 
 export const buttonMore = new Button({
@@ -80,7 +84,7 @@ const messageBlock3 = new MessageBlock({
 });
 
 
-const sectionSelection = new ChatSelection({
+export const sectionSelection = new ChatSelection({
     classAttr: 'section__chat-selection',
     button: buttonMenu,
     input: inputMenu,
@@ -89,7 +93,7 @@ const sectionSelection = new ChatSelection({
     messageBlock3: messageBlock3,
 });
 
-const sectionView = new ChatView({
+export const sectionView = new ChatView({
     classAttr: 'section__chat-view',
     buttonMore: buttonMore,
     buttonFile: buttonFile,
@@ -98,9 +102,73 @@ const sectionView = new ChatView({
     displayName: 'Michael Scott'
 });
 
+const buttonClose = new Button({
+    classAttr: 'btn__close',
+    route: '',
+    value: '',
+    icon: 'close',
+    events: hideMenuHandler
+});
+
+const buttonProfile = new Button({
+    classAttr: 'btn__chatmenu',
+    linkColor: 'secondary',
+    route: 'profile',
+    value: 'Profile',
+    icon: 'person_filled',
+    events: {
+        click: () => router.go('/profile')
+    }
+});
+
+const buttonNewChat = new Button({
+    classAttr: 'btn__chatmenu',
+    linkColor: 'secondary',
+    route: '',
+    value: 'New chat',
+    icon: 'add'
+});
+
+const buttonChangeAvatar = new Button({
+    classAttr: 'btn__chatmenu',
+    linkColor: 'secondary',
+    route: '',
+    value: 'Change avatar',
+    icon: 'account_circle'
+});
+
+const buttonChangePassword = new Button({
+    classAttr: 'btn__chatmenu',
+    linkColor: 'secondary',
+    route: '',
+    value: 'Change password',
+    icon: 'lock'
+});
+
+const buttonLogout = new Button({
+    classAttr: 'btn__chatmenu',
+    linkColor: 'secondary',
+    route: '',
+    value: 'Logout',
+    icon: 'logout',
+    events: logoutHandler
+});
+
+export const chatMenu = new ChatMenu({
+    classAttr: 'menu menu-hide',
+    btnClose: buttonClose,
+    displayName: 'Ivan Ivanov',
+    btnProfile: buttonProfile,
+    btnNewChat: buttonNewChat,
+    btnChangeAvatar: buttonChangeAvatar,
+    btnChangePassword: buttonChangePassword,
+    btnLogout: buttonLogout,
+})
+
 const chats = new Chats({
     sectionSelection: sectionSelection,
     sectionView: sectionView,
+    chatMenu: chatMenu,
 });
 
 const chatsPage = chats;

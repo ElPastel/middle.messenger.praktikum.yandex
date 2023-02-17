@@ -4,7 +4,7 @@ import template from './user.pug';
 
 class User extends Block<T> {
     constructor(props: T) {
-        super('div', props);
+        super(props, 'div');
     }
     render(): DocumentFragment {
         return this.compile(template(), {
