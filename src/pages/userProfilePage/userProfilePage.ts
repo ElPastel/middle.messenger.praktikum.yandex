@@ -2,17 +2,17 @@ import Block, { T } from '../../modules/block';
 import template from './userProfilePage.pug';
 import { withStore } from '../../modules/store';
 import authController from '../../controllers/authController';
-import userProfilePageProps from './userProfilePageProps';
-// import user from '../../user-data';
 
 class UserProfilePage extends Block<T> {
     constructor(props: T) {
         super(props, 'div');
+
+        authController.fetchUser();
     }
 
     async componentDidMount() {
         // await authController.fetchUser();
-        // console.log(this.props.user);
+        console.log(this.props.user);
 
 
         // this.setProps(userProfilePageProps(user));
@@ -27,11 +27,7 @@ class UserProfilePage extends Block<T> {
     }
 }
 
-const withUser = withStore((state) => {
-    const test = ({ ...state.user });
-    console.log(test);
-    return test;
-});
+const withUser = withStore((state) => ({ user: { ...(state.user || {}) } }));
 const UserProfilePageWithUser = withUser(UserProfilePage);
 
 export default UserProfilePageWithUser;

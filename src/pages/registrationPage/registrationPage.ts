@@ -1,6 +1,5 @@
 import Block, { T } from '../../modules/block';
 import template from './registrationPage.pug';
-import { withStore } from '../../modules/store';
 
 class RegPage extends Block<T> {
     constructor(props: T) {
@@ -15,7 +14,4 @@ class RegPage extends Block<T> {
     }
 }
 
-const withUser = withStore((state) => ({ ...state.user }));
-const RegPageWithUser = withUser(RegPage);
-
-export default RegPageWithUser;
+export default RegPage;

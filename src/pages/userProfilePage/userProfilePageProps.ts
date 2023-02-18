@@ -1,8 +1,6 @@
 import { IUser } from '../../api/authApi';
 import Button from '../../components/button/btn';
 import User from '../../components/user/user';
-import user from '../../user-data';
-
 
 const buttonMain = new Button({
     classAttr: 'btn__main',

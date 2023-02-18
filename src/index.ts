@@ -1,10 +1,7 @@
 import '../declarations.d';
 import renderElement from './utils/renderElement';
 import compileHome from './pages/main.pug';
-import LoginPageWithUser from './pages/loginPage/loginPage';
-import registrationPage, { registrationForm } from './pages/registrationPage/registrationPage';
 import editProfilePage from './pages/EditProfilePage/EditProfilePage';
-import userProfilePage, { user } from './pages/userProfilePage/userProfilePage';
 import chatsPage, { chatMenu, sectionSelection, sectionView } from './pages/chatsPage/chatsPage';
 import errorPage500 from './pages/errorPage500/errorPage500';
 import errorPage404 from './pages/errorPage404/errorPage404';
@@ -15,12 +12,14 @@ import Layout from './pages/layout/layout';
 import Chats from './components/chats/chats';
 import router from './modules/router';
 import loginPageProps from './pages/loginPage/loginPageProps';
-import RegPageWithUser from './pages/registrationPage/registrationPage';
 import regPageProps from './pages/registrationPage/registrationPageProps';
 import UserProfilePageWithUser from './pages/userProfilePage/userProfilePage';
 import userProfilePageProps from './pages/userProfilePage/userProfilePageProps';
 import store from './modules/store';
+import user from './user-data';
 import authController from './controllers/authController';
+import LoginPage from './pages/loginPage/loginPage';
+import RegPage from './pages/registrationPage/registrationPage';
 
 
 
@@ -38,14 +37,14 @@ enum Routes {
 
 window.addEventListener('DOMContentLoaded', async () => {
     router
-        .use(Routes.Index, LoginPageWithUser, loginPageProps)
-        .use(Routes.Register, RegPageWithUser, regPageProps)
+        .use(Routes.Index, LoginPage, loginPageProps)
+        .use(Routes.Register, RegPage, regPageProps)
         .use(Routes.Profile, UserProfilePageWithUser, userProfilePageProps(user))
         .use(Routes.Chats, Chats, {
             sectionSelection: sectionSelection,
             sectionView: sectionView,
             chatMenu: chatMenu,
-        }).start();
+        });
 
     let isProtectedRoute = true;
 
@@ -55,9 +54,11 @@ window.addEventListener('DOMContentLoaded', async () => {
             isProtectedRoute = false;
             break;
     }
+    Router.start();
+
 
     // try {
-    //     await authController.fetchUser();
+    //     await authController.fetchUser();    
 
     //     Router.start();
 

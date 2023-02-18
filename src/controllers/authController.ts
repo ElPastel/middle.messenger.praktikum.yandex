@@ -16,7 +16,7 @@ export class AuthController {
   async signin(data: SigninData) {
     try {
       await this.api.signin(data);
-      // await this.fetchUser();      
+      await this.fetchUser();      
 
       router.go('/chats');
     } catch (e: any) {
@@ -37,6 +37,8 @@ export class AuthController {
   async fetchUser() {
     const user = await this.api.read();
     store.set('user', user);    
+    // console.log(store.getState());
+    
   }
 
   async logout() {
@@ -49,5 +51,4 @@ export class AuthController {
   }
 }
 
-const authController = new AuthController();
-export default authController;
+export default new AuthController();

@@ -70,5 +70,3 @@ export const logoutHandler = {
 		authController.logout();		
 	},
 }
-
-export const fetch = authController.fetchUser(); 

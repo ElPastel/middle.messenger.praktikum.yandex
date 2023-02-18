@@ -218,6 +218,7 @@ export default abstract class Block<Props extends T> {
 
 	public show(): void {
 		this.getContent().style.display = 'block';
+		this.dispatchComponentDidMount();
 	}
 
 	public hide(): void {
