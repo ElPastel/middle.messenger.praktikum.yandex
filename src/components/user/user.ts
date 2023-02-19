@@ -8,16 +8,19 @@ class User extends Block<T> {
         super(props, 'div');
     }
 
-    protected init(): void {
-        console.log(this.props);
-    }
-
     render(): DocumentFragment {
         return this.compile(template(), this.props)
     }
 }
 
-const withUser = withStore((state) => ({email: state.user?.email }));
+const withUser = withStore((state) => ({
+    email: state.user?.email,
+    login: state.user?.login,
+    firstName: state.user?.first_name,
+    secondName: state.user?.second_name,
+    displayName: state.user?.display_name,
+    phone: state.user?.phone,
+}));
 const UserWithUser = withUser(User);
 
 

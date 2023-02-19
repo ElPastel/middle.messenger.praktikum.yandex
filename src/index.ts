@@ -24,6 +24,8 @@ import { T } from './modules/block';
 import TestWithUser from './pages/test/test';
 import Test from './pages/test/test';
 import store from './modules/store';
+import EditProfilePage from './pages/EditProfilePage/EditProfilePage';
+import editPageProps from './pages/EditProfilePage/EditProfilePageProps';
 
 
 // const root: HTMLElement = document.getElementById('root')!;
@@ -36,6 +38,7 @@ enum Routes {
     Register = '/signup',
     Profile = '/profile',
     Chats = '/chats',
+    Edit = '/editprofile'
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -47,8 +50,10 @@ window.addEventListener('DOMContentLoaded', async () => {
             sectionSelection: sectionSelection,
             sectionView: sectionView,
             chatMenu: chatMenu,
-        });
+        })
+        .use(Routes.Edit, EditProfilePage, editPageProps);
 
+    
     let isProtectedRoute = true;
 
     switch (window.location.pathname) {

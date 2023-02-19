@@ -135,7 +135,7 @@ export default abstract class Block<Props extends T> {
 				const value = target[prop];
 				return typeof value === 'function' ? value.bind(target) : value;
 			},
-			set(target: T, prop: string, value: any) {
+			set: (target: T, prop: string, value: any) => {
 				target[prop] = value;
 				this.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
 				return true;

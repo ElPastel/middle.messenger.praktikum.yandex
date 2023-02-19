@@ -46,7 +46,7 @@ export function submitForm(e: Event, form: string) {
 
 export const inputHandlers = {
 	focus: (e: Event) => focusHandler(e),
-	blur: (e: Event) => blurHandler(e)
+	blur: (e: Event) => blurHandler(e),
 };
 
 export const submitHandlerLog = {
@@ -54,6 +54,10 @@ export const submitHandlerLog = {
 }
 
 export const submitHandlerReg = {
+	submit: (e: Event) => submitForm(e, 'signup'),
+}
+
+export const editHandler = {
 	submit: (e: Event) => submitForm(e, 'signup'),
 }
 
