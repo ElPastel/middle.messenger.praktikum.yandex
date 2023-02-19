@@ -10,7 +10,7 @@ export class Store extends EventBus {
   private state: any = {};
 
   public set(keypath: string, value: unknown) {
-    set(this.state, keypath, value);    
+    set(this.state, keypath, value); 
     this.emit(StoreEvents.Updated);
   }
 
@@ -29,6 +29,7 @@ export function withStore(mapStateToProps: (state: any) => any) {
 
       constructor(props: any) {
         let previousState = mapStateToProps(store.getState());
+        
         super({ ...props, ...previousState });
 
         store.on(StoreEvents.Updated, () => {

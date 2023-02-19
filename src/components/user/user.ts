@@ -1,24 +1,24 @@
-import Block, {T} from '../../modules/block';
+import Block, { T } from '../../modules/block';
 import './user.scss';
 import template from './user.pug';
+import store, { withStore } from '../../modules/store';
 
 class User extends Block<T> {
     constructor(props: T) {
         super(props, 'div');
     }
+
+    protected init(): void {
+        console.log(this.props);
+    }
+
     render(): DocumentFragment {
-        return this.compile(template(), {
-            class: this.props.class,
-            displayName: this.props.displayName,
-            firstName: this.props.firstName,
-            secondName: this.props.secondName,
-            email: this.props.email,
-            login: this.props.login,
-            phone: this.props.phone,
-            buttonMain: this.props.buttonMain,
-            buttonSecondary: this.props.buttonSecondary,
-        })
+        return this.compile(template(), this.props)
     }
 }
 
-export default User;
+const withUser = withStore((state) => ({email: state.user?.email }));
+const UserWithUser = withUser(User);
+
+
+export default UserWithUser;

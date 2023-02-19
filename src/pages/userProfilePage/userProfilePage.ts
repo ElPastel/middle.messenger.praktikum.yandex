@@ -7,17 +7,23 @@ class UserProfilePage extends Block<T> {
     constructor(props: T) {
         super(props, 'div');
 
-        authController.fetchUser();
+        // debugger;
+        // authController.fetchUser();
     }
 
-    async componentDidMount() {
-        // await authController.fetchUser();
-        console.log(this.props.user);
 
+    protected init() {
+        authController.fetchUser();
+        console.log(this.props);  
+    }
+
+    // async componentDidMount() {
+        // await authController.fetchUser();
+        // console.log(this.props.user);
 
         // this.setProps(userProfilePageProps(user));
         // this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    }
+    // }
 
     render() {
         return this.compile(template(this.props), {

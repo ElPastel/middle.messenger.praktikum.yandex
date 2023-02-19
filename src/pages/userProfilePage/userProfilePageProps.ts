@@ -31,22 +31,19 @@ export const userData = function (user: IUser) {
     })
 }
 
-export default function userProfilePageProps(user: IUser) {
-     const page = {
-        classAttr: 'container flex-center',
-        content: new User({
-            classAttr: 'form__box',
-            displayName: user?.display_name ? user.display_name : '',
-            firstName: user?.first_name ? user.first_name : '',
-            secondName: user?.second_name ? user.second_name :'',
-            email: user?.email ? user.email : '',
-            login: user?.login ? user.login :'',
-            phone: user?.phone ? user.phone :'',
-            buttonMain: buttonMain,
-            buttonSecondary: buttonSecondary,
-        })
-    }
-    return page;
+const userProfilePageProps = {
+    classAttr: 'container flex-center',
+    content: new User({
+        classAttr: 'form__box',
+        // displayName: '',
+        // firstName: '',
+        // secondName: '',
+        // email: '',
+        // login: '',
+        // phone: '',
+        buttonMain: buttonMain,
+        buttonSecondary: buttonSecondary,
+    })
 }
 
-// export default userProfilePageProps(user);
+export default userProfilePageProps;

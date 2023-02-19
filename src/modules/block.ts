@@ -60,7 +60,7 @@ export default abstract class Block<Props extends T> {
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
 
-	protected init() {}
+	protected init(): void {}
 
 	private _componentDidMount(): void {
 		this.componentDidMount();
@@ -218,7 +218,7 @@ export default abstract class Block<Props extends T> {
 
 	public show(): void {
 		this.getContent().style.display = 'block';
-		this.dispatchComponentDidMount();
+		// this.dispatchComponentDidMount();
 	}
 
 	public hide(): void {

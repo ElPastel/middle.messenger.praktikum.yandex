@@ -31,13 +31,13 @@ class HttpTransport {
 
     constructor(apiUrl: string) {
         this._apiUrl = apiUrl;
-      }
+    }
 
     public get: HTTPMethod = (url, options = {}) => {
         return this.request(url + queryStringify(options.data), { ...options, method: METHODS.GET }, options.timeout);
     };
 
-    public post: HTTPMethod = (url, options = {}) => {        
+    public post: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
     };
 
@@ -69,18 +69,29 @@ class HttpTransport {
             );
             Object.entries(headers).forEach(([header, value]) => xhr.setRequestHeader(header, value));
 
-            xhr.onload = () => resolve(xhr);
-            
+            // xhr.onload = () => resolve(xhr);
+            xhr.onreadystatechange = (e) => {
+
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                  if (xhr.status < 400) {
+                    resolve(xhr.response);
+                  } else {
+                    reject(xhr.response);
+                  }
+                }
+              };
+
             xhr.onabort = reject;
             xhr.onerror = reject;
-            
+
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
-            
+
             xhr.withCredentials = true;
+            xhr.responseType = 'json';
 
             if (!(data instanceof FormData)) {
-            xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('Content-Type', 'application/json');
             }
 
             if (isGet || !data) {

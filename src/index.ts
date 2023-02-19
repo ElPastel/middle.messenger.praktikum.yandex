@@ -15,12 +15,15 @@ import loginPageProps from './pages/loginPage/loginPageProps';
 import regPageProps from './pages/registrationPage/registrationPageProps';
 import UserProfilePageWithUser from './pages/userProfilePage/userProfilePage';
 import userProfilePageProps from './pages/userProfilePage/userProfilePageProps';
-import store from './modules/store';
+
 import user from './user-data';
-import authController from './controllers/authController';
 import LoginPage from './pages/loginPage/loginPage';
 import RegPage from './pages/registrationPage/registrationPage';
-
+import authController from './controllers/authController';
+import { T } from './modules/block';
+import TestWithUser from './pages/test/test';
+import Test from './pages/test/test';
+import store from './modules/store';
 
 
 // const root: HTMLElement = document.getElementById('root')!;
@@ -39,7 +42,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     router
         .use(Routes.Index, LoginPage, loginPageProps)
         .use(Routes.Register, RegPage, regPageProps)
-        .use(Routes.Profile, UserProfilePageWithUser, userProfilePageProps(user))
+        .use(Routes.Profile, UserProfilePageWithUser, userProfilePageProps)
         .use(Routes.Chats, Chats, {
             sectionSelection: sectionSelection,
             sectionView: sectionView,
@@ -54,24 +57,29 @@ window.addEventListener('DOMContentLoaded', async () => {
             isProtectedRoute = false;
             break;
     }
-    Router.start();
+    // Router.start();
 
 
-    // try {
-    //     await authController.fetchUser();    
+    try {
+        // authController.fetchUser();
 
-    //     Router.start();
+        Router.start();
+        // console.log(response);
+        
 
-    //     if (!isProtectedRoute) {
-    //         Router.go(Routes.Chats)
-    //     }
-    // } catch (e) {
-    //     Router.start();
 
-    //     if (isProtectedRoute) {
-    //         Router.go(Routes.Index);
-    //     }
-    // }
+        // if (!isProtectedRoute) {
+        //     Router.go(Routes.Chats)
+        // }
+    } catch (e) {
+        Router.start();
+        console.log(e);
+        
+
+        // if (isProtectedRoute) {
+        //     Router.go(Routes.Index);
+        // }
+    }
 })
 
 

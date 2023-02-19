@@ -4,19 +4,14 @@ import store from "../modules/store";
 
 export class AuthController {
   private readonly api: AuthAPI;
-  private static __instance: AuthController;
 
   constructor() {
-    if (AuthController.__instance) {
-      return AuthController.__instance;
-  }
     this.api = authApi;
   }
 
   async signin(data: SigninData) {
     try {
       await this.api.signin(data);
-      await this.fetchUser();      
 
       router.go('/chats');
     } catch (e: any) {
@@ -36,15 +31,14 @@ export class AuthController {
 
   async fetchUser() {
     const user = await this.api.read();
-    store.set('user', user);    
-    // console.log(store.getState());
-    
+    store.set('user', user);
+    console.log(store.getState().user);
   }
 
   async logout() {
     try {
       await this.api.logout();
-      router.go('/');      
+      router.go('/');
     } catch (e: any) {
       console.error(e.message);
     }
