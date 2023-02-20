@@ -2,6 +2,8 @@ import Block, { T } from '../../modules/block';
 import './EditProfilePage.scss';
 import template from './EditProfilePage.pug';
 import authController from '../../controllers/authController';
+import store, { withStore } from '../../modules/store';
+
 
 class EditProfilePage extends Block<T> {
     constructor(props: T) {
@@ -10,7 +12,9 @@ class EditProfilePage extends Block<T> {
 
     protected init() {
         authController.fetchUser();
-        // console.log(this.props);  
+        const userdata = store.getState();
+        // console.log(userdata);        
+        // console.log(this.props.user);  
     }
 
     render() {
@@ -20,6 +24,9 @@ class EditProfilePage extends Block<T> {
         })
     }
 }
+const withUser = withStore((state) => ({ user: { ...(state.user || {}) } }));
+const EditProfilePageWithUser = withUser(EditProfilePage);
 
+export default EditProfilePageWithUser;
 
-export default EditProfilePage;
+// export default EditProfilePage;

@@ -8,19 +8,7 @@ class RegistrationForm extends Block<T> {
     }
 
     render(): DocumentFragment {
-        return this.compile(template(), {
-            classAttr: this.props.class,
-            title: this.props.title,
-            buttonMain: this.props.buttonMain,
-            buttonSecondary: this.props.buttonSecondary,
-            inputEmail: this.props.inputEmail,
-            inputLogin: this.props.inputLogin,
-            inputFirstName: this.props.inputFirstName,
-            inputSecondName: this.props.inputSecondName,
-            inputPhone: this.props.phone,
-            inputPassword: this.props.inputPassword,
-            events: this.props.events
-        })
+        return this.compile(template(), this.props)
     }
 }
 

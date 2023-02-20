@@ -6,7 +6,7 @@ import Chats from '../../components/chats/chats';
 import ChatView from '../../components/chatView/chatView';
 import ChatSelection from '../../components/chatSelection/chatSelection';
 import ChatMenu from '../../components/chatMenu/chatMenu';
-import { hideMenuHandler, logoutHandler } from '../../utils/handlers';
+import { changePasswordHandler, hideMenuHandler, logoutHandler } from '../../utils/handlers';
 import router from '../../modules/router';
 
 export const buttonMenu = new Button({
@@ -142,7 +142,8 @@ const buttonChangePassword = new Button({
     linkColor: 'secondary',
     route: '',
     value: 'Change password',
-    icon: 'lock'
+    icon: 'lock',
+    events: changePasswordHandler
 });
 
 const buttonLogout = new Button({

@@ -9,7 +9,7 @@ class Input extends Block<T> {
 	}
 
 	protected init() {
-		console.log(this.props);
+		// console.log(this.props);
 	}
 
 	render() {

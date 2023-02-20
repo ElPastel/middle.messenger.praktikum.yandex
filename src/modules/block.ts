@@ -1,6 +1,7 @@
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
 import Templator from 'pug';
+import { IUser } from '../api/authApi';
 
 type V = string | number | Record<string, (e: Event) => void> | Block<T>;
 export type T = Record<string, V>;
@@ -127,6 +128,10 @@ export default abstract class Block<Props extends T> {
 
 	public getContent(): HTMLElement {
 		return this.element;
+	}
+
+	public getUser(): V {
+		return this.props.user;
 	}
 
 	private _makePropsProxy<Props extends T>(props: Props): Props {

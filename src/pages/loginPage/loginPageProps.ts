@@ -51,7 +51,7 @@ const buttonSecondary = new Button({
 });
 
 const loginForm = new LoginForm({
-    classAttr: 'form__box flex-form',
+    classAttr: 'form__box flex-form signin',
     title: 'Sign in',
     buttonMain: buttonMain,
     buttonSecondary: buttonSecondary,

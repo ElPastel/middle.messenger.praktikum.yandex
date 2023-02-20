@@ -21,7 +21,7 @@ import LoginPage from './pages/loginPage/loginPage';
 import RegPage from './pages/registrationPage/registrationPage';
 import authController from './controllers/authController';
 import { T } from './modules/block';
-import TestWithUser from './pages/test/test';
+
 import Test from './pages/test/test';
 import store from './modules/store';
 import EditProfilePage from './pages/EditProfilePage/EditProfilePage';
@@ -33,7 +33,7 @@ import editPageProps from './pages/EditProfilePage/EditProfilePageProps';
 // const path: string = window.location.pathname;
 // const msgtext = '"World\'s Greatest Boss." They go, "Oh, we\'ve never worked in a place like this before, you\'re such a riot. You get the best out of us." And I go, you know, "Que sera, sera." If that\'s true -- awesome.';
 
-enum Routes {
+export enum Routes {
     Index = '/',
     Register = '/signup',
     Profile = '/profile',
