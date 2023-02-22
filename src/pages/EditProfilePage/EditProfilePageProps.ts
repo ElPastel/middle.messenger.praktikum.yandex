@@ -3,6 +3,7 @@ import Button from '../../components/button/btn';
 import RegistrationForm from '../../components/registrationForm/registrationForm';
 import InputBlock from '../../components/inputBlock/inputBlock';
 import { editHandler, inputHandlers } from '../../utils/handlers';
+import router from '../../modules/router';
 
 const inputEmail = new InputBlock({
     input: new Input({
@@ -100,7 +101,10 @@ const buttonSecondary = new Button({
     classAttr: 'btn__secondary',
     route: 'chats',
     value: 'Back to chats',
-    linkColor: 'secondary'
+    linkColor: 'secondary',
+    events: {
+        click: () => router.go('/chats')
+    }
 });
 
 const registrationForm = new RegistrationForm({

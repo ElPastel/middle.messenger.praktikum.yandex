@@ -1,19 +1,26 @@
 import { IUser } from '../../api/authApi';
 import Button from '../../components/button/btn';
 import User from '../../components/user/user';
+import router from '../../modules/router';
 
 const buttonMain = new Button({
     classAttr: 'btn__main',
     route: 'edituser',
     value: 'Edit profile',
-    linkColor: 'main'
+    linkColor: 'main',
+    events: {
+        click: () => router.go('/editprofile')
+    }
 });
 
 const buttonSecondary = new Button({
     classAttr: 'btn__secondary',
     route: 'chats',
     value: 'Back to chats',
-    linkColor: 'secondary'
+    linkColor: 'secondary',
+    events: {
+        click: () => router.go('/chats')
+    }
 });
 
 
