@@ -1,6 +1,5 @@
 import './chatsPage.scss';
 import Button from '../../components/button/btn';
-import Input from '../../components/input/input';
 import MessageBlock from '../../components/messageBlock/messageBlock';
 import Chats from '../../components/chats/chats';
 import ChatView from '../../components/chatView/chatView';
@@ -10,6 +9,7 @@ import { changeAvatarHandler, changePasswordHandler, createNewChatHandler, hideM
 import router from '../../modules/router';
 import ChatEmpty from '../../components/chatEmpty/chatEmpty';
 import ChatSelectionWithChat from '../../components/chatSelection/chatSelection';
+import { Input } from '../../components/input/input';
 
 export const buttonMenu = new Button({
     classAttr: 'btn__menu',

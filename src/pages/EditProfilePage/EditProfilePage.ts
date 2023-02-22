@@ -19,6 +19,7 @@ class EditProfilePage extends Block<T> {
         return this.compile(template(this.props), this.props)
     }
 }
+
 const withUser = withStore((state) => ({ user: { ...(state.user || {}) } }));
 const EditProfilePageWithUser = withUser(EditProfilePage);
 

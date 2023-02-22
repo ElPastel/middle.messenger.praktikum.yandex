@@ -90,8 +90,6 @@ class HttpTransport {
             }
 
             if (isGet && !data) {
-                console.log('isGet');
-
                 xhr.send();
             } else if (data instanceof FormData) {
                 xhr.send(data as XMLHttpRequestBodyInit);

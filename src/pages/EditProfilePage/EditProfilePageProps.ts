@@ -1,18 +1,19 @@
-import Input, { InputWithUser } from '../../components/input/input';
+
 import Button from '../../components/button/btn';
 import RegistrationForm from '../../components/registrationForm/registrationForm';
 import InputBlock from '../../components/inputBlock/inputBlock';
 import { editHandler, inputHandlers } from '../../utils/handlers';
 import router from '../../modules/router';
+import InputWithUser from '../../components/input/input';
 
 const inputEmail = new InputBlock({
-    input: new Input({
+    input: new InputWithUser({
         classAttr: 'form__input',
         idAttr: 'email',
         nameAttr: 'email',
         placeholderAttr: 'pochta@yandex.ru',
         typeAttr: 'email',
-        // valueAttr: '',
+        valueAttr: 'email',
         events: inputHandlers
     }),
     classAttr: 'form__group',
@@ -21,7 +22,7 @@ const inputEmail = new InputBlock({
 });
 
 const inputLogin = new InputBlock({
-    input: new Input({
+    input: new InputWithUser({
         classAttr: 'form__input',
         nameAttr: 'login',
         placeholderAttr: 'IvanIvanov001',
@@ -35,7 +36,7 @@ const inputLogin = new InputBlock({
 });
 
 const inputFirstName = new InputBlock({
-    input: new Input({
+    input: new InputWithUser({
         classAttr: 'form__input',
         nameAttr: 'first_name',
         placeholderAttr: 'Ivan',
@@ -49,7 +50,7 @@ const inputFirstName = new InputBlock({
 });
 
 const inputSecondName = new InputBlock({
-    input: new Input({
+    input: new InputWithUser({
         classAttr: 'form__input',
         nameAttr: 'second_name',
         placeholderAttr: 'Ivanov',
@@ -63,7 +64,7 @@ const inputSecondName = new InputBlock({
 });
 
 const inputDisplayName = new InputBlock({
-    input: new Input({
+    input: new InputWithUser({
         classAttr: 'form__input',
         nameAttr: 'display_name',
         placeholderAttr: 'MyName',
@@ -77,7 +78,7 @@ const inputDisplayName = new InputBlock({
 });
 
 const inputPhone = new InputBlock({
-    input: new Input({
+    input: new InputWithUser({
         classAttr: 'form__input',
         nameAttr: 'phone',
         placeholderAttr: '89091234567',

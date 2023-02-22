@@ -1,10 +1,11 @@
 import Block, { T } from '../../modules/block';
 import './input.scss';
 import template from './input.pug';
+import { withStore } from '../../modules/store';
 
-class Input extends Block<T> {
+export class Input extends Block<T> {
 	constructor(props: T) {
-		super(props, 'input');
+		super(props, 'input');		
 	}
 
 	render() {
@@ -12,4 +13,7 @@ class Input extends Block<T> {
 	}
 }
 
-export default Input;
+const withUser = withStore((state) => ({ valueAttr: state.user?.login }));
+const InputWithUser = withUser(Input);
+
+export default InputWithUser;

@@ -1,9 +1,10 @@
 import Button from '../../components/button/btn';
 import RegistrationForm from '../../components/registrationForm/registrationForm';
 import InputBlock from '../../components/inputBlock/inputBlock';
-import Input from '../../components/input/input';
+
 import { inputHandlers, submitHandlerReg } from '../../utils/handlers';
 import router from '../../modules/router';
+import { Input } from '../../components/input/input';
 
 const inputEmail = new InputBlock({
     input: new Input({

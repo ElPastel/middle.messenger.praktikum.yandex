@@ -1,9 +1,9 @@
-import Input from '../../components/input/input';
 import Button from '../../components/button/btn';
 import LoginForm from '../../components/loginForm/loginForm';
 import InputBlock from '../../components/inputBlock/inputBlock';
 import { inputHandlers, submitHandlerLog } from '../../utils/handlers';
 import router from '../../modules/router';
+import { Input } from '../../components/input/input';
 
 const inputLogin = new InputBlock({
     input: new Input({
