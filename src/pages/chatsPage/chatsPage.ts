@@ -6,8 +6,10 @@ import Chats from '../../components/chats/chats';
 import ChatView from '../../components/chatView/chatView';
 import ChatSelection from '../../components/chatSelection/chatSelection';
 import ChatMenu from '../../components/chatMenu/chatMenu';
-import { changePasswordHandler, hideMenuHandler, logoutHandler } from '../../utils/handlers';
+import { changeAvatarHandler, changePasswordHandler, createNewChatHandler, hideMenuHandler, logoutHandler } from '../../utils/handlers';
 import router from '../../modules/router';
+import ChatEmpty from '../../components/chatEmpty/chatEmpty';
+import ChatSelectionWithChat from '../../components/chatSelection/chatSelection';
 
 export const buttonMenu = new Button({
     classAttr: 'btn__menu',
@@ -84,23 +86,27 @@ const messageBlock3 = new MessageBlock({
 });
 
 
-export const sectionSelection = new ChatSelection({
+export const sectionSelection = new ChatSelectionWithChat({
     classAttr: 'section__chat-selection',
     button: buttonMenu,
     input: inputMenu,
-    messageBlock1: messageBlock1,
-    messageBlock2: messageBlock2,
-    messageBlock3: messageBlock3,
+    // messageBlock1: messageBlock1,
+    // messageBlock2: messageBlock2,
+    // messageBlock3: messageBlock3,
 });
 
-export const sectionView = new ChatView({
-    classAttr: 'section__chat-view',
-    buttonMore: buttonMore,
-    buttonFile: buttonFile,
-    buttonSend: buttonSend,
-    input: inputMsg,
-    displayName: 'Michael Scott'
-});
+// export const sectionView = new ChatView({
+//     classAttr: 'section__chat-view',
+//     buttonMore: buttonMore,
+//     buttonFile: buttonFile,
+//     buttonSend: buttonSend,
+//     input: inputMsg,
+//     displayName: 'Michael Scott'
+// });
+
+export const sectionView = new ChatEmpty({
+    classAttr: 'section__chat-empty',
+})
 
 const buttonClose = new Button({
     classAttr: 'btn__close',
@@ -126,7 +132,8 @@ const buttonNewChat = new Button({
     linkColor: 'secondary',
     route: '',
     value: 'New chat',
-    icon: 'add'
+    icon: 'add',
+    events: createNewChatHandler
 });
 
 const buttonChangeAvatar = new Button({
@@ -134,7 +141,8 @@ const buttonChangeAvatar = new Button({
     linkColor: 'secondary',
     route: '',
     value: 'Change avatar',
-    icon: 'account_circle'
+    icon: 'account_circle',
+    events: changeAvatarHandler
 });
 
 const buttonChangePassword = new Button({
@@ -158,7 +166,8 @@ const buttonLogout = new Button({
 export const chatMenu = new ChatMenu({
     classAttr: 'menu menu-hide',
     btnClose: buttonClose,
-    displayName: 'Ivan Ivanov',
+    avatar: null,
+    displayName: null,
     btnProfile: buttonProfile,
     btnNewChat: buttonNewChat,
     btnChangeAvatar: buttonChangeAvatar,

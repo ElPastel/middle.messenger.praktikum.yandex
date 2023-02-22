@@ -8,6 +8,7 @@ $color-secondary: #9898b0;
     background-color: $primary-color;
     color: $primary-color;
     border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0 0 0 / 34%);
 }
 
 .title__displayname {
@@ -24,5 +25,4 @@ $color-secondary: #9898b0;
     column-gap: 2rem;
     row-gap: 1rem;
     font-size: 1.3rem;
-    margin: 2rem 0;
 }

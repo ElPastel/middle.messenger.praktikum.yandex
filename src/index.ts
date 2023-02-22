@@ -26,6 +26,8 @@ import Test from './pages/test/test';
 import store from './modules/store';
 import EditProfilePage from './pages/EditProfilePage/EditProfilePage';
 import editPageProps from './pages/EditProfilePage/EditProfilePageProps';
+import EditProfilePageWithUser from './pages/EditProfilePage/EditProfilePage';
+import chatsController from './controllers/chatsController';
 
 
 // const root: HTMLElement = document.getElementById('root')!;
@@ -51,9 +53,9 @@ window.addEventListener('DOMContentLoaded', async () => {
             sectionView: sectionView,
             chatMenu: chatMenu,
         })
-        .use(Routes.Edit, EditProfilePage, editPageProps);
+        .use(Routes.Edit, EditProfilePageWithUser, editPageProps);
 
-    
+
     let isProtectedRoute = true;
 
     switch (window.location.pathname) {
@@ -70,7 +72,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         Router.start();
         // console.log(response);
-        
+        if (window.location.pathname === Routes.Chats) {
+            chatsController.getChats({offset: 0, limit: 10});
+        }
 
 
         // if (!isProtectedRoute) {
@@ -79,7 +83,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {
         Router.start();
         console.log(e);
-        
+
 
         // if (isProtectedRoute) {
         //     Router.go(Routes.Index);

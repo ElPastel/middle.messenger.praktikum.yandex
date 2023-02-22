@@ -61,25 +61,20 @@ class HttpTransport {
             const xhr = new XMLHttpRequest();
             const isGet = method === METHODS.GET;
 
-            xhr.open(
-                method,
-                isGet && !!data
-                    ? `${this._apiUrl}${url}${queryStringify(data)}`
-                    : `${this._apiUrl}${url}`,
-            );
+            xhr.open(method, `${this._apiUrl}${url}`);
+
             Object.entries(headers).forEach(([header, value]) => xhr.setRequestHeader(header, value));
 
-            // xhr.onload = () => resolve(xhr);
-            xhr.onreadystatechange = (e) => {
+            xhr.onreadystatechange = () => {
 
                 if (xhr.readyState === XMLHttpRequest.DONE) {
-                  if (xhr.status < 400) {
-                    resolve(xhr.response);
-                  } else {
-                    reject(xhr.response);
-                  }
+                    if (xhr.status < 400) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(xhr.response);
+                    }
                 }
-              };
+            };
 
             xhr.onabort = reject;
             xhr.onerror = reject;
@@ -94,8 +89,12 @@ class HttpTransport {
                 xhr.setRequestHeader('Content-Type', 'application/json');
             }
 
-            if (isGet || !data) {
+            if (isGet && !data) {
+                console.log('isGet');
+
                 xhr.send();
+            } else if (data instanceof FormData) {
+                xhr.send(data as XMLHttpRequestBodyInit);
             } else {
                 xhr.send(JSON.stringify(data));
             }

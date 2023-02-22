@@ -2,6 +2,7 @@ import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
 import Templator from 'pug';
 import { IUser } from '../api/authApi';
+import { isEqual } from '../utils/helpers';
 
 type V = string | number | Record<string, (e: Event) => void> | Block<T>;
 export type T = Record<string, V>;
@@ -59,6 +60,7 @@ export default abstract class Block<Props extends T> {
 		this.init();
 		this._createResources();
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+		this.dispatchComponentDidMount();
 	}
 
 	protected init(): void {}
@@ -88,10 +90,12 @@ export default abstract class Block<Props extends T> {
 	}
 
 	protected componentDidUpdate(oldProps: Props, newProps: Props): boolean {
-		return true;
+		return isEqual(oldProps, newProps);
+		// return true;
 	}
 
 	public setProps = (nextProps: Props): void => {
+		// debugger
 		if (!nextProps) {
 			return;
 		}
@@ -118,7 +122,7 @@ export default abstract class Block<Props extends T> {
 			if (child) {
 				this._removeEvents();
 				this._element.innerHTML = '';
-				this._element.appendChild(block)
+				this._element.appendChild(block);
 			}
 		}
 		this._addEvents();

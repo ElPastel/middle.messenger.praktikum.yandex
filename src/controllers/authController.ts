@@ -12,8 +12,9 @@ export class AuthController {
   async signin(data: SigninData) {
     try {
       await this.api.signin(data);
-
+      await this.fetchUser();
       router.go('/chats');
+
     } catch (e: any) {
       console.error(e);
     }

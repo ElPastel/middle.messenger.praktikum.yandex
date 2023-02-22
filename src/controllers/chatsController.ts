@@ -1,5 +1,6 @@
 import chatsApi, { ChatsAPI } from "../api/chatsApi";
 import store from "../modules/store";
+import { closeModal } from "../utils/handlers";
 
 import { Indexed } from "../utils/helpers";
 
@@ -14,6 +15,7 @@ export class ChatsController {
         try {
             const chats = await this.api.getChats(data);
             store.set('chats', chats);
+            console.log(store.getState());            
         } catch (e: any) {
             console.error(e);
         }
@@ -23,8 +25,11 @@ export class ChatsController {
         try {
             const chats = await this.api.createChat(data);
             store.set('chats', chats);
+            closeModal();
         } catch (e: any) {
             console.error(e);
+            const errorText: HTMLElement | null = document.querySelector('.modal-error');
+            errorText?.classList.remove('hidden');
         }
     }
 

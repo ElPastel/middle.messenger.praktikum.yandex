@@ -14,6 +14,7 @@ class UserProfilePage extends Block<T> {
 
     protected init() {
         authController.fetchUser();
+        // debugger;
         console.log(this.props);  
     }
 

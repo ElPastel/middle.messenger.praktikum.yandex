@@ -61,6 +61,20 @@ const inputSecondName = new InputBlock({
     labelText: 'Last name',
 });
 
+const inputDisplayName = new InputBlock({
+    input: new Input({
+        classAttr: 'form__input',
+        nameAttr: 'display_name',
+        placeholderAttr: 'MyName',
+        typeAttr: 'text',
+        // valueAttr: userData.second_name,
+        events: inputHandlers
+    }),
+    classAttr: 'form__group',
+    forAttr: 'display_name',
+    labelText: 'Display name',
+});
+
 const inputPhone = new InputBlock({
     input: new Input({
         classAttr: 'form__input',
@@ -98,6 +112,7 @@ const registrationForm = new RegistrationForm({
     inputLogin: inputLogin,
     inputFirstName: inputFirstName,
     inputSecondName: inputSecondName,
+    inputDisplayName: inputDisplayName,
     inputPhone: inputPhone,
     events: editHandler
 });

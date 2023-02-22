@@ -35,7 +35,9 @@ const userProfilePageProps = {
     classAttr: 'container flex-center',
     content: new User({
         classAttr: 'form__box',
-        // displayName: '',
+        displayName: null,
+        avatar: null,
+        
         // firstName: '',
         // secondName: '',
         // email: '',

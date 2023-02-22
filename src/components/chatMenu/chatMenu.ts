@@ -1,23 +1,27 @@
 import Block, {T} from '../../modules/block';
 import './chatMenu.scss';
 import template from './chatMenu.pug';
+import { withStore } from '../../modules/store';
+import authController from '../../controllers/authController';
 
 class ChatMenu extends Block<T> {
     constructor(props: T) {
         super(props, 'nav');
     }
+
+    protected init(): void {
+        authController.fetchUser();
+    }
+
     render(): DocumentFragment {
-        return this.compile(template(), {
-            class: this.props.class,
-            icon: this.props.icon,
-            displayName: this.props.displayName,
-            btnProfile: this.props.btnProfile,
-            btnNewChat: this.props.btnNewChat,
-            btnChangeAvatar: this.props.btnChangeAvatar,
-            btnChangePassword: this.props.btnChangePassword,
-            btnLogout: this.props.btnLogout
-        })
+        return this.compile(template(), this.props)
     }
 }
 
-export default ChatMenu;
+const withUser = withStore((state) => ({
+    avatar: state.user?.avatar,
+    displayName: state.user?.display_name,
+}));
+const ChatMenuWithUser = withUser(ChatMenu);
+
+export default ChatMenuWithUser;
