@@ -28,6 +28,7 @@ export function withStore(mapStateToProps: (state: any) => any) {
     return class WithStore extends Component<T> {
 
       constructor(props: any) {
+      
         let previousState = mapStateToProps(store.getState());
         
         super({ ...props, ...previousState });
@@ -46,5 +47,4 @@ export function withStore(mapStateToProps: (state: any) => any) {
   }
 
 }
-
 export default store;

@@ -6,31 +6,10 @@ import authController from '../../controllers/authController';
 class UserProfilePage extends Block<T> {
     constructor(props: T) {
         super(props, 'div');
-
-        // debugger;
-        // authController.fetchUser();
     }
-
-
-    protected init() {
-        authController.fetchUser();
-        // debugger;
-        console.log(this.props);  
-    }
-
-    // async componentDidMount() {
-        // await authController.fetchUser();
-        // console.log(this.props.user);
-
-        // this.setProps(userProfilePageProps(user));
-        // this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    // }
 
     render() {
-        return this.compile(template(this.props), {
-            classAttr: this.props.classAttr,
-            content: this.props.content,
-        })
+        return this.compile(template, this.props)
     }
 }
 

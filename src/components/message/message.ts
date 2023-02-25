@@ -8,12 +8,7 @@ class Message extends Block<T> {
     }
 
     render() {
-        return this.compile(template(this.props), {
-            class: this.props.class,
-            date: this.props.date,
-            msgText: this.props.msgText,
-            events: this.props.events,
-        })
+        return this.compile(template, this.props)
     }
 }
 

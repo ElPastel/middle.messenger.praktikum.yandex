@@ -1,3 +1,6 @@
-menu.menu__chat #{'!{button}'} 
-    form #{'!{input}'}
-.container__messages #{'!{messageBlock1}'} #{'!{messageBlock2}'} #{'!{messageBlock3}'}
+menu.menu__chat !{button}
+    form !{input}
+ul.container__messages 
+    each item in chats  
+        !=item
+

@@ -8,7 +8,7 @@ export class ChangePasswordForm extends Block<T> {
     }
 
     render() {
-        return this.compile(template(this.props), this.props)
+        return this.compile(template, this.props)
     }
 }
 

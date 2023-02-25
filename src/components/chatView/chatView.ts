@@ -8,15 +8,7 @@ class ChatView extends Block<T> {
 	}
 
 	render() {
-		return this.compile(template(this.props), {
-            class: this.props.class,
-            buttonMore: this.props.buttonMore,
-            buttonFile: this.props.buttonFile,
-            buttonSend: this.props.buttonSend,
-            input: this.props.input,
-            displayName: this.props.displayName,
-            avatar: this.props.avatar,
-        })
+		return this.compile(template, this.props)
 	}
 }
 

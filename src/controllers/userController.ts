@@ -2,8 +2,10 @@ import { Routes } from "..";
 import userApi, { UserAPI } from "../api/userApi";
 import router from "../modules/router";
 import store from "../modules/store";
+import user from "../user-data";
 import { closeModal } from "../utils/handlers";
 import { Indexed } from "../utils/helpers";
+import authController from "./authController";
 
 export class UserController {
   private readonly api: UserAPI;
@@ -15,6 +17,7 @@ export class UserController {
   async changeProfile(data: Indexed) {
     try {
       await this.api.changeProfile(data);
+      await authController.fetchUser();  
       router.go(Routes.Profile)
     } catch (e: any) {
       console.error(e);

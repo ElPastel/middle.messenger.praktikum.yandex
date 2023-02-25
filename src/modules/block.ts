@@ -1,7 +1,5 @@
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
-import Templator from 'pug';
-import { IUser } from '../api/authApi';
 import { isEqual } from '../utils/helpers';
 
 type V = string | number | Record<string, (e: Event) => void> | Block<T>;
@@ -18,6 +16,8 @@ export default abstract class Block<Props extends T> {
 
 	private _element: HTMLElement;
 	private _meta: { tagName: string, props: Props };
+
+
 	private _id: string = makeUUID();
 	protected eventBus: () => EventBus;
 	protected props: Props;
@@ -25,6 +25,7 @@ export default abstract class Block<Props extends T> {
 
 	constructor(propsAndChildren: Props, tagName = 'div') {
 		const eventBus = new EventBus();
+		// debugger
 		const { children, props } = this._getChildren(propsAndChildren);
 		this.props = this._makePropsProxy({
 			...props,
@@ -63,14 +64,18 @@ export default abstract class Block<Props extends T> {
 		this.dispatchComponentDidMount();
 	}
 
-	protected init(): void {}
+	protected init(): void { }
 
 	private _componentDidMount(): void {
 		this.componentDidMount();
 
-		Object.values(this.children).forEach(child => {
-			child.dispatchComponentDidMount();
-		});
+		// Object.values(this.children).forEach(child => {
+		// 	if (Array.isArray(child)) {
+		// 		child.forEach(ch => ch.dispatchComponentDidMount());
+		// 	} else {
+		// 		child.dispatchComponentDidMount();
+		// }
+		// });
 	}
 
 	protected componentDidMount(oldProps?: object): void {
@@ -90,8 +95,9 @@ export default abstract class Block<Props extends T> {
 	}
 
 	protected componentDidUpdate(oldProps: Props, newProps: Props): boolean {
-		return isEqual(oldProps, newProps);
-		// return true;
+		// return isEqual(oldProps, newProps);
+		// debugger
+		return true;
 	}
 
 	public setProps = (nextProps: Props): void => {
@@ -109,6 +115,15 @@ export default abstract class Block<Props extends T> {
 		if (Object.values(props).length) {
 			Object.assign(this.props, props);
 		}
+
+		const element = this.element;
+		// Add attributes
+		Object.entries(this.props)
+			.filter(([key]) => key.includes('Attr'))
+			.forEach(([key, value]) => {
+				const attr = key.slice(0, -4);
+				element.setAttribute(attr, value as string)
+			})
 	};
 
 	public get element(): HTMLElement {
@@ -118,9 +133,11 @@ export default abstract class Block<Props extends T> {
 	private _render(): void {
 		const block = this.render();
 		if (block) {
+			if (typeof block === 'string') return;
 			const child = block.firstElementChild as HTMLElement;
 			if (child) {
 				this._removeEvents();
+				// debugger
 				this._element.innerHTML = '';
 				this._element.appendChild(block);
 			}
@@ -128,7 +145,7 @@ export default abstract class Block<Props extends T> {
 		this._addEvents();
 	}
 
-	abstract render(): DocumentFragment;
+	abstract render(): DocumentFragment | string;
 
 	public getContent(): HTMLElement {
 		return this.element;
@@ -190,6 +207,7 @@ export default abstract class Block<Props extends T> {
 			return;
 		}
 
+
 		Object.entries(events).forEach(([event, listener]) => {
 			this._element.addEventListener(event, listener);
 		});
@@ -206,28 +224,47 @@ export default abstract class Block<Props extends T> {
 		});
 	}
 
-	public compile(template: string, props: Record<string, any>): DocumentFragment {
+	public compile(template: (props: any) => string, props: Record<string, any>): DocumentFragment {
+		// debugger
 		const propsAndStubs = { ...props };
 
 		Object.entries(this.children).forEach(([key, child]) => {
-			propsAndStubs[key] = `<div data-id="${child._id}"></div>`
-		});
-
-		const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
-		fragment.innerHTML = Templator.render(template, propsAndStubs);
-
-		Object.values(this.children).forEach(child => {
-			const stub = fragment.content.querySelector(`[data-id="${child._id}"]`) as HTMLElement;
-			if (stub) {
-				stub.replaceWith(child.getContent());
+			if (Array.isArray(child)) {
+				// debugger
+				propsAndStubs[key] = child.map((item) => `<div data-id="${item._id}"></div>`);
+			} else {
+				propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
 			}
 		});
+
+		const html = template(propsAndStubs);
+		const fragment = document.createElement('template');
+		fragment.innerHTML = html;
+
+		const replaceStub = (child: Block<T>) => {
+			// debugger
+			const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+			if (!stub) {
+				return;
+			}
+
+			child.getContent()?.append(...Array.from(stub.childNodes));
+			stub.replaceWith(child.getContent());
+		}
+
+		Object.values(this.children).forEach((child) => {
+			if (Array.isArray(child)) {
+				child.forEach(replaceStub);
+			} else {
+				replaceStub(child)
+			}
+		});
+
 		return fragment.content;
 	}
 
 	public show(): void {
 		this.getContent().style.display = 'block';
-		// this.dispatchComponentDidMount();
 	}
 
 	public hide(): void {

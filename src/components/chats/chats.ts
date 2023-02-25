@@ -8,12 +8,7 @@ class Chats extends Block<T> {
     }
 
     render() {
-        return this.compile(template(this.props), {
-            class: this.props.class,
-            sectionSelection: this.props.sectionSelection,
-            sectionView: this.props.sectionView,
-            chatMenu: this.props.chatMenu,
-        })
+        return this.compile(template, this.props)
     }
 }
 

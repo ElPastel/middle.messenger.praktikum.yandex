@@ -4,14 +4,11 @@ import template from './layout.pug';
 
 class Layout extends Block<T> {
 	constructor(props: T) {
-		super('div', props);
+		super(props, 'div');
 	}
 
 	render(): DocumentFragment {
-		return this.compile(template(), {
-			class: this.props.class,
-			content: this.props.content
-		})
+		return this.compile(template, this.props)
 	}
 }
 

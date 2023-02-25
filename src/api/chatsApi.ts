@@ -14,8 +14,8 @@ export class ChatsAPI extends BaseAPI {
         return this.http.post('/chats', { data })
     }
 
-    deleteChat(data: Indexed) {
-        return this.http.delete('/chats', { data })
+    deleteChat(id: number): Promise<unknown> {
+        return this.http.delete('/chats', { chatId: id })
     }
 
     getUsersByChatId(chatId: number, data: Indexed) {
@@ -38,8 +38,9 @@ export class ChatsAPI extends BaseAPI {
         return this.http.delete('/chats/users', { data })
     }
 
-    getToken(chatId: number) {
-        return this.http.post(`/chats/token/${chatId}`)
+    async getToken(chatId: number): Promise<string> {
+        const response = await this.http.post(`/chats/token/${chatId}`);
+        return response.token;
     }
 
     create = undefined;

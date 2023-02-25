@@ -3,13 +3,13 @@ import Button from '../../components/button/btn';
 import MessageBlock from '../../components/messageBlock/messageBlock';
 import Chats from '../../components/chats/chats';
 import ChatView from '../../components/chatView/chatView';
-import ChatSelection from '../../components/chatSelection/chatSelection';
 import ChatMenu from '../../components/chatMenu/chatMenu';
 import { changeAvatarHandler, changePasswordHandler, createNewChatHandler, hideMenuHandler, logoutHandler } from '../../utils/handlers';
 import router from '../../modules/router';
 import ChatEmpty from '../../components/chatEmpty/chatEmpty';
-import ChatSelectionWithChat from '../../components/chatSelection/chatSelection';
+
 import { Input } from '../../components/input/input';
+import ChatSelectionWithChat, { ChatSelection } from '../../components/chatSelection/chatSelection';
 
 export const buttonMenu = new Button({
     classAttr: 'btn__menu',
@@ -40,7 +40,7 @@ export const buttonSend = new Button({
     icon: 'send'
 });
 
-const inputMenu = new Input({
+export const inputMenu = new Input({
     classAttr: 'input__menu',
     nameAttr: 'search',
     placeholderAttr: 'Search',
@@ -48,7 +48,7 @@ const inputMenu = new Input({
     valueAttr: '',
 });
 
-const inputMsg = new Input({
+export const inputMsg = new Input({
     classAttr: 'input__msg',
     nameAttr: 'message',
     placeholderAttr: 'Message',
@@ -56,7 +56,7 @@ const inputMsg = new Input({
     valueAttr: '',
 });
 
-const messageBlock1 = new MessageBlock({
+const messageBlock = new MessageBlock({
     classAttr: 'message-block',
     displayName: 'Michael Scott',
     lastMessage: 'No! God, please! NOOOO',
@@ -90,21 +90,22 @@ export const sectionSelection = new ChatSelectionWithChat({
     classAttr: 'section__chat-selection',
     button: buttonMenu,
     input: inputMenu,
-    // messageBlock1: messageBlock1,
+    // chat: 'TEST',
+    // messageBlock: messageBlock,
     // messageBlock2: messageBlock2,
     // messageBlock3: messageBlock3,
 });
 
-// export const sectionView = new ChatView({
-//     classAttr: 'section__chat-view',
-//     buttonMore: buttonMore,
-//     buttonFile: buttonFile,
-//     buttonSend: buttonSend,
-//     input: inputMsg,
-//     displayName: 'Michael Scott'
-// });
+export const sectionView = new ChatView({
+    classAttr: 'section__chat-view',
+    buttonMore: buttonMore,
+    buttonFile: buttonFile,
+    buttonSend: buttonSend,
+    input: inputMsg,
+    displayName: 'Michael Scott'
+});
 
-export const sectionView = new ChatEmpty({
+export const sectionEmpty = new ChatEmpty({
     classAttr: 'section__chat-empty',
 })
 
@@ -175,13 +176,13 @@ export const chatMenu = new ChatMenu({
     btnLogout: buttonLogout,
 })
 
-const chats = new Chats({
-    sectionSelection: sectionSelection,
-    sectionView: sectionView,
-    chatMenu: chatMenu,
-});
+// const chats = new Chats({
+//     sectionSelection: sectionSelection,
+//     sectionView: sectionView,
+//     chatMenu: chatMenu,
+// });
 
-const chatsPage = chats;
+// const chatsPage = chats;
 
-export default chatsPage;
+// export default chatsPage;
 

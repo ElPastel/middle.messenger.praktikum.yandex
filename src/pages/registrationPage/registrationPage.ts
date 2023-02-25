@@ -8,10 +8,7 @@ class RegPage extends Block<T> {
     }
 
     render() {
-        return this.compile(template(this.props), {
-            classAttr: this.props.classAttr,
-            content: this.props.content,
-        })
+        return this.compile(template, this.props)
     }
 }
 

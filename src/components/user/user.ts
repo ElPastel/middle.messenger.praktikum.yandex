@@ -10,11 +10,11 @@ class User extends Block<T> {
 
     protected init() {
         // debugger;
-        console.log(this.props);  
+        // console.log(this.props);  
     }
 
     render(): DocumentFragment {
-        return this.compile(template(), this.props)
+        return this.compile(template, this.props)
     }
 }
 

@@ -8,9 +8,7 @@ class ChatEmpty extends Block<T> {
 	}
 
 	render() {
-		return this.compile(template(this.props), {
-			class: this.props.class,
-		});
+		return this.compile(template, this.props);
 	}
 }
 

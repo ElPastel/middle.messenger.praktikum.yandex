@@ -8,10 +8,7 @@ class LoginForm extends Block<T> {
     }
 
     render() {
-        return this.compile(template(this.props), {
-            class: this.props.class,
-            title: this.props.title
-        })
+        return this.compile(template, this.props);
     }
 }
 

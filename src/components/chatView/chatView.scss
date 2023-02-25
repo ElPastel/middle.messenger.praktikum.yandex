@@ -5,7 +5,8 @@ $peach-color: #e4794c;
 $chats-border-color: #eaeaea;
 
 .section__chat-view {
-    display: grid;
+    // display: grid;
+    display: none;
     grid-template-rows: 5.4rem auto 5.4rem;
     justify-items: stretch;
     background-color: #fff;

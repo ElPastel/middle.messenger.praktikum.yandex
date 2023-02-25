@@ -1,34 +1,22 @@
 import '../declarations.d';
-import renderElement from './utils/renderElement';
-import compileHome from './pages/main.pug';
-import editProfilePage from './pages/EditProfilePage/EditProfilePage';
-import chatsPage, { chatMenu, sectionSelection, sectionView } from './pages/chatsPage/chatsPage';
-import errorPage500 from './pages/errorPage500/errorPage500';
-import errorPage404 from './pages/errorPage404/errorPage404';
-import Message from './components/message/message';
 import Router from './modules/router';
-import LoginForm from './components/loginForm/loginForm';
-import Layout from './pages/layout/layout';
-import Chats from './components/chats/chats';
 import router from './modules/router';
-import loginPageProps from './pages/loginPage/loginPageProps';
-import regPageProps from './pages/registrationPage/registrationPageProps';
+import chatsController from './controllers/chatsController';
+import authController from './controllers/authController';
 import UserProfilePageWithUser from './pages/userProfilePage/userProfilePage';
 import userProfilePageProps from './pages/userProfilePage/userProfilePageProps';
-
-import user from './user-data';
-import LoginPage from './pages/loginPage/loginPage';
-import RegPage from './pages/registrationPage/registrationPage';
-import authController from './controllers/authController';
-import { T } from './modules/block';
-
-import Test from './pages/test/test';
-import store from './modules/store';
-import EditProfilePage from './pages/EditProfilePage/EditProfilePage';
-import editPageProps from './pages/EditProfilePage/EditProfilePageProps';
 import EditProfilePageWithUser from './pages/EditProfilePage/EditProfilePage';
-import chatsController from './controllers/chatsController';
+import editPageProps from './pages/EditProfilePage/EditProfilePageProps';
+import LoginPage from './pages/loginPage/loginPage';
+import loginPageProps from './pages/loginPage/loginPageProps';
+import RegPage from './pages/registrationPage/registrationPage';
+import regPageProps from './pages/registrationPage/registrationPageProps';
+import Chats from './components/chats/chats';
 
+import store from './modules/store';
+import ChatSelectionWithChat from './components/chatSelection/chatSelection';
+import { buttonMenu, chatMenu, inputMenu, inputMsg, sectionEmpty, sectionSelection, sectionSelection, sectionView } from './pages/chatsPage/chatsPage';
+import { Input } from './components/input/input';
 
 // const root: HTMLElement = document.getElementById('root')!;
 // const headTitle: HTMLHeadElement = document.getElementById('head__title')!;
@@ -40,7 +28,9 @@ export enum Routes {
     Register = '/signup',
     Profile = '/profile',
     Chats = '/chats',
-    Edit = '/editprofile'
+    Edit = '/editprofile',
+    Error404 = '/error404',
+    Error500 = '/error500'
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -50,11 +40,10 @@ window.addEventListener('DOMContentLoaded', async () => {
         .use(Routes.Profile, UserProfilePageWithUser, userProfilePageProps)
         .use(Routes.Chats, Chats, {
             sectionSelection: sectionSelection,
+            sectionEmpty: sectionEmpty,
             sectionView: sectionView,
             chatMenu: chatMenu,
         })
-        .use(Routes.Edit, EditProfilePageWithUser, editPageProps);
-
 
     let isProtectedRoute = true;
 
@@ -64,30 +53,22 @@ window.addEventListener('DOMContentLoaded', async () => {
             isProtectedRoute = false;
             break;
     }
-    // Router.start();
-
 
     try {
-        // authController.fetchUser();
+        await authController.fetchUser();
+        await chatsController.getChats({ offset: 0, limit: 10 });
 
         Router.start();
-        // console.log(response);
         if (window.location.pathname === Routes.Chats) {
-            chatsController.getChats({offset: 0, limit: 10});
+            chatsController.getChats({ offset: 0, limit: 10 });
         }
 
-
-        // if (!isProtectedRoute) {
-        //     Router.go(Routes.Chats)
-        // }
+        if (!isProtectedRoute) {
+            Router.go(Routes.Chats)
+        }
     } catch (e) {
         Router.start();
         console.log(e);
-
-
-        // if (isProtectedRoute) {
-        //     Router.go(Routes.Index);
-        // }
     }
 })
 

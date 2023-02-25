@@ -8,13 +8,7 @@ class Error extends Block<T> {
     }
 
     render() {
-        return this.compile(template(this.props), {
-            button: this.props.button,
-            errorNumber: this.props.errorNumber,
-            errorText: this.props.errorText,
-            class: this.props.class,
-            events: this.props.events,
-        });
+        return this.compile(template, this.props);
     }
 }
 

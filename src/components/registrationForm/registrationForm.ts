@@ -8,7 +8,7 @@ class RegistrationForm extends Block<T> {
     }
 
     render(): DocumentFragment {
-        return this.compile(template(), this.props)
+        return this.compile(template, this.props)
     }
 }
 

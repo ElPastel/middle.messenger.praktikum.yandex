@@ -3,6 +3,11 @@ declare module '*.pug' {
     export default _;
 }
 
+declare module '*.hbs' {
+    const _: Function
+    export default _;
+}
+
 declare module 'uuid' {
     type v4 = () => string;
     export const v4: v4;

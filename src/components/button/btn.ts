@@ -9,7 +9,7 @@ class Button extends Block<T> {
 	}
 
 	render() {
-		return this.compile(template(this.props), {});
+		return this.compile(template, this.props);
 	}
 }
 

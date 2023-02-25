@@ -13,7 +13,7 @@ const inputEmail = new InputBlock({
         nameAttr: 'email',
         placeholderAttr: 'pochta@yandex.ru',
         typeAttr: 'email',
-        valueAttr: 'email',
+        valueAttr: '',
         events: inputHandlers
     }),
     classAttr: 'form__group',
@@ -21,13 +21,14 @@ const inputEmail = new InputBlock({
     labelText: 'E-mail',
 });
 
+// debugger
 const inputLogin = new InputBlock({
     input: new InputWithUser({
         classAttr: 'form__input',
         nameAttr: 'login',
         placeholderAttr: 'IvanIvanov001',
         typeAttr: 'text',
-        // valueAttr: '',
+        valueAttr: '',
         events: inputHandlers
     }),
     classAttr: 'form__group',

@@ -11,20 +11,39 @@ export class ChatsController {
         this.api = chatsApi;
     }
 
+    //fetch
     async getChats(data: Indexed) {
         try {
             const chats = await this.api.getChats(data);
+
+            // chats.map(async (chat) => {
+            //     const token = await this.getToken(chat.id);
+
+            //     await MessagesController.connect(chat.id, token);
+            // });
+
             store.set('chats', chats);
-            console.log(store.getState());            
+            console.log(store.getState().chats);
         } catch (e: any) {
             console.error(e);
         }
     }
 
+    async showChats(data: Indexed) {
+        try {
+            await this.getChats(data);
+            console.log(store.getState());
+
+        } catch (e: any) {
+            console.error(e);
+        }
+    }
+
+    //create
     async createChat(data: Indexed) {
         try {
-            const chats = await this.api.createChat(data);
-            store.set('chats', chats);
+            await this.api.createChat(data);
+            this.getChats({});
             closeModal();
         } catch (e: any) {
             console.error(e);
@@ -33,20 +52,20 @@ export class ChatsController {
         }
     }
 
-    async deleteChat(data: Indexed) {
+    async deleteChat(id: number) {
         try {
-            const chats = await this.api.deleteChat(data);
-            store.set('chats', chats);
+            await this.api.deleteChat(id);
+            this.getChats({});
         } catch (e: any) {
             console.error(e);
         }
     }
 
-    async getUsersByChatId(chatId: number) {
+    async getUsersByChatId(id: number) {
         try {
-            const user = await this.api.getUsersByChatId(chatId, { offset: 0, limit: 10 });
+            const user = await this.api.getUsersByChatId(id, { offset: 0, limit: 10 });
             store.set('currentChat', {
-                chatId,
+                id,
                 users: user
             });
         } catch (e: any) {
@@ -72,12 +91,16 @@ export class ChatsController {
         }
     }
 
-    async getToken(chatId: number) {
+    async getToken(id: number) {
         try {
-            await this.api.getToken(chatId);
+            await this.api.getToken(id);
         } catch (e: any) {
             console.error(e);
         }
+    }
+
+    selectChat(id: number) {
+        store.set('selectedChat', id);
     }
 }
 

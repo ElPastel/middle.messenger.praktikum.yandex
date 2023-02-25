@@ -1,16 +1,16 @@
-.btn__close-box #{`!{btnClose}`}
+.btn__close-box !{btnClose}
 .nav-userdata 
-    - const avatarPath = `#{avatar}`
+    - const avatarPath = avatar 
     if (avatarPath)
         img.menu-avatar(src=`https://ya-praktikum.tech/api/v2/resources/${avatarPath}` alt='User avatar')
     else 
         img.menu-avatar(src='' alt='User avatar')
-    h2.title__displayname #{'#{displayName}'}
+    h2.title__displayname #{displayName}
 ul.menu-list
-    li.menu-item #{`!{btnProfile}`}
-    li.menu-item #{`!{btnNewChat}`}
-    li.menu-item #{`!{btnChangeAvatar}`}
-    li.menu-item #{`!{btnChangePassword}`}
-    li.menu-item #{`!{btnLogout}`}
+    li.menu-item !{btnProfile}
+        li.menu-item !{btnNewChat}
+        li.menu-item !{btnChangeAvatar}
+        li.menu-item !{btnChangePassword}
+        li.menu-item !{btnLogout}
 
 
