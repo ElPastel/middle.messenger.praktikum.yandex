@@ -1,9 +1,11 @@
 $primary-color: #eee;
+$chat-container-color: #fbfbfb;
+$chats-border-color: #eaeaea;
 
 .menu {
     position: absolute;
-    background-color: #FBFBFB;
-    border-right: 1px solid #eaeaea;
+    background-color: $chat-container-color;
+    border-right: 1px solid $chats-border-color;
     height: 100vh;
     width: 281px;
     display: flex;
@@ -12,21 +14,20 @@ $primary-color: #eee;
     align-items: flex-start;
     padding: 3rem;
     gap: 4rem;
-    
 }
+
 .menu-hide {
     display: none;
 }
 
 .menu-avatar {
     width: 8rem;
-    height: 8rem;    
+    height: 8rem;
     background-color: $primary-color;
     color: $primary-color;
     background-image: url("../../../public/icon-profile.png");
     border-radius: 50%;
     box-shadow: 0 0 6px rgba(0 0 0 / 34%);
-
 }
 
 .nav-userdata {
@@ -42,11 +43,11 @@ $primary-color: #eee;
     top: 2%;
 }
 
-.btn__close{
+.btn__close {
     height: 2.4rem;
     width: 2.4rem;
     border: none;
-    background-color: #FBFBFB;
+    background-color: $chat-container-color;
 }
 
 .menu-list {
@@ -59,14 +60,12 @@ $primary-color: #eee;
     gap: 1.5rem;
 }
 
-.menu-item button{
+.menu-item button {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 4rem;
-
-    background-color: #FBFBFB;
+    background-color: $chat-container-color;
     border: none;
     text-decoration: none;
 }
-

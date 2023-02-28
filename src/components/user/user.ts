@@ -1,16 +1,11 @@
 import Block, { T } from '../../modules/block';
 import './user.scss';
 import template from './user.pug';
-import store, { withStore } from '../../modules/store';
+import { withStore } from '../../modules/store';
 
 class User extends Block<T> {
     constructor(props: T) {
         super(props, 'div');
-    }
-
-    protected init() {
-        // debugger;
-        // console.log(this.props);  
     }
 
     render(): DocumentFragment {
@@ -27,7 +22,7 @@ const withUser = withStore((state) => ({
     displayName: state.user?.display_name,
     phone: state.user?.phone,
 }));
-const UserWithUser = withUser(User);
 
+const UserWithUser = withUser(User);
 
 export default UserWithUser;

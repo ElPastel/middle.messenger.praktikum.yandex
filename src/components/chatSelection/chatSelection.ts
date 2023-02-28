@@ -1,10 +1,9 @@
 import Block, { T } from '../../modules/block';
 import './chatSelection.scss';
 import template from './chatSelection.pug';
-import store, { withStore } from '../../modules/store';
+import { withStore } from '../../modules/store';
 import MessageBlock from '../messageBlock/messageBlock';
 import chatsController from '../../controllers/chatsController';
-import { Input } from '../input/input';
 
 export class ChatSelection extends Block<T> {
 	constructor(props: T) {
@@ -22,7 +21,7 @@ export class ChatSelection extends Block<T> {
 	}
 
 	makeChats(props: T) {
-		const chats = props.chats.map((chat) => {
+		const chats = (props.chats as Record<string, any>[]).map((chat: Record<string, any>) => {
 			const hours = new Date(chat.last_message?.time).getHours();
 			const minutes = new Date(chat.last_message?.time).getMinutes();
 			return {
@@ -32,15 +31,15 @@ export class ChatSelection extends Block<T> {
 					: null
 			};
 		});
-		return chats.map((data) => {
+		return chats.map((data: Record<string, any>) => {
 			return new MessageBlock({
 				...data, classAttr: 'message-block', events: {
-					click: (e: Event) => {
+					click: () => {
 						chatsController.selectChat(data.id);
 						chatsController.getUsersByChatId(data.id).then(res => console.log(res));
 						(document.querySelector('.section__chat-empty') as HTMLElement).style.display = 'none';
 						(document.querySelector('.section__chat-view') as HTMLElement).style.display = 'grid';
-						
+
 						const view: HTMLElement | null = document.querySelector('.chat-view');
 						if (view) view.scrollTop = view.scrollHeight;
 					}

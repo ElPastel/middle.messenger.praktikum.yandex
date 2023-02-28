@@ -1,7 +1,6 @@
 import Block, { T } from '../../modules/block';
 import template from './userProfilePage.pug';
 import { withStore } from '../../modules/store';
-import authController from '../../controllers/authController';
 
 class UserProfilePage extends Block<T> {
     constructor(props: T) {

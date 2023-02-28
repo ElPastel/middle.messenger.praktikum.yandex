@@ -2,12 +2,10 @@ import Button from "../components/button/btn";
 import ChangePasswordForm from "../components/changePasswordForm/changePasswordForm";
 import Input from "../components/input/input";
 import InputBlock from "../components/inputBlock/inputBlock";
-import MessageBlock from "../components/messageBlock/messageBlock";
 import ModalForm from "../components/modalForm/modalForm";
 import authController from "../controllers/authController";
 import chatsController from "../controllers/chatsController";
 import userController from "../controllers/userController";
-import store from "../modules/store";
 import { Indexed } from "./helpers";
 import regExp from "./RegExp";
 import renderElement from "./renderElement";
@@ -20,6 +18,7 @@ function isValid(key: string, value: string): boolean {
 	return pattern.test(value);
 }
 
+// INPUT VALIDATION
 function focusHandler(e: Event) {
 	const input = e.target as HTMLInputElement;
 	const errorMsg = document.querySelector(`.error-${input.name}`);
@@ -40,6 +39,12 @@ function blurHandler(e: Event) {
 	}
 }
 
+export const inputHandlers = {
+	focus: (e: Event) => focusHandler(e),
+	blur: (e: Event) => blurHandler(e),
+};
+
+//SUBMIT FORMS
 export function submitForm(e: Event, form: string) {
 	e.preventDefault();
 	const formData: { [key: string]: string } = {};
@@ -50,22 +55,26 @@ export function submitForm(e: Event, form: string) {
 		formData[input.name] = input.value;
 	})
 
-	const formIsValid = Object.entries(formData).every(([key, value]) => isValid(key, value))
+	const formIsValid = Object.entries(formData).every(([key, value]) => isValid(key, value));
 
 	if (formIsValid) {
 		console.log(formData);
-		if (form === 'signin') authController.signin(formData);
-		if (form === 'signup') authController.signup(formData);
 
-		// if (form === 'signup') {
-		// 	formData['display_name'] = formData['first_name'];
-		// 	console.log(formData);			
-		// 	authController.signup(formData);
-		// } 
+		if (form === 'signin') authController.signin(formData as Indexed);
+		if (form === 'signup') authController.signup(formData as Indexed);
 	}
 }
 
-export function updateUserData(e: Event) {
+export const submitHandlerLog = {
+	submit: (e: Event) => submitForm(e, 'signin'),
+}
+
+export const submitHandlerReg = {
+	submit: (e: Event) => submitForm(e, 'signup'),
+}
+
+// EDIT FORM UPDATE
+function updateUserData(e: Event) {
 	e.preventDefault();
 	const formData: { [key: string]: string } = {};
 	const formElement = e.target as HTMLFormElement;
@@ -83,23 +92,11 @@ export function updateUserData(e: Event) {
 	}
 }
 
-export const inputHandlers = {
-	focus: (e: Event) => focusHandler(e),
-	blur: (e: Event) => blurHandler(e),
-};
-
-export const submitHandlerLog = {
-	submit: (e: Event) => submitForm(e, 'signin'),
-}
-
-export const submitHandlerReg = {
-	submit: (e: Event) => submitForm(e, 'signup'),
-}
-
 export const editHandler = {
 	submit: (e: Event) => updateUserData(e),
 }
 
+// CHAT MENU
 export const hideMenuHandler = {
 	click: (e: Event) => {
 		e.preventDefault;
@@ -108,12 +105,90 @@ export const hideMenuHandler = {
 	},
 }
 
+// LOGOUT BUTTON
 export const logoutHandler = {
 	click: () => {
 		authController.logout();
 	},
 }
 
+// MORE BUTTON
+export const moreModalHandler = {
+	click: () => {
+		const modal = document.querySelector('.more-modal') as HTMLElement;
+		modal.classList.toggle('hidden');
+	}
+}
+
+// ADD USER BUTTON
+export const addUserHandler = {
+	click: () => {
+		const modal = document.querySelector('.more-modal') as HTMLElement;
+		modal?.classList.add('hidden');
+
+		const overlay = document.querySelector('.overlay') as HTMLElement;
+		overlay?.classList.remove('hidden');
+
+		renderElement('.main', new ModalForm({
+			classAttr: 'form__box flex-form modal',
+			buttonClose: new Button({
+				classAttr: 'btn__close-modal',
+				route: '',
+				value: '',
+				icon: 'close',
+				events: closeModalHandler
+			}),
+			title: 'Select user',
+			formName: 'adduser',
+			errorText: 'User not found',
+			input: new InputBlock({
+				input: new Input({
+					classAttr: 'form__input',
+					nameAttr: 'login',
+					placeholderAttr: 'IvanIvanov001',
+					typeAttr: 'text',
+					valueAttr: '',
+					events: inputHandlers
+				}),
+				classAttr: 'form__group',
+				forAttr: 'login',
+				error: 'login',
+				labelText: 'User login',
+			}),
+			buttonMain: new Button({
+				classAttr: 'btn__main btn__adduser',
+				value: 'Add',
+				linkColor: 'main',
+			}),
+			events: {
+				submit: addUser
+			}
+		}))
+
+		const focusEl: HTMLButtonElement | null = document.querySelector('.btn__adduser');
+		focusEl?.focus();
+		overlay?.addEventListener('click', () => closeModal());
+	}
+}
+
+const addUser = function (e: Event) {
+	e.preventDefault();
+	const formData: { [key: string]: string } = {};
+	const formElement = e.target as HTMLFormElement;
+	const input = formElement?.querySelector('input');
+
+	if (input) formData[input.name] = input.value;
+
+	if (formData) {
+		let userId: Indexed;
+		userController.getUserByLogin(formData).then(res => {
+			userId = res
+			chatsController.addUserToChat(userId);
+		});
+	}
+}
+
+// CLOSE MODAL FORM HELPERS
 export const closeModal = function () {
 	const root: HTMLElement | null = document.querySelector('.main');
 	const modal: HTMLElement | null = document.querySelector('.modal');
@@ -128,6 +203,7 @@ export const closeModalHandler = {
 	click: () => closeModal()
 }
 
+// CHANGE PASSWORD BUTTON
 export const changePasswordHandler = {
 	click: () => {
 		const overlay = document.querySelector('.overlay');
@@ -153,7 +229,8 @@ export const changePasswordHandler = {
 					events: inputHandlers
 				}),
 				classAttr: 'form__group',
-				forAttr: 'email',
+				forAttr: 'password',
+				error: 'oldPassword',
 				labelText: 'Old password',
 			}),
 			inputNewPassword1: new InputBlock({
@@ -166,7 +243,8 @@ export const changePasswordHandler = {
 					events: inputHandlers
 				}),
 				classAttr: 'form__group',
-				forAttr: 'email',
+				forAttr: 'password',
+				error: 'newPassword',
 				labelText: 'New password',
 			}),
 			inputNewPassword2: new InputBlock({
@@ -179,7 +257,8 @@ export const changePasswordHandler = {
 					events: inputHandlers
 				}),
 				classAttr: 'form__group',
-				forAttr: 'email',
+				forAttr: 'password',
+				error: 'password',
 				labelText: 'Repeat new password',
 			}),
 			buttonMain: new Button({
@@ -194,43 +273,29 @@ export const changePasswordHandler = {
 	},
 }
 
-const submitPassword = function (e: Event) {
-	e.preventDefault();
-	const formData: { [key: string]: string } = {};
-	const formElement = e.target as HTMLFormElement;
-	const inputs = formElement?.querySelectorAll('input');
-
-	inputs?.forEach((input: HTMLInputElement) => {
-		formData[input.name] = input.value;
-	})
-
-	const formIsValid = Object.entries(formData).every(([key, value]) => isValid(key, value))
-
-	if (formIsValid && formData.newPassword === formData.password) {
-		delete formData.password;
-		console.log(formData);
-		userController.changePassword(formData);
-	}
-}
 
 const submitPasswordHandler = {
-	submit: (e: Event) => submitPassword(e)
-}
+	submit: (e: Event) => {
+		e.preventDefault();
+		const formData: { [key: string]: string } = {};
+		const formElement = e.target as HTMLFormElement;
+		const inputs = formElement?.querySelectorAll('input');
 
-const submitAvatar = function (e: Event) {
-	e.preventDefault();
-	// @ts-ignore
-	const formData = new FormData(document.forms.avatarchange);
+		inputs?.forEach((input: HTMLInputElement) => {
+			formData[input.name] = input.value;
+		})
 
-	if (formData) {
-		userController.changeAvatar(formData);
+		const formIsValid = Object.entries(formData).every(([key, value]) => isValid(key, value))
+
+		if (formIsValid && formData.newPassword === formData.password) {
+			delete formData.password;
+			console.log(formData);
+			userController.changePassword(formData);
+		}
 	}
 }
 
-const submitAvatarHandler = {
-	submit: (e: Event) => submitAvatar(e)
-}
-
+// CHANGE AVATAR BUTTON
 export const changeAvatarHandler = {
 	click: (e: Event) => {
 		const buttonTarget = e.target as HTMLButtonElement;
@@ -271,6 +336,18 @@ export const changeAvatarHandler = {
 	}
 }
 
+const submitAvatarHandler = {
+	submit: (e: Event) => {
+		e.preventDefault();
+		const formData = new FormData((document.forms as HTMLCollectionOf<HTMLFormElement>).namedItem('avatarchange')!);
+
+		if (formData) {
+			userController.changeAvatar(formData);
+		}
+	}
+}
+
+//CREATE NEW CHAT BUTTON
 export const createNewChatHandler = {
 	click: () => {
 		const overlay = document.querySelector('.overlay');
@@ -286,7 +363,6 @@ export const createNewChatHandler = {
 				events: closeModalHandler
 			}),
 			title: 'Create chat',
-			// errorText: '',
 			input: new InputBlock({
 				input: new Input({
 					classAttr: 'form__input',
@@ -294,7 +370,7 @@ export const createNewChatHandler = {
 					idAttr: 'chat-title',
 					typeAttr: 'text',
 					valueAttr: '',
-					// events: inputHandlers
+					events: inputHandlers
 				}),
 				classAttr: 'form__group',
 				labelText: 'Chat title',
@@ -319,46 +395,11 @@ const submitCreateChatHandler = {
 		const formElement = e.target as HTMLFormElement;
 		const input = formElement?.querySelector('input');
 		if (input) formData[input.name] = input.value;
-
-		console.log(formData);
-		// chatsController.createChat(formData);
-		console.log(store.getState());
-
-		// renderElement('container__messages', new MessageBlock({
-		// 	classAttr: 'message-block',
-		// 	displayName: '',
-		// 	lastMessage: '',
-		// 	messageDate: '',
-		// 	// hiddenClass: '-hidden',
-		// 	avatarSource: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABVElEQVR4nO2VvU4CQRSF56GoDBTG1gQTxJ/CgooECxMTirWwpCexorEwYucD4CNACyW4ZBUzZj2PcMnduAkQhQird0ZucZqZ2cn5zp67awCQzzLSBqAAkE8RWiHIJwkdYvgpI20ACgD5FKEVgnyS0CFGtsnE/S7ZTpvs0wPFg54/b+Dj7YUmrSuKgv058RrvOQ8w+cL8LITTAHG/+635VFnXyWR5me3crwTguVAA/FaFBj2/KwTfhxj/4TOKmTrxT8y7Hxn+WCbLy57DMd21H+n84pqK5Srld48SHZSryRrv8RnnAKx9p+bNLRX2jim3U1wqPsNn+Rm4ADAchXRWuVxpfFH8zHAUygJE0SuVTmo/Np/q8LSW3CEGUA8aa5tPVQ8acgCbms99SgGwrW8ADshIG4ACQD5FaIUgnyR0iOGnjLQBKADkU4RWCPJJQocY8mmuoymHavLA3Wry3QAAAABJRU5ErkJggg==',
-		// }))
-
-
+		chatsController.createChat(formData);
 	}
 }
 
-export const addUser = function (e: Event) {
-	e.preventDefault();
-	const formData: { [key: string]: string } = {};
-	const formElement = e.target as HTMLFormElement;
-	const input = formElement?.querySelector('input');
-
-	if (input) formData[input.name] = input.value;
-
-	if (formData) {
-		console.log(formData);
-		let userId: Indexed;
-		userController.getUserByLogin(formData).then(res => {
-			userId = res
-			console.log(store.getState());
-			console.log(`USER ID: ${userId}`);
-			console.log(`CHAT ID: ${store.getState().currentChat}`);
-
-			chatsController.addUserToChat(userId);
-		});
-	}
-}
-
+// DELETE USER BUTTON
 export const deleteUser = function (e: Event) {
 	e.preventDefault();
 	const formData: { [key: string]: string } = {};
@@ -366,17 +407,60 @@ export const deleteUser = function (e: Event) {
 	const input = formElement?.querySelector('select');
 
 	if (input) formData[input.name] = input.value;
-
 	if (formData) {
-		console.log(formData);
 		let userId: Indexed;
 		userController.getUserByLogin(formData).then(res => {
-			userId = res
-			console.log(store.getState());
-			console.log(`USER ID: ${userId}`);
-			console.log(`CHAT ID: ${store.getState().currentChat}`);
-
+			userId = res;
 			chatsController.deleteUserFromChat(userId);
 		});
 	}
+}
+
+// DELETE CHAT BUTTON
+export const deleteChatHandler = {
+	click: () => {
+		const modal = document.querySelector('.more-modal') as HTMLElement;
+		modal.classList.add('hidden');
+
+		const overlay = document.querySelector('.overlay');
+		overlay?.classList.remove('hidden');
+
+		renderElement('.main', new ModalForm({
+			classAttr: 'form__box flex-form modal',
+			buttonClose: new Button({
+				classAttr: 'btn__close-modal',
+				route: '',
+				value: '',
+				icon: 'close',
+				events: closeModalHandler
+			}),
+			title: 'Are you sure you want to delete a chat?',
+			formName: 'deletechat',
+			buttonMain: new Button({
+				classAttr: 'btn__main btn__deletechat',
+				value: 'Yes',
+				typeAttr: 'submit',
+				linkColor: 'main',
+			}),
+			events: {
+				submit: deleteChat
+			}
+		}))
+
+		const focusEl: HTMLButtonElement | null = document.querySelector('.btn__deletechat');
+		focusEl?.focus();
+		overlay?.addEventListener('click', () => closeModal());
+	}
+}
+
+const deleteChat = function (e: Event) {
+	e.preventDefault();
+	console.log('deletechat');
+
+	chatsController.deleteChat();
+
+	(document.querySelector('.section__chat-empty') as HTMLElement).style.display = 'flex';
+	(document.querySelector('.section__chat-view') as HTMLElement).style.display = 'none';
+
+	closeModal();
 }

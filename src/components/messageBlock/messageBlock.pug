@@ -1,5 +1,6 @@
 .block-avatar
-    img.chat-avatar(src=last_message ? `https://ya-praktikum.tech/api/v2/resources/${last_message.user.avatar}` : '../../public/icon-profile.png')
+    img.chat-avatar(src=(last_message && last_message.user.avatar) ? `https://ya-praktikum.tech/api/v2/resources/${last_message.user.avatar}` : '../../public/icon-profile.png')
+    //- img.chat-avatar(src='../../public/icon-profile.png')
 .block-text
     h4.title__displayname #{title}
     p.last-message #{last_message ? last_message.content : null}

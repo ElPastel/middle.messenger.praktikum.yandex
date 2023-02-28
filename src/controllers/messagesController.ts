@@ -27,7 +27,6 @@ class MessagesController {
   
       if (!socket) {
         throw new Error(`Chat ${id} is not connected`);
-        // await this.connect(id, token);
       }
   
       socket.send({

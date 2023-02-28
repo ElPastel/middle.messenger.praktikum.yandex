@@ -17,6 +17,7 @@ const inputLogin = new InputBlock({
     classAttr: 'form__group',
     labelText: 'Login',
     forAttr: 'login',
+    error: 'login',
 });
 
 const inputPassword = new InputBlock({
@@ -29,7 +30,8 @@ const inputPassword = new InputBlock({
         events: inputHandlers
     }),
     classAttr: 'form__group',
-    forAttr: 'email',
+    forAttr: 'password',
+    error: 'password',
     labelText: 'Password',
 });
 

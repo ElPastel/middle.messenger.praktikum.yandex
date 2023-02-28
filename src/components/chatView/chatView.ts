@@ -19,7 +19,7 @@ class ChatView extends Block<T> {
 	}
 
 	private createMessages(props: T) {
-		return props.messages.map(data => {
+		return (props.messages as Record<string, any>[]).map(data => {
 			return new Message({ ...data, isMine: props.userId === data.user_id });
 		})
 	}
@@ -34,7 +34,7 @@ const withCurrentChatMessages = withStore(state => {
 	let chatTitle;
 	let chatAvatar;
 	if (state.chats) {
-		const currentChatData = (state.chats?.filter(chat => chat.id === currentChatId))[0];
+		const currentChatData = (state.chats.filter((chat: Record<string, unknown>) => chat.id === currentChatId))[0];
 		if (currentChatData) {
 			chatTitle = currentChatData.title;
 			chatAvatar = currentChatData.avatar

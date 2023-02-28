@@ -1,11 +1,9 @@
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
-import { isEqual } from '../utils/helpers';
-import { withStore } from './store';
 
-type V = string | number | Record<string, (e: Event) => void> | Block<T>;
+type V = string | number | boolean | Record<string, (e: Event) => void> | Block<T> | Record<string, any>[];
 export type T = Record<string, V>;
-type Children = Record<string, Block<T>>;
+type Children = Record<string, Block<T>> | Record<string, Block<T>[]>;
 
 export default abstract class Block<Props extends T> {
 	static EVENTS = {
@@ -18,7 +16,6 @@ export default abstract class Block<Props extends T> {
 	private _element: HTMLElement;
 	private _meta: { tagName: string, props: Props };
 
-
 	private _id: string = makeUUID();
 	protected eventBus: () => EventBus;
 	protected props: Props;
@@ -26,7 +23,6 @@ export default abstract class Block<Props extends T> {
 
 	constructor(propsAndChildren: Props, tagName = 'div') {
 		const eventBus = new EventBus();
-		// debugger
 		const { children, props } = this._getChildren(propsAndChildren);
 		this.props = this._makePropsProxy({
 			...props,
@@ -65,22 +61,16 @@ export default abstract class Block<Props extends T> {
 		this.dispatchComponentDidMount();
 	}
 
-	protected init(): void { }
+	protected init(): void { 
+		//
+	}
 
 	private _componentDidMount(): void {
 		this.componentDidMount();
-
-		// Object.values(this.children).forEach(child => {
-		// 	if (Array.isArray(child)) {
-		// 		child.forEach(ch => ch.dispatchComponentDidMount());
-		// 	} else {
-		// 		child.dispatchComponentDidMount();
-		// }
-		// });
 	}
 
 	protected componentDidMount(oldProps?: object): void {
-		// Will be updated later
+		//
 	}
 
 	protected dispatchComponentDidMount(): void {
@@ -96,13 +86,10 @@ export default abstract class Block<Props extends T> {
 	}
 
 	protected componentDidUpdate(oldProps: Props, newProps: Props): boolean {
-		// return isEqual(oldProps, newProps);
-		// debugger
 		return true;
 	}
 
 	public setProps = (nextProps: Props): void => {
-		// debugger
 		if (!nextProps) {
 			return;
 		}
@@ -138,18 +125,11 @@ export default abstract class Block<Props extends T> {
 			const child = block.firstElementChild as HTMLElement;
 			if (child) {
 				this._removeEvents();
-				if (!(typeof this._element === withStore)) this._element.innerHTML = '';
+				this._element.innerHTML = '';
 				this._element.appendChild(block);
 			}
 		}
-		// if (typeof block === 'string') return;
-		// const child = block.firstElementChild as HTMLElement;
-		// if (this._element && child) {
-		// 	this._element.replaceWith(child);
-		// }
-		// this._element = child;
-		// this._removeEvents();
-
+		
 		this._addEvents();
 
 		const view: HTMLElement | null = document.querySelector('.chat-view');
@@ -218,7 +198,6 @@ export default abstract class Block<Props extends T> {
 			return;
 		}
 
-
 		Object.entries(events).forEach(([event, listener]) => {
 			this._element.addEventListener(event, listener);
 		});
@@ -236,12 +215,10 @@ export default abstract class Block<Props extends T> {
 	}
 
 	public compile(template: (props: any) => string, props: Record<string, any>): DocumentFragment {
-		// debugger
 		const propsAndStubs = { ...props };
 
 		Object.entries(this.children).forEach(([key, child]) => {
 			if (Array.isArray(child)) {
-				// debugger
 				propsAndStubs[key] = child.map((item) => `<div data-id="${item._id}"></div>`);
 			} else {
 				propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
@@ -253,7 +230,6 @@ export default abstract class Block<Props extends T> {
 		fragment.innerHTML = html;
 
 		const replaceStub = (child: Block<T>) => {
-			// debugger
 			const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 			if (!stub) {
 				return;

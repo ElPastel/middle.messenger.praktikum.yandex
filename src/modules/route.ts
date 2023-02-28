@@ -6,14 +6,6 @@ function isEqual(lhs: string, rhs: string): boolean {
     return lhs === rhs;
 }
 
-// function render(query: string, block: Block<T>) {
-//     const root = document.querySelector(query) as HTMLElement;
-//     console.log(query);
-//     console.log(block.getContent());    
-//     root.textContent = block.getContent();
-//     return root;
-// }
-
 type RouteProps = {
     rootQuery: string
 }
@@ -52,12 +44,10 @@ export default class Route {
 
     render() {
         if (!this._block) {
-            // debugger
             this._block = new this._blockClass({...this.blockProps});
             if (this._block) renderElement(this._props.rootQuery, this._block);
             return;
         }
-
         this._block.show();
     }
 }

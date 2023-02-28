@@ -1,9 +1,10 @@
+import http from "../modules/http";
 import { Indexed } from "../utils/helpers";
-import BaseAPI from "./baseApi";
 
-export class UserAPI extends BaseAPI {
+export class UserAPI {
+    protected http: typeof http;
     constructor() {
-        super();
+        this.http = http;
     }
 
     changeProfile(data: Indexed) {
@@ -18,14 +19,9 @@ export class UserAPI extends BaseAPI {
         return this.http.put('/user/profile/avatar', {data});
     }
 
-    userByLogin(data: Indexed) {      
+    userByLogin(data: Indexed): Promise<any> {      
         return this.http.post('/user/search', {data});
     }
-
-    create = undefined;
-    read = undefined;
-    update = undefined;
-    delete = undefined;
 }
 
 export default new UserAPI();

@@ -12,9 +12,9 @@ type Options = {
     timeout?: number;
 };
 
-type HTTPMethod = (url: string, options?: Options) => Promise<any>
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
 
-function queryStringify(data: { [key: string]: any } = {}): string {
+function queryStringify(data: { [key: string]: unknown } = {}): string {
     if (!data || typeof data !== 'object') {
         throw new Error('Data must be object');
     }

@@ -1,7 +1,6 @@
 import chatsApi, { ChatsAPI } from "../api/chatsApi";
 import store from "../modules/store";
 import { closeModal } from "../utils/handlers";
-
 import { Indexed } from "../utils/helpers";
 import messagesController from "./messagesController";
 
@@ -12,18 +11,17 @@ export class ChatsController {
         this.api = chatsApi;
     }
 
-    //fetch
     async getChats(data: Indexed) {
         try {
-            const chats = await this.api.getChats(data);
+            const chats = await this.api.getChats(data) as Record<string, (string | number)>[];
 
-            chats.map(async (chat: Record<string, any>) => {
-                const token = await this.getToken(chat.id);
-                await messagesController.connect(chat.id, token);
+            chats.map(async (chat: Record<string, (string | number)>) => {
+                const token = await this.getToken(chat.id as number);
+                await messagesController.connect(chat.id as number, token);
             });
 
             store.set('chats', chats);
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error(e);
         }
     }
@@ -31,40 +29,39 @@ export class ChatsController {
     async showChats(data: Indexed) {
         try {
             await this.getChats(data);
-            console.log(store.getState());
 
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error(e);
         }
     }
 
-    //create
     async createChat(data: Indexed) {
         try {
             await this.api.createChat(data);
             this.getChats({});
             closeModal();
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error(e);
             const errorText: HTMLElement | null = document.querySelector('.modal-error');
             errorText?.classList.remove('hidden');
         }
     }
 
-    async deleteChat(id: number) {
+    async deleteChat() {
         try {
-            await this.api.deleteChat(id);
+            const chatId = this.getCurrentChatId();
+            await this.api.deleteChat({ chatId: chatId });
             this.getChats({});
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error(e);
         }
     }
 
     async getUsersByChatId(id: number) {
         try {
-            const users = await this.api.getUsersByChatId(id, { offset: 0});
+            const users = await this.api.getUsersByChatId(id, { offset: 0 });
             store.set('currentChatUsers', users);
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error(e);
         }
     }
@@ -73,7 +70,7 @@ export class ChatsController {
         try {
             const avatar = await this.api.changeChatAvatar(data);
             store.set('chats', avatar);
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error(e);
         }
     }
@@ -82,8 +79,8 @@ export class ChatsController {
         try {
             const chatId = this.getCurrentChatId();
             await this.api.addUsersToChat({ users: [userId], chatId: chatId });
-            await this.getUsersByChatId(chatId);            
-        } catch (e: any) {
+            await this.getUsersByChatId(chatId);
+        } catch (e: unknown) {
             console.error(e);
         }
     }
@@ -92,12 +89,11 @@ export class ChatsController {
         try {
             const chatId = this.getCurrentChatId();
             await this.api.deleteUsersFromChat({ users: [userId], chatId: chatId });
-            await this.getUsersByChatId(chatId);            
-        } catch (e: any) {
+            await this.getUsersByChatId(chatId);
+        } catch (e: unknown) {
             console.error(e);
         }
     }
-
 
     getToken(id: number) {
         return this.api.getToken(id);

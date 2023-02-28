@@ -17,6 +17,7 @@ const inputEmail = new InputBlock({
     }),
     class: 'form__group',
     forAttr: 'email',
+    error: 'email',
     labelText: 'E-mail',
 });
 
@@ -32,6 +33,7 @@ const inputLogin = new InputBlock({
     classAttr: 'form__group',
     labelText: 'Login',
     forAttr: 'login',
+    error: 'login',
 });
 
 const inputFirstName = new InputBlock({
@@ -45,6 +47,7 @@ const inputFirstName = new InputBlock({
     }),
     classAttr: 'form__group',
     forAttr: 'first_name',
+    error: 'first_name',
     labelText: 'Name',
 });
 
@@ -59,6 +62,7 @@ const inputSecondName = new InputBlock({
     }),
     classAttr: 'form__group',
     forAttr: 'second_name',
+    error: 'second_name',
     labelText: 'Last name',
 });
 
@@ -74,6 +78,7 @@ const inputPhone = new InputBlock({
     }),
     classAttr: 'form__group',
     forAttr: 'phone',
+    error: 'phone',
     labelText: 'Phone',
 });
 
@@ -87,7 +92,8 @@ const inputPassword = new InputBlock({
         events: inputHandlers
     }),
     classAttr: 'form__group',
-    forAttr: 'email',
+    forAttr: 'password',
+    error: 'password',
     labelText: 'Password',
 });
 

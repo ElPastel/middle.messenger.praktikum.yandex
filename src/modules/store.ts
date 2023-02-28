@@ -1,4 +1,3 @@
-import Block, { T } from "./block";
 import EventBus from "./event-bus";
 import { isEqual, set } from "../utils/helpers";
 
@@ -10,8 +9,14 @@ export class Store extends EventBus {
   private state: any = {};
 
   public set(keypath: string, value: unknown) {
-    set(this.state, keypath, value); 
+    set(this.state, keypath, value);
     this.emit(StoreEvents.Updated);
+  }
+
+  public clear() {
+    Object.keys(this.state).forEach((key) => {
+      this.set(key, null);
+    });
   }
 
   public getState() {
@@ -21,16 +26,18 @@ export class Store extends EventBus {
 
 const store = new Store();
 
-export function withStore(mapStateToProps: (state: any) => any) {
+type ConstractAble = { new(...args: any[]): any };
 
-  return function wrap(Component: typeof Block) {
+export function withStore(mapStateToProps: (state: Record<string, any>) => Record<string, any>) {
 
-    return class WithStore extends Component<T> {
+  return function wrap(Component: ConstractAble) {
+
+    return class WithStore extends Component {
 
       constructor(props: any) {
-      
-        let previousState = mapStateToProps(store.getState());
-        
+
+        const previousState = mapStateToProps(store.getState());
+
         super({ ...props, ...previousState });
 
         store.on(StoreEvents.Updated, () => {
@@ -41,7 +48,6 @@ export function withStore(mapStateToProps: (state: any) => any) {
           this.setProps({ ...stateProps });
         });
       }
-
     }
 
   }

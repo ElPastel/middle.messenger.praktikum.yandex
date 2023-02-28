@@ -1,6 +1,8 @@
-import authApi, { AuthAPI, SigninData, SignupData } from "../api/authApi";
+import authApi, { AuthAPI } from "../api/authApi";
 import router from "../modules/router";
 import store from "../modules/store";
+import { Indexed } from "../utils/helpers";
+import chatsController from "./chatsController";
 import messagesController from "./messagesController";
 
 export class AuthController {
@@ -10,41 +12,44 @@ export class AuthController {
     this.api = authApi;
   }
 
-  async signin(data: SigninData) {
+  async signin(data: Indexed) {
     try {
       await this.api.signin(data);
       await this.fetchUser();
+      await chatsController.getChats(store.getState().user.id)
       router.go('/chats');
-
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
     }
   }
 
-  async signup(data: SignupData) {
+  async signup(data: Indexed) {
     try {
       await this.api.signup(data);
       await this.fetchUser();
       router.go('/chats');
-    } catch (e: any) {
-      console.error(e.message);
+    } catch (e: unknown) {
+      console.error(e);
     }
   }
 
   async fetchUser() {
-      const user = await this.api.read();
-      // debugger
-      store.set('user', user);
-      // console.log(store.getState());
+    const user = await this.api.read();
+    store.set('user', user);
   }
 
   async logout() {
     try {
       await this.api.logout();
       messagesController.closeAll();
+      const root: HTMLElement | null = document.querySelector('.main');
+      while (root?.firstChild) {
+        root.removeChild(root.firstChild);
+      }
       router.go('/');
-    } catch (e: any) {
-      console.error(e.message);
+      store.clear();
+    } catch (e: unknown) {
+      console.error(e);
     }
   }
 }

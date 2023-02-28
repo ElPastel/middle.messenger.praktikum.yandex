@@ -22,6 +22,7 @@ const withUser = withStore((state) => ({
     avatar: state.user?.avatar,
     displayName: state.user?.display_name,
 }));
+
 const ChatMenuWithUser = withUser(ChatMenu);
 
 export default ChatMenuWithUser;

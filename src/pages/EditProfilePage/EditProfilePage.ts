@@ -9,6 +9,15 @@ import InputBlock from '../../components/inputBlock/inputBlock';
 import { Input } from '../../components/input/input';
 import { editHandler, inputHandlers } from '../../utils/handlers';
 
+interface IUser {
+    login: string,
+    email: string,
+    first_name: string,
+    second_name: string,
+    display_name: string | null,
+    phone: number
+}
+
 class EditProfilePage extends Block<T> {
     constructor(props: T) {
         super(props, 'div');
@@ -41,7 +50,7 @@ class EditProfilePage extends Block<T> {
                         nameAttr: 'email',
                         placeholderAttr: 'pochta@yandex.ru',
                         typeAttr: 'email',
-                        valueAttr: this.props.user ? this.props.user.email : '',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).email : '',
                         events: inputHandlers
                     }),
                     classAttr: 'form__group',
@@ -54,7 +63,7 @@ class EditProfilePage extends Block<T> {
                         nameAttr: 'login',
                         placeholderAttr: 'IvanIvanov001',
                         typeAttr: 'text',
-                        valueAttr: this.props.user ? this.props.user.login : '',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).login : '',
                         events: inputHandlers
                     }),
                     classAttr: 'form__group',
@@ -67,7 +76,7 @@ class EditProfilePage extends Block<T> {
                         nameAttr: 'first_name',
                         placeholderAttr: 'Ivan',
                         typeAttr: 'text',
-                        valueAttr: this.props.user ? this.props.user.first_name : '',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).first_name : '',
                         events: inputHandlers
                     }),
                     classAttr: 'form__group',
@@ -80,7 +89,7 @@ class EditProfilePage extends Block<T> {
                         nameAttr: 'second_name',
                         placeholderAttr: 'Ivanov',
                         typeAttr: 'text',
-                        valueAttr: this.props.user ? this.props.user.second_name : '',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).second_name : '',
                         events: inputHandlers
                     }),
                     classAttr: 'form__group',
@@ -93,7 +102,7 @@ class EditProfilePage extends Block<T> {
                         nameAttr: 'display_name',
                         placeholderAttr: 'MyName',
                         typeAttr: 'text',
-                        valueAttr: this.props.user ? this.props.user.display_name : '',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).display_name! : '',
                         events: inputHandlers
                     }),
                     classAttr: 'form__group',
@@ -106,7 +115,7 @@ class EditProfilePage extends Block<T> {
                         nameAttr: 'phone',
                         placeholderAttr: '89091234567',
                         typeAttr: 'tel',
-                        valueAttr: this.props.user ? this.props.user.phone : '',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).phone : '',
                         events: inputHandlers
                     }),
                     classAttr: 'form__group',

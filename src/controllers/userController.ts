@@ -2,7 +2,6 @@ import { Routes } from "..";
 import userApi, { UserAPI } from "../api/userApi";
 import router from "../modules/router";
 import store from "../modules/store";
-import user from "../user-data";
 import { closeModal } from "../utils/handlers";
 import { Indexed } from "../utils/helpers";
 import authController from "./authController";
@@ -19,7 +18,7 @@ export class UserController {
       await this.api.changeProfile(data);
       await authController.fetchUser();
       router.go(Routes.Profile)
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
     }
   }
@@ -28,7 +27,7 @@ export class UserController {
     try {
       await this.api.changePassword({ oldPassword: data.oldPassword, newPassword: data.newPassword });
       closeModal();
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
       const errorText: HTMLElement | null = document.querySelector('.password-error');
       errorText?.classList.remove('hidden');
@@ -40,7 +39,7 @@ export class UserController {
       const user = await this.api.changeAvatar(data);
       store.set('user', user);
       closeModal();
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
       const errorText: HTMLElement | null = document.querySelector('.modal-error');
       errorText?.classList.remove('hidden');
@@ -58,7 +57,7 @@ export class UserController {
       }
       closeModal();
       return result.id;
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
       const errorText: HTMLElement | null = document.querySelector('.modal-error');
       errorText?.classList.remove('hidden');
