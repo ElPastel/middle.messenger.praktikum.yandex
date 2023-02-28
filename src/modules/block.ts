@@ -1,6 +1,7 @@
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
 import { isEqual } from '../utils/helpers';
+import { withStore } from './store';
 
 type V = string | number | Record<string, (e: Event) => void> | Block<T>;
 export type T = Record<string, V>;
@@ -137,12 +138,22 @@ export default abstract class Block<Props extends T> {
 			const child = block.firstElementChild as HTMLElement;
 			if (child) {
 				this._removeEvents();
-				// debugger
-				this._element.innerHTML = '';
+				if (!(typeof this._element === withStore)) this._element.innerHTML = '';
 				this._element.appendChild(block);
 			}
 		}
+		// if (typeof block === 'string') return;
+		// const child = block.firstElementChild as HTMLElement;
+		// if (this._element && child) {
+		// 	this._element.replaceWith(child);
+		// }
+		// this._element = child;
+		// this._removeEvents();
+
 		this._addEvents();
+
+		const view: HTMLElement | null = document.querySelector('.chat-view');
+		if (view) view.scrollTop = view.scrollHeight;
 	}
 
 	abstract render(): DocumentFragment | string;

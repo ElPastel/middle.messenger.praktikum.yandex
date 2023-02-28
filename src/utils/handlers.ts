@@ -8,6 +8,7 @@ import authController from "../controllers/authController";
 import chatsController from "../controllers/chatsController";
 import userController from "../controllers/userController";
 import store from "../modules/store";
+import { Indexed } from "./helpers";
 import regExp from "./RegExp";
 import renderElement from "./renderElement";
 
@@ -333,5 +334,49 @@ const submitCreateChatHandler = {
 		// }))
 
 
+	}
+}
+
+export const addUser = function (e: Event) {
+	e.preventDefault();
+	const formData: { [key: string]: string } = {};
+	const formElement = e.target as HTMLFormElement;
+	const input = formElement?.querySelector('input');
+
+	if (input) formData[input.name] = input.value;
+
+	if (formData) {
+		console.log(formData);
+		let userId: Indexed;
+		userController.getUserByLogin(formData).then(res => {
+			userId = res
+			console.log(store.getState());
+			console.log(`USER ID: ${userId}`);
+			console.log(`CHAT ID: ${store.getState().currentChat}`);
+
+			chatsController.addUserToChat(userId);
+		});
+	}
+}
+
+export const deleteUser = function (e: Event) {
+	e.preventDefault();
+	const formData: { [key: string]: string } = {};
+	const formElement = e.target as HTMLFormElement;
+	const input = formElement?.querySelector('select');
+
+	if (input) formData[input.name] = input.value;
+
+	if (formData) {
+		console.log(formData);
+		let userId: Indexed;
+		userController.getUserByLogin(formData).then(res => {
+			userId = res
+			console.log(store.getState());
+			console.log(`USER ID: ${userId}`);
+			console.log(`CHAT ID: ${store.getState().currentChat}`);
+
+			chatsController.deleteUserFromChat(userId);
+		});
 	}
 }

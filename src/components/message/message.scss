@@ -2,17 +2,19 @@ $main-text-color: #343a4f;
 $user-background: rgb(228 121 76 / 10%);
 $companion-background: #f8f8f8;
 
-.msg-component-user {
+.msg-component-mine {
     display: flex;
 }
 
-.msg-component-companion {
+.msg-component {
     display: flex;
     justify-content: right;
 }
 
-.text-box-user {
+.text-box-mine {
     display: inline-block;
+    // display:block;
+    align-self: flex-end;
     background-color: $user-background;
     padding: 1rem;
     margin: 0.5rem 2rem;
@@ -23,8 +25,9 @@ $companion-background: #f8f8f8;
     position: relative;
 }
 
-.text-box-companion {
+.text-box {
     display: inline-block;
+    align-self: flex-start;
     background-color: $companion-background;
     padding: 1rem;
     margin: 0.5rem 2rem;

@@ -1,8 +1,9 @@
 .block-avatar
-    img.chat-avatar(src=`${last_message ? 'https://ya-praktikum.tech/api/v2/resources/' + last_message.user.avatar : '../../public/icon-profile.png'}`)
+    img.chat-avatar(src=last_message ? `https://ya-praktikum.tech/api/v2/resources/${last_message.user.avatar}` : '../../public/icon-profile.png')
 .block-text
     h4.title__displayname #{title}
     p.last-message #{last_message ? last_message.content : null}
 .block-data
-    .block-date #{last_message ? last_message.content : null}
-    div(class=`new-message${hiddenClass}`) #{unread_count}
+    .block-date #{last_message ? last_message.time : null}
+    div(class='new-message') #{unread_count}
+    //- div(class=unread_count ? 'new-message' : 'new-message-hidden') #{unread_count}

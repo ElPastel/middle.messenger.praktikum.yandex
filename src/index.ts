@@ -15,8 +15,7 @@ import Chats from './components/chats/chats';
 
 import store from './modules/store';
 import ChatSelectionWithChat from './components/chatSelection/chatSelection';
-import { buttonMenu, chatMenu, inputMenu, inputMsg, sectionEmpty, sectionSelection, sectionSelection, sectionView } from './pages/chatsPage/chatsPage';
-import { Input } from './components/input/input';
+import ChatsPageWithSelectedChat from './pages/chatsPage/chatsPage';
 
 // const root: HTMLElement = document.getElementById('root')!;
 // const headTitle: HTMLHeadElement = document.getElementById('head__title')!;
@@ -38,12 +37,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         .use(Routes.Index, LoginPage, loginPageProps)
         .use(Routes.Register, RegPage, regPageProps)
         .use(Routes.Profile, UserProfilePageWithUser, userProfilePageProps)
-        .use(Routes.Chats, Chats, {
-            sectionSelection: sectionSelection,
-            sectionEmpty: sectionEmpty,
-            sectionView: sectionView,
-            chatMenu: chatMenu,
-        })
+        .use(Routes.Chats, ChatsPageWithSelectedChat, {})
 
     let isProtectedRoute = true;
 
@@ -56,7 +50,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     try {
         await authController.fetchUser();
-        await chatsController.getChats({ offset: 0, limit: 10 });
+        // await chatsController.getChats({ offset: 0, limit: 10 });
 
         Router.start();
         if (window.location.pathname === Routes.Chats) {

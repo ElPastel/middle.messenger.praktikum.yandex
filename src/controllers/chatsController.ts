@@ -3,6 +3,7 @@ import store from "../modules/store";
 import { closeModal } from "../utils/handlers";
 
 import { Indexed } from "../utils/helpers";
+import messagesController from "./messagesController";
 
 export class ChatsController {
     private readonly api: ChatsAPI;
@@ -16,14 +17,12 @@ export class ChatsController {
         try {
             const chats = await this.api.getChats(data);
 
-            // chats.map(async (chat) => {
-            //     const token = await this.getToken(chat.id);
-
-            //     await MessagesController.connect(chat.id, token);
-            // });
+            chats.map(async (chat: Record<string, any>) => {
+                const token = await this.getToken(chat.id);
+                await messagesController.connect(chat.id, token);
+            });
 
             store.set('chats', chats);
-            console.log(store.getState().chats);
         } catch (e: any) {
             console.error(e);
         }
@@ -63,11 +62,8 @@ export class ChatsController {
 
     async getUsersByChatId(id: number) {
         try {
-            const user = await this.api.getUsersByChatId(id, { offset: 0, limit: 10 });
-            store.set('currentChat', {
-                id,
-                users: user
-            });
+            const users = await this.api.getUsersByChatId(id, { offset: 0});
+            store.set('currentChatUsers', users);
         } catch (e: any) {
             console.error(e);
         }
@@ -82,25 +78,37 @@ export class ChatsController {
         }
     }
 
-    async deleteUsersFromChat(data: Indexed) {
+    async addUserToChat(userId: Indexed) {
         try {
-            const users = await this.api.deleteUsersFromChat(data);
-            store.set('currentChat.users', users);
+            const chatId = this.getCurrentChatId();
+            await this.api.addUsersToChat({ users: [userId], chatId: chatId });
+            await this.getUsersByChatId(chatId);            
         } catch (e: any) {
             console.error(e);
         }
     }
 
-    async getToken(id: number) {
+    async deleteUserFromChat(userId: Indexed) {
         try {
-            await this.api.getToken(id);
+            const chatId = this.getCurrentChatId();
+            await this.api.deleteUsersFromChat({ users: [userId], chatId: chatId });
+            await this.getUsersByChatId(chatId);            
         } catch (e: any) {
             console.error(e);
         }
+    }
+
+
+    getToken(id: number) {
+        return this.api.getToken(id);
     }
 
     selectChat(id: number) {
-        store.set('selectedChat', id);
+        store.set('currentChat', id);
+    }
+
+    getCurrentChatId(): number {
+        return store.getState().currentChat ?? 0;
     }
 }
 

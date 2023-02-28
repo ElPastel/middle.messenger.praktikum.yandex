@@ -17,7 +17,7 @@ export class UserController {
   async changeProfile(data: Indexed) {
     try {
       await this.api.changeProfile(data);
-      await authController.fetchUser();  
+      await authController.fetchUser();
       router.go(Routes.Profile)
     } catch (e: any) {
       console.error(e);
@@ -40,6 +40,24 @@ export class UserController {
       const user = await this.api.changeAvatar(data);
       store.set('user', user);
       closeModal();
+    } catch (e: any) {
+      console.error(e);
+      const errorText: HTMLElement | null = document.querySelector('.modal-error');
+      errorText?.classList.remove('hidden');
+    }
+  }
+
+  async getUserByLogin(data: Indexed) {
+    try {
+      const users = await this.api.userByLogin(data);
+      const result = users.filter((user: Record<string, any>) => user.login === data.login)[0]
+
+      if (!result) {
+        const errorText: HTMLElement | null = document.querySelector('.modal-error');
+        errorText?.classList.remove('hidden');
+      }
+      closeModal();
+      return result.id;
     } catch (e: any) {
       console.error(e);
       const errorText: HTMLElement | null = document.querySelector('.modal-error');

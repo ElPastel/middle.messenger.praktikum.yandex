@@ -1,6 +1,7 @@
 import authApi, { AuthAPI, SigninData, SignupData } from "../api/authApi";
 import router from "../modules/router";
 import store from "../modules/store";
+import messagesController from "./messagesController";
 
 export class AuthController {
   private readonly api: AuthAPI;
@@ -40,6 +41,7 @@ export class AuthController {
   async logout() {
     try {
       await this.api.logout();
+      messagesController.closeAll();
       router.go('/');
     } catch (e: any) {
       console.error(e.message);

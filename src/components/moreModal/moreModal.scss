@@ -1,0 +1,31 @@
+.more-modal {
+    // display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: absolute;
+    top: 6.5rem;
+    right: 1rem;
+    width: 21rem;
+    background-color: #fff;
+    box-shadow: 0 0 6px rgba(0 0 0 / 14%);
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    gap: 1.6rem;
+    z-index: 10;
+
+    button {
+        background-color: #fff;
+        border: none;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1.5rem;
+        text-decoration: none;
+        display: flex;
+    }
+}
+
+.hidden {
+    display: none;
+}

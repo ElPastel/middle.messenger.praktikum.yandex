@@ -33,14 +33,19 @@ export class ChatSelection extends Block<T> {
 			};
 		});
 		return chats.map((data) => {
-			return new MessageBlock({...data, classAttr: 'message-block', events: {
-				click: (e: Event) => {
-					console.log('click chat');	
-					chatsController.selectChat(data.id);
-					(document.querySelector('.section__chat-empty') as HTMLElement).style.display = 'none';
-					(document.querySelector('.section__chat-view') as HTMLElement).style.display = 'grid';
+			return new MessageBlock({
+				...data, classAttr: 'message-block', events: {
+					click: (e: Event) => {
+						chatsController.selectChat(data.id);
+						chatsController.getUsersByChatId(data.id).then(res => console.log(res));
+						(document.querySelector('.section__chat-empty') as HTMLElement).style.display = 'none';
+						(document.querySelector('.section__chat-view') as HTMLElement).style.display = 'grid';
+						
+						const view: HTMLElement | null = document.querySelector('.chat-view');
+						if (view) view.scrollTop = view.scrollHeight;
+					}
 				}
-			}})
+			})
 		})
 	}
 
@@ -49,7 +54,7 @@ export class ChatSelection extends Block<T> {
 	}
 }
 
-const withChat =  withStore((state) => ({chats: [...(state.chats || [])]}));
+const withChat = withStore((state) => ({ chats: [...(state.chats || [])] }));
 const ChatSelectionWithChat = withChat(ChatSelection);
 
 export default ChatSelectionWithChat;
