@@ -1,7 +1,7 @@
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
 
-type V = string | number | boolean | Record<string, (e: Event) => void> | Block<T> | Record<string, any>[];
+type V = string | number | boolean | Record<string, (e: Event) => void> | Record<string, unknown> | Block<T> | Record<string, any>[];
 export type T = Record<string, V>;
 type Children = Record<string, Block<T>> | Record<string, Block<T>[]>;
 

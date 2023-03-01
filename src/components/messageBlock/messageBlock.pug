@@ -1,5 +1,8 @@
 .block-avatar
-    img.chat-avatar(src=(last_message && last_message.user.avatar) ? `https://ya-praktikum.tech/api/v2/resources/${last_message.user.avatar}` : '../../public/icon-profile.png')
+    if (last_message && last_message.user.avatar)
+        img.chat-avatar(src=`https://ya-praktikum.tech/api/v2/resources/${last_message.user.avatar}`)
+    else 
+        img.chat-avatar(src='../../../public/user.png')
     //- img.chat-avatar(src='../../public/icon-profile.png')
 .block-text
     h4.title__displayname #{title}

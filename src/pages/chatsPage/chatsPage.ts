@@ -123,16 +123,7 @@ class ChatsPage extends Block<T> {
                     route: '',
                     value: '',
                     icon: 'send',
-                    events: {
-                        click: () => {
-                            const input: HTMLInputElement | null = document.querySelector('.input__msg');
-                            if (input) {
-                                const message = input?.value;
-                                input.value = '';
-                                messagesController.sendMessage(this.props.currentChat as number, message);
-                            }
-                        }
-                    }
+                    typeAttr: 'submit',
                 }),
                 input: new Input({
                     classAttr: 'input__msg',
@@ -141,6 +132,17 @@ class ChatsPage extends Block<T> {
                     typeAttr: 'text',
                     valueAttr: '',
                 }),
+                events: {
+                    submit: (e: Event) => {
+                        e.preventDefault();
+                        const input: HTMLInputElement | null = document.querySelector('.input__msg');
+                        if (input) {
+                            const message = input?.value;
+                            input.value = '';
+                            messagesController.sendMessage(this.props.currentChat as number, message);
+                        }
+                    }
+                }
             }),
             sectionEmpty: new ChatEmpty({
                 classAttr: 'section__chat-empty',
@@ -154,8 +156,8 @@ class ChatsPage extends Block<T> {
                     icon: 'close',
                     events: hideMenuHandler
                 }),
-                avatar: null,
-                displayName: null,
+                avatar: '',
+                displayName: '',
                 btnProfile: new Button({
                     classAttr: 'btn__chatmenu',
                     linkColor: 'secondary',

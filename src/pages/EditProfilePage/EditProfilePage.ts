@@ -127,6 +127,10 @@ class EditProfilePage extends Block<T> {
         }
     }
 
+    protected componentDidMount(): void {
+        this.element.setAttribute('class', 'container flex-center');
+    }
+
     render() {
         return this.compile(template, this.props)
     }

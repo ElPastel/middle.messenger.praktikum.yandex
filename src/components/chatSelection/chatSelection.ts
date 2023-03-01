@@ -7,7 +7,6 @@ import chatsController from '../../controllers/chatsController';
 
 export class ChatSelection extends Block<T> {
 	constructor(props: T) {
-		// debugger
 		super(props, 'section');
 	}
 
@@ -15,7 +14,7 @@ export class ChatSelection extends Block<T> {
 		this.children.chats = this.makeChats(this.props);
 	}
 
-	protected componentDidUpdate(oldProps: T, newProps: T): boolean {
+	protected componentDidUpdate(_: T, newProps: T): boolean {
 		this.children.chats = this.makeChats(newProps);
 		return true;
 	}

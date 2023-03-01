@@ -4,13 +4,12 @@ import router from './modules/router';
 import chatsController from './controllers/chatsController';
 import authController from './controllers/authController';
 import UserProfilePageWithUser from './pages/userProfilePage/userProfilePage';
-import userProfilePageProps from './pages/userProfilePage/userProfilePageProps';
 import LoginPage from './pages/loginPage/loginPage';
-import loginPageProps from './pages/loginPage/loginPageProps';
 import RegPage from './pages/registrationPage/registrationPage';
-import regPageProps from './pages/registrationPage/registrationPageProps';
 import ChatsPageWithSelectedChat from './pages/chatsPage/chatsPage';
 import EditProfilePageWithUser from './pages/EditProfilePage/EditProfilePage';
+import ErrorPage404 from './pages/errorPage404/errorPage404';
+import ErrorPage500 from './pages/errorPage500/errorPage500';
 
 export enum Routes {
     Index = '/',
@@ -24,11 +23,13 @@ export enum Routes {
 
 window.addEventListener('DOMContentLoaded', async () => {
     router
-        .use(Routes.Index, LoginPage, loginPageProps)
-        .use(Routes.Register, RegPage, regPageProps)
-        .use(Routes.Profile, UserProfilePageWithUser, userProfilePageProps)
+        .use(Routes.Index, LoginPage, {})
+        .use(Routes.Register, RegPage, {})
+        .use(Routes.Profile, UserProfilePageWithUser, {})
         .use(Routes.Chats, ChatsPageWithSelectedChat, {})
         .use(Routes.Edit, EditProfilePageWithUser, {})
+        .use(Routes.Error404, ErrorPage404, {})
+        .use(Routes.Error500, ErrorPage500, {})
 
     let isProtectedRoute = true;
 

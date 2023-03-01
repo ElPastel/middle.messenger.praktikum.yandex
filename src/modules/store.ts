@@ -1,5 +1,6 @@
 import EventBus from "./event-bus";
 import { isEqual, set } from "../utils/helpers";
+import { T } from "./block";
 
 export enum StoreEvents {
   Updated = 'updated'
@@ -26,7 +27,7 @@ export class Store extends EventBus {
 
 const store = new Store();
 
-type ConstractAble = { new(...args: any[]): any };
+export type ConstractAble = { new(...args: any[]): any };
 
 export function withStore(mapStateToProps: (state: Record<string, any>) => Record<string, any>) {
 
@@ -34,7 +35,7 @@ export function withStore(mapStateToProps: (state: Record<string, any>) => Recor
 
     return class WithStore extends Component {
 
-      constructor(props: any) {
+      constructor(props: T) {
 
         const previousState = mapStateToProps(store.getState());
 

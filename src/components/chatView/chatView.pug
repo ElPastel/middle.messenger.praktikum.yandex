@@ -1,9 +1,9 @@
 nav.nav__chat-view 
     .nav__user 
-        img(src=chatAvatar ? `https://ya-praktikum.tech/api/v2/resources${chatAvatar}` : '../../../public/icon-profile.png')
+        //- img(src=chatAvatar ? `https://ya-praktikum.tech/api/v2/resources${chatAvatar}` : '../../../public/icon-profile.png')
         h3.nav__title #{chatTitle}
     div  !{buttonMore} !{moreModal}
 .chat-view 
     each val in messages 
         !=val
-.send-msg-block !{buttonFile} !{input} !{buttonSend}
+form.send-msg-block !{buttonFile} !{input} !{buttonSend}

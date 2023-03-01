@@ -1,6 +1,6 @@
-import Layout from "../pages/layout/layout";
 import { T } from "./block";
-import Route from "./route";
+import Route, { BlockTypes } from "./route";
+
 
 class Router {
     public routes: Route[];
@@ -22,7 +22,7 @@ class Router {
         Router.__instance = this;
     }
 
-    use(pathname: string, block: typeof Layout, blockProps: T) {
+    use(pathname: string, block: BlockTypes, blockProps: T) {
         const route = new Route(pathname, block, blockProps, { rootQuery: this._rootQuery });
 
         this.routes.push(route);
