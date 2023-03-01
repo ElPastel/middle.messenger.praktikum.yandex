@@ -1,5 +1,5 @@
-import { Indexed } from "../utils/helpers";
 import http from "../modules/http";
+import { Indexed } from "../utils/helpers";
 
 export class ChatsAPI {
     protected http: typeof http;
