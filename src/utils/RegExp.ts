@@ -10,8 +10,8 @@ const regExp: TRegExp = {
   email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.+[a-zA-Z]{2,4}$/, 
   password: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
   phone: /^[+]?[0-9]{10,15}$/, 
-  message: /^.+$/ ,
-  title: /^.+$/,
+  message:/.*\S.*/ ,
+  title: /^(?=.*[a-zA-Z])([a-zA-Z0-9-_]){3,20}$/,
 }
 
 export default regExp;

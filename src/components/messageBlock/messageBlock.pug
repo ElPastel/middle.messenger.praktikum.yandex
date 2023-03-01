@@ -1,9 +1,8 @@
 .block-avatar
-    if (last_message && last_message.user.avatar)
-        img.chat-avatar(src=`https://ya-praktikum.tech/api/v2/resources/${last_message.user.avatar}`)
+    if (avatar)
+        img.chat-avatar(src=`https://ya-praktikum.tech/api/v2/resources/${avatar}`)
     else 
-        img.chat-avatar(src='../../../public/user.png')
-    //- img.chat-avatar(src='../../public/icon-profile.png')
+        img.chat-avatar(src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABVElEQVR4nO2VvU4CQRSF56GoDBTG1gQTxJ/CgooECxMTirWwpCexorEwYucD4CNACyW4ZBUzZj2PcMnduAkQhQird0ZucZqZ2cn5zp67awCQzzLSBqAAkE8RWiHIJwkdYvgpI20ACgD5FKEVgnyS0CFGtsnE/S7ZTpvs0wPFg54/b+Dj7YUmrSuKgv058RrvOQ8w+cL8LITTAHG/+635VFnXyWR5me3crwTguVAA/FaFBj2/KwTfhxj/4TOKmTrxT8y7Hxn+WCbLy57DMd21H+n84pqK5Srld48SHZSryRrv8RnnAKx9p+bNLRX2jim3U1wqPsNn+Rm4ADAchXRWuVxpfFH8zHAUygJE0SuVTmo/Np/q8LSW3CEGUA8aa5tPVQ8acgCbms99SgGwrW8ADshIG4ACQD5FaIUgnyR0iOGnjLQBKADkU4RWCPJJQocY8mmuoymHavLA3Wry3QAAAABJRU5ErkJggg==')
 .block-text
     h4.title__displayname #{title}
     p.last-message #{last_message ? last_message.content : null}

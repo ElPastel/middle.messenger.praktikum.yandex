@@ -13,10 +13,10 @@ import ErrorPage500 from './pages/errorPage500/errorPage500';
 
 export enum Routes {
     Index = '/',
-    Register = '/signup',
+    Register = '/sign-up',
     Profile = '/profile',
-    Chats = '/chats',
-    Edit = '/editprofile',
+    Chats = '/messenger',
+    Edit = '/settings',
     Error404 = '/error404',
     Error500 = '/error500'
 }

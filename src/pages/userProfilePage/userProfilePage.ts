@@ -4,6 +4,7 @@ import { withStore } from '../../modules/store';
 import Button from '../../components/button/btn';
 import router from '../../modules/router';
 import User from '../../components/user/user';
+import { Routes } from '../..';
 
 interface IUser {
     first_name: string,
@@ -17,7 +18,7 @@ interface IUser {
 
 class UserProfilePage extends Block<T> {
     constructor(props: T) {
-        super(props, 'div');
+        super(props, 'main');
     }
 
     protected init(): void {
@@ -33,20 +34,20 @@ class UserProfilePage extends Block<T> {
                 phone: (this.props.user as unknown as IUser)?.phone || '',
                 buttonMain: new Button({
                     classAttr: 'btn__main',
-                    route: 'edituser',
+                    route: '',
                     value: 'Edit profile',
                     linkColor: 'main',
                     events: {
-                        click: () => router.go('/editprofile')
+                        click: () => router.go(Routes.Edit)
                     }
                 }),
                 buttonSecondary: new Button({
                     classAttr: 'btn__secondary',
-                    route: 'chats',
+                    route: '',
                     value: 'Back to chats',
                     linkColor: 'secondary',
                     events: {
-                        click: () => router.go('/chats')
+                        click: () => router.go(Routes.Chats)
                     }
                 }),
         })

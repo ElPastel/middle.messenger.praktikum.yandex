@@ -7,7 +7,7 @@ class Message extends Block<T> {
         super(props, 'div');
     }
 
-    protected componentDidMount(oldProps?: object | undefined): void {
+    protected componentDidMount(): void {
         const msgClass = this.props.isMine ? 'text-box-mine' : 'text-box';
         this.element.setAttribute('class', msgClass);
     }

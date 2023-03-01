@@ -1,3 +1,4 @@
+import { Routes } from '../..';
 import Button from '../../components/button/btn';
 import { Input } from '../../components/input/input';
 import InputBlock from '../../components/inputBlock/inputBlock';
@@ -9,7 +10,7 @@ import template from './loginPage.pug';
 
 class LoginPage extends Block<T> {
     constructor(props: T) {
-        super(props, 'div');
+        super(props, 'main');
     }
 
     protected init(): void {
@@ -19,17 +20,17 @@ class LoginPage extends Block<T> {
                 title: 'Sign in',
                 buttonMain: new Button({
                     classAttr: 'btn__main',
-                    route: 'chats',
+                    route: '',
                     value: 'Login',
                     linkColor: 'main',
                 }),
                 buttonSecondary: new Button({
                     classAttr: 'btn__secondary',
-                    route: 'signup',
+                    route: '',
                     value: 'Create an account',
                     linkColor: 'secondary',
                     events: {
-                        click: () => router.go('/signup')
+                        click: () => router.go(Routes.Register)
                     }
                 }),
                 inputLogin: new InputBlock({

@@ -17,10 +17,11 @@ import Block, { T } from '../../modules/block';
 import ChatViewWithMessages from '../../components/chatView/chatView';
 import chatsController from '../../controllers/chatsController';
 import InputWithChatUsers from '../../components/inputWithSelect/inputWithSelect';
+import { Routes } from '../..';
 
 class ChatsPage extends Block<T> {
     constructor(props: T) {
-        super(props, 'div');
+        super(props, 'main');
     }
 
     protected init(): void {
@@ -137,9 +138,9 @@ class ChatsPage extends Block<T> {
                         e.preventDefault();
                         const input: HTMLInputElement | null = document.querySelector('.input__msg');
                         if (input) {
-                            const message = input?.value;
+                            const message = input.value;
                             input.value = '';
-                            messagesController.sendMessage(this.props.currentChat as number, message);
+                            if (message) messagesController.sendMessage(this.props.currentChat as number, message);
                         }
                     }
                 }
@@ -161,11 +162,11 @@ class ChatsPage extends Block<T> {
                 btnProfile: new Button({
                     classAttr: 'btn__chatmenu',
                     linkColor: 'secondary',
-                    route: 'profile',
+                    route: '',
                     value: 'Profile',
                     icon: 'person_filled',
                     events: {
-                        click: () => router.go('/profile')
+                        click: () => router.go(Routes.Profile)
                     }
                 }),
                 btnNewChat: new Button({

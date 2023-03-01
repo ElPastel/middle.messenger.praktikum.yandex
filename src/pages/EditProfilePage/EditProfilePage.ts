@@ -8,6 +8,7 @@ import router from '../../modules/router';
 import InputBlock from '../../components/inputBlock/inputBlock';
 import { Input } from '../../components/input/input';
 import { editHandler, inputHandlers } from '../../utils/handlers';
+import { Routes } from '../..';
 
 interface IUser {
     login: string,
@@ -20,7 +21,7 @@ interface IUser {
 
 class EditProfilePage extends Block<T> {
     constructor(props: T) {
-        super(props, 'div');
+        super(props, 'main');
     }
 
     protected init(): void {
@@ -30,17 +31,18 @@ class EditProfilePage extends Block<T> {
                 title: 'Edit profile',
                 buttonMain: new Button({
                     classAttr: 'btn__main',
-                    route: 'user',
+                    typeAttr: 'submit',
+                    route: '',
                     value: 'Save',
                     linkColor: 'main'
                 }),
                 buttonSecondary: new Button({
                     classAttr: 'btn__secondary',
-                    route: 'chats',
+                    route: '',
                     value: 'Back to chats',
                     linkColor: 'secondary',
                     events: {
-                        click: () => router.go('/chats')
+                        click: () => router.go(Routes.Chats)
                     }
                 }),
                 inputEmail: new InputBlock({

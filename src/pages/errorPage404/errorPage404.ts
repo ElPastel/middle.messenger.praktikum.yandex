@@ -4,11 +4,12 @@ import Block, { T } from '../../modules/block';
 import './errorPage404.scss';
 import template from './errorPage404.pug';
 import router from "../../modules/router";
+import { Routes } from "../..";
 
 
 class ErrorPage404 extends Block<T> {
     constructor(props: T) {
-        super(props, 'div');
+        super(props, 'main');
     }
 
     protected init(): void {
@@ -21,7 +22,7 @@ class ErrorPage404 extends Block<T> {
                     value: 'Back to homepage',
                     linkColor: 'secondary',
                     events: {
-                        click: () => router.go('/chats'),
+                        click: () => router.go(Routes.Chats),
                     }
                 }),
                 errorNumber: 404,

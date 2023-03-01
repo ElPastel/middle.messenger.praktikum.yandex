@@ -7,10 +7,11 @@ import Button from '../../components/button/btn';
 import router from '../../modules/router';
 import InputBlock from '../../components/inputBlock/inputBlock';
 import { Input } from '../../components/input/input';
+import { Routes } from '../..';
 
 class RegPage extends Block<T> {
     constructor(props: T) {
-        super(props, 'div');
+        super(props, 'main');
     }
 
     protected init(): void {
@@ -20,17 +21,17 @@ class RegPage extends Block<T> {
                 title: 'Sign up',
                 buttonMain: new Button({
                     classAttr: 'btn__main',
-                    route: 'chats',
+                    route: '',
                     value: 'Create an account',
                     linkColor: 'main',
                 }),
                 buttonSecondary: new Button({
                     classAttr: 'btn__secondary',
-                    route: 'signin',
+                    route: '',
                     value: 'Sign in',
                     linkColor: 'secondary',
                     events: {
-                        click: () => router.go('/')
+                        click: () => router.go(Routes.Index)
                     }
                 }),
                 inputEmail: new InputBlock({
