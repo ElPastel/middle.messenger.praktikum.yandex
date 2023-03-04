@@ -12,9 +12,9 @@ type Options = {
     timeout?: number;
 };
 
-type HTTPMethod = (url: string, options?: Options) => Promise<XMLHttpRequest>
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
 
-function queryStringify(data: { [key: string]: any } = {}): string {
+function queryStringify(data: { [key: string]: unknown } = {}): string {
     if (!data || typeof data !== 'object') {
         throw new Error('Data must be object');
     }
@@ -24,25 +24,32 @@ function queryStringify(data: { [key: string]: any } = {}): string {
         return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
     }, '?');
 }
+const API_URL = 'https://ya-praktikum.tech/api/v2';
 
 class HttpTransport {
-    get: HTTPMethod = (url, options = {}) => {
+    private readonly _apiUrl;
+
+    constructor(apiUrl: string) {
+        this._apiUrl = apiUrl;
+    }
+
+    public get: HTTPMethod = (url, options = {}) => {
         return this.request(url + queryStringify(options.data), { ...options, method: METHODS.GET }, options.timeout);
     };
 
-    post: HTTPMethod = (url, options = {}) => {
+    public post: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
     };
 
-    put: HTTPMethod = (url, options = {}) => {
+    public put: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
     };
 
-    delete: HTTPMethod = (url, options = {}) => {
+    public delete: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
     };
 
-    request = (url: string, options: Options = { method: METHODS.GET }, timeout = 5000): Promise<XMLHttpRequest> => {
+    private request = (url: string, options: Options = { method: METHODS.GET }, timeout = 5000): Promise<XMLHttpRequest> => {
         const { headers = {}, data, method } = options;
 
         return new Promise((resolve, reject) => {
@@ -54,15 +61,20 @@ class HttpTransport {
             const xhr = new XMLHttpRequest();
             const isGet = method === METHODS.GET;
 
-            xhr.open(
-                method,
-                isGet && !!data
-                    ? `${url}${queryStringify(data)}`
-                    : url,
-            );
+            xhr.open(method, `${this._apiUrl}${url}`);
+
             Object.entries(headers).forEach(([header, value]) => xhr.setRequestHeader(header, value));
 
-            xhr.onload = () => resolve(xhr);
+            xhr.onreadystatechange = () => {
+
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status < 400) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(xhr.response);
+                    }
+                }
+            };
 
             xhr.onabort = reject;
             xhr.onerror = reject;
@@ -70,8 +82,17 @@ class HttpTransport {
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 
-            if (isGet || !data) {
+            xhr.withCredentials = true;
+            xhr.responseType = 'json';
+
+            if (!(data instanceof FormData)) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+            }
+
+            if (isGet && !data) {
                 xhr.send();
+            } else if (data instanceof FormData) {
+                xhr.send(data as XMLHttpRequestBodyInit);
             } else {
                 xhr.send(JSON.stringify(data));
             }
@@ -79,4 +100,4 @@ class HttpTransport {
     };
 }
 
-export default HttpTransport;
+export default new HttpTransport(API_URL);

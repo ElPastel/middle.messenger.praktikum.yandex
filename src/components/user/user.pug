@@ -1,16 +1,28 @@
-img.avatar(src='' alt='User avatar')
-h2.title__displayname #{'#{displayName}'}
+- const avatarPath = avatar
+if (avatarPath)
+    img.avatar(src=`https://ya-praktikum.tech/api/v2/resources/${avatarPath}` alt='User avatar')
+else 
+    img.avatar(src='' alt='User avatar')
+- const display = displayName
+- const firstname = firstName
+if (display)
+    h2.title__displayname= display 
+else
+    h2.title__displayname= firstname     
 .userdata
     p.profile__subtitle E-mail  
-    p #{'#{email}'}
+    p #{email}
     p.profile__subtitle Login  
-    p #{'#{login}'}
+    p #{login}
     p.profile__subtitle Name  
-    p #{'#{firstName}'}
+    p #{firstName}
     p.profile__subtitle Last name  
-    p #{'#{secondName}'} 
-    p.profile__subtitle Display name  
-    p #{'#{displayName}'}
+    p #{secondName}
+    p.profile__subtitle Display name 
+    if (display)
+        p= display
+    else 
+        p= firstname
     p.profile__subtitle Phone  
-    p #{'#{phone}'}
-.form__btns #{`!{buttonMain}`} #{`!{buttonSecondary}`}
+    p #{phone}
+.form__btns !{buttonMain} !{buttonSecondary}

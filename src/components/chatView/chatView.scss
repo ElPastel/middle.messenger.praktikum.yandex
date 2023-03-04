@@ -5,18 +5,27 @@ $peach-color: #e4794c;
 $chats-border-color: #eaeaea;
 
 .section__chat-view {
-    display: grid;
+    display: none;
     grid-template-rows: 5.4rem auto 5.4rem;
     justify-items: stretch;
     background-color: #fff;
+    height: 100vh;
 }
 
 .nav__chat-view {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
     border-bottom: 1px solid $chats-border-color;
+}
+
+.chat-view {
+    display: flex;
+    flex-shrink: 1;
+    flex-direction: column;
+    overflow-y: scroll;
 }
 
 .nav__user {
@@ -35,7 +44,7 @@ $chats-border-color: #eaeaea;
     border-radius: 50%;
 }
 
-.nav__user-displayname {
+.nav__title {
     font-size: 1.3rem;
 }
 
@@ -49,6 +58,7 @@ $chats-border-color: #eaeaea;
 
 .send-msg-block {
     display: flex;
+    gap: 2rem;
     align-items: center;
     justify-content: space-between;
     padding: 1.1rem 2rem;

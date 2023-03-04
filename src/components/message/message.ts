@@ -4,16 +4,16 @@ import template from './message.pug';
 
 class Message extends Block<T> {
     constructor(props: T) {
-        super('div', props);
+        super(props, 'div');
+    }
+
+    protected componentDidMount(): void {
+        const msgClass = this.props.isMine ? 'text-box-mine' : 'text-box';
+        this.element.setAttribute('class', msgClass);
     }
 
     render() {
-        return this.compile(template(this.props), {
-            class: this.props.class,
-            date: this.props.date,
-            msgText: this.props.msgText,
-            events: this.props.events,
-        })
+        return this.compile(template, this.props)
     }
 }
 

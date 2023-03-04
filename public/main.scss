@@ -68,14 +68,20 @@ body {
     justify-content: center;
     width: 34rem;
     background-color: $form-color;
-    box-shadow: 0 0 6px rgba(0 0 0 / 14%);
+    box-shadow: 0 0 6px rgba(0 0 0 / 34%);
     border-radius: 1.2rem;
     padding: 3rem 3rem 2rem;
-    gap: 3rem;
+    gap: 2rem;
 }
 
 .form__title {
     font-size: 2rem;
+    font-weight: 500;
+    color: $main-text-color;
+}
+
+.form__title-s {
+    font-size: 1.5rem;
     font-weight: 500;
     color: $main-text-color;
 }
@@ -93,5 +99,26 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 1.4rem;
-    padding-top: 3rem;
+    padding-top: 1.5rem;
+}
+
+// ICONS
+
+.btn__close-modal {
+    height: 2.4rem;
+    width: 2.4rem;
+    border: none;
+    background-color: inherit;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
 }

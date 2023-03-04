@@ -1,69 +1,78 @@
-import Input from '../../components/input/input';
+import { Routes } from '../..';
 import Button from '../../components/button/btn';
-import LoginForm from '../../components/loginForm/loginForm';
-import Layout from '../layout/layout';
+import { Input } from '../../components/input/input';
 import InputBlock from '../../components/inputBlock/inputBlock';
-import { inputHandlers, submitHandler } from '../../utils/handlers';
+import LoginForm from '../../components/loginForm/loginForm';
+import Block, { T } from '../../modules/block';
+import router from '../../modules/router';
+import { inputHandlers, submitHandlerLog } from '../../utils/handlers';
+import template from './loginPage.pug';
 
+class LoginPage extends Block<T> {
+    constructor(props: T) {
+        super(props, 'main');
+    }
 
-const inputLogin = new InputBlock({
-    input: new Input({
-        classAttr: 'form__input',
-        nameAttr: 'login',
-        placeholderAttr: 'IvanIvanov001',
-        typeAttr: 'text',
-        valueAttr: '',
-        events: inputHandlers
-    }),
-    classAttr: 'form__group',
-    labelText: 'Login',
-    forAttr: 'login',
-});
+    protected init(): void {
+        this.children = {
+            content: new LoginForm({
+                classAttr: 'form__box flex-form signin',
+                title: 'Sign in',
+                buttonMain: new Button({
+                    classAttr: 'btn__main',
+                    route: '',
+                    value: 'Login',
+                    linkColor: 'main',
+                }),
+                buttonSecondary: new Button({
+                    classAttr: 'btn__secondary',
+                    route: '',
+                    value: 'Create an account',
+                    linkColor: 'secondary',
+                    events: {
+                        click: () => router.go(Routes.Register)
+                    }
+                }),
+                inputLogin: new InputBlock({
+                    input: new Input({
+                        classAttr: 'form__input',
+                        nameAttr: 'login',
+                        placeholderAttr: 'IvanIvanov001',
+                        typeAttr: 'text',
+                        valueAttr: '',
+                        events: inputHandlers
+                    }),
+                    classAttr: 'form__group',
+                    labelText: 'Login',
+                    forAttr: 'login',
+                    error: 'login',
+                }),
+                inputPassword: new InputBlock({
+                    input: new Input({
+                        classAttr: 'form__input',
+                        nameAttr: 'password',
+                        placeholderAttr: '••••••••',
+                        typeAttr: 'password',
+                        valueAttr: '',
+                        events: inputHandlers
+                    }),
+                    classAttr: 'form__group',
+                    forAttr: 'password',
+                    error: 'password',
+                    labelText: 'Password',
+                }),
+                events: submitHandlerLog
+            })
+        }
+    }
 
-const inputPassword = new InputBlock({
-    input: new Input({
-        classAttr: 'form__input',
-        nameAttr: 'password',
-        placeholderAttr: '••••••••',
-        typeAttr: 'password',
-        valueAttr: '',
-        events: inputHandlers
-    }),
-    classAttr: 'form__group',
-    forAttr: 'email',
-    labelText: 'Password',
-});
+    protected componentDidMount(): void {
+        this.element.setAttribute('class', 'container flex-center');
+    }
 
+    render() {
+        return this.compile(template, this.props);
+    }
+}
 
-const buttonMain = new Button({
-    classAttr: 'btn__main',
-    route: 'chats',
-    value: 'Login',
-    linkColor: 'main'
-});
-
-const buttonSecondary = new Button({
-    classAttr: 'btn__secondary',
-    route: 'signup',
-    value: 'Create an account',
-    linkColor: 'secondary'
-});
-
-const loginForm = new LoginForm({
-    classAttr: 'form__box flex-form',
-    title: 'Sign in',
-    buttonMain: buttonMain,
-    buttonSecondary: buttonSecondary,
-    inputLogin: inputLogin,
-    inputPassword: inputPassword,
-    events: submitHandler
-});
-
-const layout = new Layout({
-    classAttr: 'container flex-center',
-    content: loginForm
-})
-
-const loginPage = layout;
-
-export default loginPage;
+export default LoginPage;

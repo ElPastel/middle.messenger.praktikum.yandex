@@ -1,113 +1,145 @@
-import Input from '../../components/input/input';
-import Button from '../../components/button/btn';
+import Block, { T } from '../../modules/block';
+import './EditProfilePage.scss';
+import template from './EditProfilePage.pug';
+import { withStore } from '../../modules/store';
 import RegistrationForm from '../../components/registrationForm/registrationForm';
-import Layout from '../layout/layout';
-import userData from '../../user-data';
+import Button from '../../components/button/btn';
+import router from '../../modules/router';
 import InputBlock from '../../components/inputBlock/inputBlock';
-import { inputHandlers, submitHandler } from '../../utils/handlers';
+import { Input } from '../../components/input/input';
+import { editHandler, inputHandlers } from '../../utils/handlers';
+import { Routes } from '../..';
 
-const inputEmail = new InputBlock({
-    input: new Input({
-        classAttr: 'form__input',
-        nameAttr: 'email',
-        placeholderAttr: 'pochta@yandex.ru',
-        typeAttr: 'email',
-        valueAttr: userData.email,
-        events: inputHandlers
-    }),
-    classAttr: 'form__group',
-    forAttr: 'email',
-    labelText: 'E-mail',
-});
+interface IUser {
+    login: string,
+    email: string,
+    first_name: string,
+    second_name: string,
+    display_name: string | null,
+    phone: number
+}
 
-const inputLogin = new InputBlock({
-    input: new Input({
-        classAttr: 'form__input',
-        nameAttr: 'login',
-        placeholderAttr: 'IvanIvanov001',
-        typeAttr: 'text',
-        valueAttr: userData.login,
-        events: inputHandlers
-    }),
-    classAttr: 'form__group',
-    labelText: 'Login',
-    forAttr: 'login',
-});
+class EditProfilePage extends Block<T> {
+    constructor(props: T) {
+        super(props, 'main');
+    }
 
-const inputFirstName = new InputBlock({
-    input: new Input({
-        classAttr: 'form__input',
-        nameAttr: 'first_name',
-        placeholderAttr: 'Ivan',
-        typeAttr: 'text',
-        valueAttr: userData.first_name,
-        events: inputHandlers
-    }),
-    classAttr: 'form__group',
-    forAttr: 'first_name',
-    labelText: 'Name',
-});
+    protected init(): void {
+        this.children = {
+            content: new RegistrationForm({
+                classAttr: 'form__box form__ediprofile',
+                title: 'Edit profile',
+                buttonMain: new Button({
+                    classAttr: 'btn__main',
+                    typeAttr: 'submit',
+                    route: '',
+                    value: 'Save',
+                    linkColor: 'main'
+                }),
+                buttonSecondary: new Button({
+                    classAttr: 'btn__secondary',
+                    route: '',
+                    value: 'Back to chats',
+                    linkColor: 'secondary',
+                    events: {
+                        click: () => router.go(Routes.Chats)
+                    }
+                }),
+                inputEmail: new InputBlock({
+                    input: new Input({
+                        classAttr: 'form__input',
+                        idAttr: 'email',
+                        nameAttr: 'email',
+                        placeholderAttr: 'pochta@yandex.ru',
+                        typeAttr: 'email',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).email : '',
+                        events: inputHandlers
+                    }),
+                    classAttr: 'form__group',
+                    forAttr: 'email',
+                    labelText: 'E-mail',
+                }),
+                inputLogin: new InputBlock({
+                    input: new Input({
+                        classAttr: 'form__input',
+                        nameAttr: 'login',
+                        placeholderAttr: 'IvanIvanov001',
+                        typeAttr: 'text',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).login : '',
+                        events: inputHandlers
+                    }),
+                    classAttr: 'form__group',
+                    labelText: 'Login',
+                    forAttr: 'login',
+                }),
+                inputFirstName: new InputBlock({
+                    input: new Input({
+                        classAttr: 'form__input',
+                        nameAttr: 'first_name',
+                        placeholderAttr: 'Ivan',
+                        typeAttr: 'text',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).first_name : '',
+                        events: inputHandlers
+                    }),
+                    classAttr: 'form__group',
+                    forAttr: 'first_name',
+                    labelText: 'Name',
+                }),
+                inputSecondName: new InputBlock({
+                    input: new Input({
+                        classAttr: 'form__input',
+                        nameAttr: 'second_name',
+                        placeholderAttr: 'Ivanov',
+                        typeAttr: 'text',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).second_name : '',
+                        events: inputHandlers
+                    }),
+                    classAttr: 'form__group',
+                    forAttr: 'second_name',
+                    labelText: 'Last name',
+                }),
+                inputDisplayName: new InputBlock({
+                    input: new Input({
+                        classAttr: 'form__input',
+                        nameAttr: 'display_name',
+                        placeholderAttr: 'MyName',
+                        typeAttr: 'text',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).display_name! : '',
+                        events: inputHandlers
+                    }),
+                    classAttr: 'form__group',
+                    forAttr: 'display_name',
+                    labelText: 'Display name',
+                }),
+                inputPhone: new InputBlock({
+                    input: new Input({
+                        classAttr: 'form__input',
+                        nameAttr: 'phone',
+                        placeholderAttr: '89091234567',
+                        typeAttr: 'tel',
+                        valueAttr: this.props.user ? (this.props.user as unknown as IUser).phone : '',
+                        events: inputHandlers
+                    }),
+                    classAttr: 'form__group',
+                    forAttr: 'phone',
+                    labelText: 'Phone',
+                }),
+                events: editHandler
+            })
+        }
+    }
 
-const inputSecondName = new InputBlock({
-    input: new Input({
-        classAttr: 'form__input',
-        nameAttr: 'second_name',
-        placeholderAttr: 'Ivanov',
-        typeAttr: 'text',
-        valueAttr: userData.second_name,
-        events: inputHandlers
-    }),
-    classAttr: 'form__group',
-    forAttr: 'second_name',
-    labelText: 'Last name',
-});
+    protected componentDidMount(): void {
+        this.element.setAttribute('class', 'container flex-center');
+    }
 
-const inputPhone = new InputBlock({
-    input: new Input({
-        classAttr: 'form__input',
-        nameAttr: 'phone',
-        placeholderAttr: '89091234567',
-        typeAttr: 'tel',
-        valueAttr: userData.phone,
-        events: inputHandlers
-    }),
-    classAttr: 'form__group',
-    forAttr: 'phone',
-    labelText: 'Phone',
-});
+    render() {
+        return this.compile(template, this.props)
+    }
+}
 
-const buttonMain = new Button({
-    classAttr: 'btn__main',
-    route: 'user',
-    value: 'Save',
-    linkColor: 'main'
-});
+const withUser = withStore((state) => ({ user: { ...(state.user || {}) } }));
+const EditProfilePageWithUser = withUser(EditProfilePage);
 
-const buttonSecondary = new Button({
-    classAttr: 'btn__secondary',
-    route: 'chats',
-    value: 'Back to chats',
-    linkColor: 'secondary'
-});
+export default EditProfilePageWithUser;
 
-const registrationForm = new RegistrationForm({
-    classAttr: 'form__box', 
-    title: 'Edit profile',
-    buttonMain: buttonMain,
-    buttonSecondary: buttonSecondary,
-    inputEmail: inputEmail,
-    inputLogin: inputLogin,
-    inputFirstName: inputFirstName,
-    inputSecondName: inputSecondName,
-    inputPhone: inputPhone,
-    events: submitHandler
-});
-
-const layout = new Layout({
-    classAttr: 'container flex-center',
-    content: registrationForm
-})
-
-const editProfilePage = layout;
-
-export default editProfilePage;

@@ -4,15 +4,11 @@ import template from './chats.pug';
 
 class Chats extends Block<T> {
     constructor(props: T) {
-        super('div', props);
+        super(props, 'div');
     }
 
     render() {
-        return this.compile(template(this.props), {
-            class: this.props.class,
-            sectionSelection: this.props.sectionSelection,
-            sectionView: this.props.sectionView,
-        })
+        return this.compile(template, this.props)
     }
 }
 

@@ -1,109 +1,226 @@
 import './chatsPage.scss';
 import Button from '../../components/button/btn';
-import Input from '../../components/input/input';
-import MessageBlock from '../../components/messageBlock/messageBlock';
+import template from './chatsPage.pug';
 import Chats from '../../components/chats/chats';
-import ChatView from '../../components/chatView/chatView';
-import ChatSelection from '../../components/chatSelection/chatSelection';
+import ChatMenu from '../../components/chatMenu/chatMenu';
+import { addUserHandler, changeAvatarHandler, changePasswordHandler, closeModal, closeModalHandler, createNewChatHandler, deleteChatHandler, deleteUser, hideMenuHandler, logoutHandler, moreModalHandler } from '../../utils/handlers';
+import router from '../../modules/router';
+import ChatEmpty from '../../components/chatEmpty/chatEmpty';
+import { Input } from '../../components/input/input';
+import ChatSelectionWithChat from '../../components/chatSelection/chatSelection';
+import MoreModal from '../../components/moreModal/moreModal';
+import renderElement from '../../utils/renderElement';
+import ModalForm from '../../components/modalForm/modalForm';
+import messagesController from '../../controllers/messagesController';
+import { withStore } from '../../modules/store';
+import Block, { T } from '../../modules/block';
+import ChatViewWithMessages from '../../components/chatView/chatView';
+import chatsController from '../../controllers/chatsController';
+import InputWithChatUsers from '../../components/inputWithSelect/inputWithSelect';
+import { Routes } from '../..';
 
-export const buttonMenu = new Button({
-    classAttr: 'btn__menu',
-    route: '',
-    value: '',
-    icon: 'menu'
-});
+class ChatsPage extends Block<T> {
+    constructor(props: T) {
+        super(props, 'main');
+    }
 
-export const buttonMore = new Button({
-    classAttr: 'btn__more',
-    route: '',
-    value: '',
-    icon: 'more_vert'
-});
+    protected init(): void {
+        chatsController.getChats({});
 
-export const buttonFile = new Button({
-    classAttr: 'btn__file',
-    route: '',
-    value: '',
-    icon: 'attach_file'
-});
+        this.children.content = new Chats({
+            sectionSelection: new ChatSelectionWithChat({
+                classAttr: 'section__chat-selection',
+                button: new Button({
+                    classAttr: 'btn__menu',
+                    route: '',
+                    value: '',
+                    icon: 'menu',
+                    events: hideMenuHandler
+                }),
+                input: new Input({
+                    classAttr: 'input__menu',
+                    nameAttr: 'search',
+                    placeholderAttr: 'Search',
+                    typeAttr: 'text',
+                    valueAttr: '',
+                }),
+            }),
+            sectionView: new ChatViewWithMessages({
+                classAttr: 'section__chat-view',
+                buttonMore: new Button({
+                    classAttr: 'btn__more',
+                    route: '',
+                    value: '',
+                    icon: 'more_vert',
+                    events: moreModalHandler
+                }),
+                moreModal: new MoreModal({
+                    buttonAddUser: new Button({
+                        classAttr: 'btn__more-modal',
+                        linkColor: 'secondary',
+                        value: 'Add user',
+                        icon: 'person_add',
+                        events: addUserHandler
+                    }),
+                    buttonDeleteUser: new Button({
+                        classAttr: 'btn__more-modal',
+                        linkColor: 'secondary',
+                        value: 'Delete user',
+                        icon: 'person_remove',
+                        events: {
+                            click: () => {
+                                const modal = document.querySelector('.more-modal') as HTMLElement;
+                                modal.classList.add('hidden');
 
-export const buttonSend = new Button({
-    classAttr: 'btn__send',
-    route: '',
-    value: '',
-    icon: 'send'
-});
+                                const overlay = document.querySelector('.overlay');
+                                overlay?.classList.remove('hidden');
 
-const inputMenu = new Input({
-    classAttr: 'input__menu',
-    nameAttr: 'search',
-    placeholderAttr: 'Search',
-    typeAttr: 'text',
-    valueAttr: '',
-});
+                                renderElement('.main', new ModalForm({
+                                    classAttr: 'form__box flex-form modal',
+                                    buttonClose: new Button({
+                                        classAttr: 'btn__close-modal',
+                                        route: '',
+                                        value: '',
+                                        icon: 'close',
+                                        events: closeModalHandler
+                                    }),
+                                    title: 'Delete user',
+                                    formName: 'deleteuser',
+                                    input: new InputWithChatUsers({
+                                        options: this.props.currentChatUsers,
+                                    }),
+                                    buttonMain: new Button({
+                                        classAttr: 'btn__main btn__deleteuser',
+                                        value: 'Delete',
+                                        linkColor: 'main',
+                                    }),
+                                    events: {
+                                        submit: deleteUser
+                                    }
+                                }))
 
-const inputMsg = new Input({
-    classAttr: 'input__msg',
-    nameAttr: 'message',
-    placeholderAttr: 'Message',
-    typeAttr: 'text',
-    valueAttr: '',
-});
+                                const focusEl: HTMLButtonElement | null = document.querySelector('.btn__deleteuser');
+                                focusEl?.focus();
+                                overlay?.addEventListener('click', () => closeModal());
+                            }
+                        }
+                    }),
+                    buttonDeleteChat: new Button({
+                        classAttr: 'btn__more-modal',
+                        linkColor: 'secondary',
+                        value: 'Delete chat',
+                        icon: 'chat_error',
+                        events: deleteChatHandler
+                    })
+                }),
+                buttonFile: new Button({
+                    classAttr: 'btn__file',
+                    route: '',
+                    value: '',
+                    icon: 'attach_file'
+                }),
+                buttonSend: new Button({
+                    classAttr: 'btn__send',
+                    route: '',
+                    value: '',
+                    icon: 'send',
+                    typeAttr: 'submit',
+                }),
+                input: new Input({
+                    classAttr: 'input__msg',
+                    nameAttr: 'message',
+                    placeholderAttr: 'Message',
+                    typeAttr: 'text',
+                    valueAttr: '',
+                }),
+                events: {
+                    submit: (e: Event) => {
+                        e.preventDefault();
+                        const input: HTMLInputElement | null = document.querySelector('.input__msg');
+                        if (input) {
+                            const message = input.value;
+                            input.value = '';
+                            if (message) messagesController.sendMessage(this.props.currentChat as number, message);
+                        }
+                    }
+                }
+            }),
+            sectionEmpty: new ChatEmpty({
+                classAttr: 'section__chat-empty',
+            }),
+            chatMenu: new ChatMenu({
+                classAttr: 'menu menu-hide',
+                btnClose: new Button({
+                    classAttr: 'btn__close',
+                    route: '',
+                    value: '',
+                    icon: 'close',
+                    events: hideMenuHandler
+                }),
+                avatar: '',
+                displayName: '',
+                btnProfile: new Button({
+                    classAttr: 'btn__chatmenu',
+                    linkColor: 'secondary',
+                    route: '',
+                    value: 'Profile',
+                    icon: 'person_filled',
+                    events: {
+                        click: () => router.go(Routes.Profile)
+                    }
+                }),
+                btnNewChat: new Button({
+                    classAttr: 'btn__chatmenu',
+                    linkColor: 'secondary',
+                    route: '',
+                    value: 'New chat',
+                    icon: 'add',
+                    events: createNewChatHandler
+                }),
+                btnChangeAvatar: new Button({
+                    classAttr: 'btn__chatmenu',
+                    linkColor: 'secondary',
+                    route: '',
+                    value: 'Change avatar',
+                    icon: 'account_circle',
+                    events: changeAvatarHandler
+                }),
+                btnChangePassword: new Button({
+                    classAttr: 'btn__chatmenu',
+                    linkColor: 'secondary',
+                    route: '',
+                    value: 'Change password',
+                    icon: 'lock',
+                    events: changePasswordHandler
+                }),
+                btnLogout: new Button({
+                    classAttr: 'btn__chatmenu',
+                    linkColor: 'secondary',
+                    route: '',
+                    value: 'Logout',
+                    icon: 'logout',
+                    events: logoutHandler
+                }),
+            }),
+        })
+    }
 
-const messageBlock1 = new MessageBlock({
-    classAttr: 'message-block',
-    displayName: 'Michael Scott',
-    lastMessage: 'No! God, please! NOOOO',
-    messageDate: '12:45',
-    newMessages: 3,
-    hiddenClass: '',
-    avatarSource: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABVElEQVR4nO2VvU4CQRSF56GoDBTG1gQTxJ/CgooECxMTirWwpCexorEwYucD4CNACyW4ZBUzZj2PcMnduAkQhQird0ZucZqZ2cn5zp67awCQzzLSBqAAkE8RWiHIJwkdYvgpI20ACgD5FKEVgnyS0CFGtsnE/S7ZTpvs0wPFg54/b+Dj7YUmrSuKgv058RrvOQ8w+cL8LITTAHG/+635VFnXyWR5me3crwTguVAA/FaFBj2/KwTfhxj/4TOKmTrxT8y7Hxn+WCbLy57DMd21H+n84pqK5Srld48SHZSryRrv8RnnAKx9p+bNLRX2jim3U1wqPsNn+Rm4ADAchXRWuVxpfFH8zHAUygJE0SuVTmo/Np/q8LSW3CEGUA8aa5tPVQ8acgCbms99SgGwrW8ADshIG4ACQD5FaIUgnyR0iOGnjLQBKADkU4RWCPJJQocY8mmuoymHavLA3Wry3QAAAABJRU5ErkJggg==',
-});
+    render() {
+        return this.compile(template, this.props)
+    }
+}
 
-const messageBlock2 = new MessageBlock({
-    classAttr: 'message-block',
-    displayName: 'Dwight Schrute',
-    lastMessage: 'I hate Jim',
-    messageDate: '21:04',
-    newMessages: 3,
-    hiddenClass: '',
-    avatarSource: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABVElEQVR4nO2VvU4CQRSF56GoDBTG1gQTxJ/CgooECxMTirWwpCexorEwYucD4CNACyW4ZBUzZj2PcMnduAkQhQird0ZucZqZ2cn5zp67awCQzzLSBqAAkE8RWiHIJwkdYvgpI20ACgD5FKEVgnyS0CFGtsnE/S7ZTpvs0wPFg54/b+Dj7YUmrSuKgv058RrvOQ8w+cL8LITTAHG/+635VFnXyWR5me3crwTguVAA/FaFBj2/KwTfhxj/4TOKmTrxT8y7Hxn+WCbLy57DMd21H+n84pqK5Srld48SHZSryRrv8RnnAKx9p+bNLRX2jim3U1wqPsNn+Rm4ADAchXRWuVxpfFH8zHAUygJE0SuVTmo/Np/q8LSW3CEGUA8aa5tPVQ8acgCbms99SgGwrW8ADshIG4ACQD5FaIUgnyR0iOGnjLQBKADkU4RWCPJJQocY8mmuoymHavLA3Wry3QAAAABJRU5ErkJggg==',
-});
+const withSelectedChatMessages = withStore((state) => {
 
-const messageBlock3 = new MessageBlock({
-    classAttr: 'message-block',
-    displayName: 'Pam Beesly',
-    lastMessage: 'Dunder Mifflin, this is Pam',
-    messageDate: 'Mon',
-    hiddenClass: '-hidden',
-    avatarSource: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABVElEQVR4nO2VvU4CQRSF56GoDBTG1gQTxJ/CgooECxMTirWwpCexorEwYucD4CNACyW4ZBUzZj2PcMnduAkQhQird0ZucZqZ2cn5zp67awCQzzLSBqAAkE8RWiHIJwkdYvgpI20ACgD5FKEVgnyS0CFGtsnE/S7ZTpvs0wPFg54/b+Dj7YUmrSuKgv058RrvOQ8w+cL8LITTAHG/+635VFnXyWR5me3crwTguVAA/FaFBj2/KwTfhxj/4TOKmTrxT8y7Hxn+WCbLy57DMd21H+n84pqK5Srld48SHZSryRrv8RnnAKx9p+bNLRX2jim3U1wqPsNn+Rm4ADAchXRWuVxpfFH8zHAUygJE0SuVTmo/Np/q8LSW3CEGUA8aa5tPVQ8acgCbms99SgGwrW8ADshIG4ACQD5FaIUgnyR0iOGnjLQBKADkU4RWCPJJQocY8mmuoymHavLA3Wry3QAAAABJRU5ErkJggg==',
-});
+    const currentChatUsers: string[] = state.currentChatUsers?.map((chat: Record<string, any>) => chat.login).filter((login: string) => login !== state.user.login)
 
+    return {
+        currentChat: state.currentChat,
+        currentChatUsers: currentChatUsers || []
+    }
+}
+);
 
-const sectionSelection = new ChatSelection({
-    classAttr: 'section__chat-selection',
-    button: buttonMenu,
-    input: inputMenu,
-    messageBlock1: messageBlock1,
-    messageBlock2: messageBlock2,
-    messageBlock3: messageBlock3,
-});
-
-const sectionView = new ChatView({
-    classAttr: 'section__chat-view',
-    buttonMore: buttonMore,
-    buttonFile: buttonFile,
-    buttonSend: buttonSend,
-    input: inputMsg,
-    displayName: 'Michael Scott'
-});
-
-const chats = new Chats({
-    sectionSelection: sectionSelection,
-    sectionView: sectionView,
-});
-
-const chatsPage = chats;
-
-export default chatsPage;
+export const ChatsPageWithSelectedChat = withSelectedChatMessages(ChatsPage);
+export default ChatsPageWithSelectedChat;
 

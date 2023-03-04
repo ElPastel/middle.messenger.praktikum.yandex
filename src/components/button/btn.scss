@@ -13,6 +13,7 @@ $form-color: rgba(238 238 238 / 30%);
     font-family: Roboto, sans-serif;
     font-weight: 500;
     font-size: 1.3rem;
+    color: $primary-color;
 
     &:hover {
         background-color: $peach-color-dark;

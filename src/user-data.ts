@@ -1,4 +1,6 @@
-const userData: Record<string, string | number> = {
+import { IUser } from "./api/authApi";
+
+const user: IUser = {
 	id: 123,
 	first_name: 'Ivan',
 	second_name: 'Ivanov',
@@ -9,4 +11,4 @@ const userData: Record<string, string | number> = {
 	avatar: 'avatar.jpg',
 };
 
-export default userData;
+export default user;
