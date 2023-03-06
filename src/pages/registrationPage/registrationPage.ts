@@ -1,10 +1,10 @@
-import Block, { T } from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './registrationPage.scss';
 import template from './registrationPage.pug';
 import RegistrationForm from '../../components/registrationForm/registrationForm';
 import { inputHandlers, submitHandlerReg } from '../../utils/handlers';
 import Button from '../../components/button/btn';
-import router from '../../modules/router';
+import router from '../../modules/router/router';
 import InputBlock from '../../components/inputBlock/inputBlock';
 import { Input } from '../../components/input/input';
 import { Routes } from '../..';

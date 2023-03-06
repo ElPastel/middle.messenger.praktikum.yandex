@@ -3,8 +3,8 @@ import Button from '../../components/button/btn';
 import { Input } from '../../components/input/input';
 import InputBlock from '../../components/inputBlock/inputBlock';
 import LoginForm from '../../components/loginForm/loginForm';
-import Block, { T } from '../../modules/block';
-import router from '../../modules/router';
+import Block, { T } from '../../modules/block/block';
+import router from '../../modules/router/router';
 import { inputHandlers, submitHandlerLog } from '../../utils/handlers';
 import template from './loginPage.pug';
 

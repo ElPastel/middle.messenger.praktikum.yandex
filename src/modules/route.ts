@@ -1,4 +1,4 @@
-import Block, { T } from "./block";
+import Block, { T } from "./block/block";
 import renderElement from "../utils/renderElement";
 import LoginPage from "../pages/loginPage/loginPage";
 import RegPage from "../pages/registrationPage/registrationPage";
@@ -14,7 +14,6 @@ type RouteProps = {
 function isEqual(lhs: string, rhs: string): boolean {
     return lhs === rhs;
 }
-
 
 export default class Route {
     private _pathname: string;
@@ -50,7 +49,8 @@ export default class Route {
 
     render() {
         if (!this._block) {
-            this._block = new this._blockClass({});
+            this._block = new this._blockClass(this._props);
+            console.log(this._props.rootQuery);            
             if (this._block) renderElement(this._props.rootQuery, this._block);
             return;
         }

@@ -1,5 +1,5 @@
 import authApi, { AuthAPI } from "../api/authApi";
-import router from "../modules/router";
+import router from "../modules/router/router";
 import store from "../modules/store";
 import { Indexed } from "../utils/helpers";
 import chatsController from "./chatsController";

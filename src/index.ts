@@ -1,6 +1,6 @@
 import '../declarations.d';
-import Router from './modules/router';
-import router from './modules/router';
+import Router from './modules/router/router';
+import router from './modules/router/router';
 import chatsController from './controllers/chatsController';
 import authController from './controllers/authController';
 import UserProfilePageWithUser from './pages/userProfilePage/userProfilePage';
@@ -51,6 +51,8 @@ window.addEventListener('DOMContentLoaded', async () => {
         if (!isProtectedRoute) {
             Router.go(Routes.Chats)
         }
+
+        
     } catch (e) {
         Router.start();
         console.log(e.message);

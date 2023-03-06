@@ -1,9 +1,9 @@
 import Button from "../../components/button/btn";
 import Error from "../../components/error/error";
-import Block, { T } from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './errorPage500.scss';
 import template from './errorPage500.pug';
-import router from "../../modules/router";
+import router from "../../modules/router/router";
 import { Routes } from "../..";
 
 

@@ -1,4 +1,4 @@
-import Block, { T } from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './inputWithSelect.scss';
 import template from './inputWithSelect.pug';
 import { withStore } from '../../modules/store';
@@ -9,7 +9,7 @@ export class InputWithSelect extends Block<T> {
 	}
 
 	render() {
-        return this.compile(template, this.props);
+		return this.compile(template, this.props);
 	}
 }
 

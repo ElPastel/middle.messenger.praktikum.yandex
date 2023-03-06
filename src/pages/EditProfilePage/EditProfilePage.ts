@@ -1,10 +1,10 @@
-import Block, { T } from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './EditProfilePage.scss';
 import template from './EditProfilePage.pug';
 import { withStore } from '../../modules/store';
 import RegistrationForm from '../../components/registrationForm/registrationForm';
 import Button from '../../components/button/btn';
-import router from '../../modules/router';
+import router from '../../modules/router/router';
 import InputBlock from '../../components/inputBlock/inputBlock';
 import { Input } from '../../components/input/input';
 import { editHandler, inputHandlers } from '../../utils/handlers';

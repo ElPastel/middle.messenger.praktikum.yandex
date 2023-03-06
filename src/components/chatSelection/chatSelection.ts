@@ -1,4 +1,4 @@
-import Block, { T } from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './chatSelection.scss';
 import template from './chatSelection.pug';
 import { withStore } from '../../modules/store';

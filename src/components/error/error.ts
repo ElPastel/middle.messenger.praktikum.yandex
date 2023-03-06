@@ -1,5 +1,5 @@
-import Block, {T} from '../../modules/block';
-import './error.scss'; 
+import Block, { T } from '../../modules/block/block';
+import './error.scss';
 import template from './error.pug';
 
 class Error extends Block<T> {

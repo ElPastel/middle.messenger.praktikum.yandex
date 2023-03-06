@@ -1,4 +1,4 @@
-import Block, { T } from "../modules/block";
+import Block, { T } from "../modules/block/block";
 
 export default function renderElement(query: string, block: Block<T>): HTMLElement {
 	const root = document.querySelector(query) as HTMLElement;

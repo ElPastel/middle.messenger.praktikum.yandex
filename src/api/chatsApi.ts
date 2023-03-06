@@ -1,4 +1,4 @@
-import http from "../modules/http";
+import http from "../modules/http/http";
 import { Indexed } from "../utils/helpers";
 
 export class ChatsAPI {
@@ -40,7 +40,7 @@ export class ChatsAPI {
     }
 
     async getToken(chatId: number): Promise<string> {
-        const response = await this.http.post(`/chats/token/${chatId}`) as {token: string};
+        const response = await this.http.post(`/chats/token/${chatId}`) as { token: string };
         return response.token;
     }
 }

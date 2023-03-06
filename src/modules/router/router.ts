@@ -1,8 +1,7 @@
-import { T } from "./block";
-import Route, { BlockTypes } from "./route";
+import { T } from "../block/block";
+import Route, { BlockTypes } from "../route";
 
-
-class Router {
+export class Router {
     public routes: Route[];
     public history: History;
     private _currentRoute: Route | null;
@@ -22,6 +21,10 @@ class Router {
         Router.__instance = this;
     }
 
+    getQuery() {
+        return this._rootQuery;
+    }
+
     use(pathname: string, block: BlockTypes, blockProps: T) {
         const route = new Route(pathname, block, blockProps, { rootQuery: this._rootQuery });
 
@@ -31,8 +34,8 @@ class Router {
     }
 
     start() {
-        window.onpopstate = ((event: PopStateEvent) => {
-            this._onRoute((event.currentTarget as Window).location.pathname);
+        window.onpopstate = (() => {
+            this._onRoute(window.location.pathname);
         }).bind(this);
 
         this._onRoute(window.location.pathname);
@@ -40,6 +43,7 @@ class Router {
 
     _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
+
         if (!route) {
             return;
         }

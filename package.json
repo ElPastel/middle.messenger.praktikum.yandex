@@ -12,7 +12,8 @@
     "dev": "parcel public/index.html --open --no-cache --port 3000 --no-source-maps",
     "build": "parcel build public/index.html --no-cache --no-source-maps",
     "style": "stylelint **/*.scss",
-    "eslint": "eslint --ext .ts src/"
+    "eslint": "eslint --ext .ts src/",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -33,19 +34,25 @@
     "@parcel/transformer-inline-string": "^2.8.3",
     "@parcel/transformer-pug": "^2.8.3",
     "@parcel/transformer-sass": "^2.8.3",
+    "@types/jest": "^29.4.0",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "assert": "^2.0.0",
     "buffer": "^5.7.1",
     "eslint": "^8.32.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.0.0",
+    "jest-environment-jsdom": "^27.0.0",
     "os-browserify": "^0.3.0",
     "parcel": "^2.8.3",
     "parcel-transformer-pug-precompile": "^1.0.6",
     "path-browserify": "^1.0.1",
     "prettier": "^2.8.3",
     "process": "^0.11.10",
+    "pug-jest": "^1.0.1",
     "stylelint": "^14.16.1",
     "stylelint-config-standard-scss": "^6.1.0",
+    "ts-jest": "^27.0.0",
     "typescript": "^4.9.4"
   },
   "dependencies": {

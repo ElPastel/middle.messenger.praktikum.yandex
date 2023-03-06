@@ -1,13 +1,13 @@
-import Block, { T } from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './inputBlock.scss';
 import template from './inputBlock.pug';
 
 class InputBlock extends Block<T> {
 	constructor(props: T) {
-		super(props, 'div'); 
+		super(props, 'div');
 	}
 
-	render() {	
+	render() {
 		return this.compile(template, this.props);
 	}
 }

@@ -1,10 +1,10 @@
-import Block, {T} from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './registrationForm.scss';
 import template from './registrationForm.pug';
 
 class RegistrationForm extends Block<T> {
     constructor(props: T) {
-        super(props, 'div');        
+        super(props, 'div');
     }
 
     render(): DocumentFragment {

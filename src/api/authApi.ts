@@ -1,4 +1,4 @@
-import http from "../modules/http";
+import http from "../modules/http/http";
 import { Indexed } from "../utils/helpers";
 
 export class AuthAPI {

@@ -1,4 +1,4 @@
-import Block, {T} from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './changePasswordForm.scss';
 import template from './changePasswordForm.pug';
 
