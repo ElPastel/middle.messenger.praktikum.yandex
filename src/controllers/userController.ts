@@ -25,7 +25,10 @@ export class UserController {
 
   async changePassword(data: Indexed) {
     try {
-      await this.api.changePassword({ oldPassword: data.oldPassword, newPassword: data.newPassword });
+      await this.api.changePassword({
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword
+      });
       closeModal();
     } catch (e: unknown) {
       console.error(e);
