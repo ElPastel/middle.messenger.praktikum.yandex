@@ -69,6 +69,7 @@ export default abstract class Block<Props extends T> {
 		this.componentDidMount();
 	}
 
+	// @ts-ignore
 	protected componentDidMount(oldProps?: object): void {
 		//
 	}
@@ -85,6 +86,7 @@ export default abstract class Block<Props extends T> {
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
 
+	// @ts-ignore
 	protected componentDidUpdate(oldProps: Props, newProps: Props): boolean {
 		return true;
 	}

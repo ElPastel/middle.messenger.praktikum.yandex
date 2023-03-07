@@ -13,7 +13,7 @@ class ChatView extends Block<T> {
 		this.children.messages = this.createMessages(this.props);
 	}
 
-	protected componentDidUpdate(oldProps: T, newProps: T): boolean {
+	protected componentDidUpdate(_: T, newProps: T): boolean {
 		this.children.messages = this.createMessages(newProps);
 		return true;
 	}

@@ -1,5 +1,3 @@
-import '../declarations.d';
-import Router from './modules/router/router';
 import router from './modules/router/router';
 import chatsController from './controllers/chatsController';
 import authController from './controllers/authController';
@@ -10,6 +8,7 @@ import ChatsPageWithSelectedChat from './pages/chatsPage/chatsPage';
 import EditProfilePageWithUser from './pages/EditProfilePage/EditProfilePage';
 import ErrorPage404 from './pages/errorPage404/errorPage404';
 import ErrorPage500 from './pages/errorPage500/errorPage500';
+import '../public/main.scss';
 
 export enum Routes {
     Index = '/',
@@ -43,18 +42,18 @@ window.addEventListener('DOMContentLoaded', async () => {
     try {
         await authController.fetchUser();
 
-        Router.start();
+        router.start();
         if (window.location.pathname === Routes.Chats) {
             chatsController.getChats({ offset: 0, limit: 10 });
         }
 
         if (!isProtectedRoute) {
-            Router.go(Routes.Chats)
+            router.go(Routes.Chats)
         }
 
         
     } catch (e) {
-        Router.start();
+        router.start();
         console.log(e.message);
     }
 })
