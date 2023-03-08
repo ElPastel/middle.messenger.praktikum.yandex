@@ -49,8 +49,7 @@ export default class Route {
 
     render() {
         if (!this._block) {
-            this._block = new this._blockClass(this._props);
-            console.log(this._props.rootQuery);            
+            this._block = new this._blockClass(this._props);          
             if (this._block) renderElement(this._props.rootQuery, this._block);
             return;
         }
