@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+// const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const PugPlugin = require('pug-plugin');
@@ -109,16 +109,16 @@ module.exports = {
 					]
 				}
 			}),
-			new ImageMinimizerPlugin({
-				test: /\.(jpe?g|png|gif|svg)$/i,
-				minimizer: {
-					implementation: ImageMinimizerPlugin.imageminMinify,
-					options: {
-						plugins: ['imagemin-mozjpeg', 'imagemin-optipng', 'imagemin-svgo']
-					}
-				},
-				loader: false
-			})
+			// new ImageMinimizerPlugin({
+			// 	test: /\.(jpe?g|png|gif|svg)$/i,
+			// 	minimizer: {
+			// 		implementation: ImageMinimizerPlugin.imageminMinify,
+			// 		options: {
+			// 			plugins: ['imagemin-mozjpeg', 'imagemin-optipng', 'imagemin-svgo']
+			// 		}
+			// 	},
+			// 	loader: false
+			// })
 		]
 	}
 };
