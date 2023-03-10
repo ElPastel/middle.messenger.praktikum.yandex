@@ -14,7 +14,7 @@ type Options = {
 
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
 
-function queryStringify(data: { [key: string]: unknown } = {}): string {
+export function queryStringify(data: { [key: string]: unknown } = {}): string {
     if (!data || typeof data !== 'object') {
         throw new Error('Data must be object');
     }
@@ -26,7 +26,7 @@ function queryStringify(data: { [key: string]: unknown } = {}): string {
 }
 const API_URL = 'https://ya-praktikum.tech/api/v2';
 
-class HttpTransport {
+export class HttpTransport {
     private readonly _apiUrl;
 
     constructor(apiUrl: string) {

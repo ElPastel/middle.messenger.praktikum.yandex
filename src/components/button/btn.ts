@@ -1,4 +1,4 @@
-import Block, {T} from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './btn.scss';
 import template from './btn.pug';
 

@@ -1,8 +1,8 @@
-import Block, { T } from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import template from './userProfilePage.pug';
 import { withStore } from '../../modules/store';
 import Button from '../../components/button/btn';
-import router from '../../modules/router';
+import router from '../../modules/router/router';
 import User from '../../components/user/user';
 import { Routes } from '../..';
 
@@ -50,8 +50,9 @@ class UserProfilePage extends Block<T> {
                         click: () => router.go(Routes.Chats)
                     }
                 }),
-        })
-    }}
+            })
+        }
+    }
 
 
     protected componentDidMount(): void {

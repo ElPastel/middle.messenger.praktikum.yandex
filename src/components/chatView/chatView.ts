@@ -1,4 +1,4 @@
-import Block, { T } from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './chatView.scss';
 import template from './chatView.pug';
 import { withStore } from '../../modules/store';
@@ -13,7 +13,7 @@ class ChatView extends Block<T> {
 		this.children.messages = this.createMessages(this.props);
 	}
 
-	protected componentDidUpdate(oldProps: T, newProps: T): boolean {
+	protected componentDidUpdate(_: T, newProps: T): boolean {
 		this.children.messages = this.createMessages(newProps);
 		return true;
 	}

@@ -1,6 +1,6 @@
 import EventBus from "./event-bus";
 import { isEqual, set } from "../utils/helpers";
-import { T } from "./block";
+import { T } from "./block/block";
 
 export enum StoreEvents {
   Updated = 'updated'

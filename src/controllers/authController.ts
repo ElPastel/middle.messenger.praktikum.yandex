@@ -1,5 +1,6 @@
+import { Routes } from "..";
 import authApi, { AuthAPI } from "../api/authApi";
-import router from "../modules/router";
+import router from "../modules/router/router";
 import store from "../modules/store";
 import { Indexed } from "../utils/helpers";
 import chatsController from "./chatsController";
@@ -17,7 +18,7 @@ export class AuthController {
       await this.api.signin(data);
       await this.fetchUser();
       await chatsController.getChats(store.getState().user.id)
-      router.go('/chats');
+      router.go(Routes.Chats);
     } catch (e: unknown) {
       console.error(e);
     }
@@ -27,7 +28,7 @@ export class AuthController {
     try {
       await this.api.signup(data);
       await this.fetchUser();
-      router.go('/chats');
+      router.go(Routes.Chats);
     } catch (e: unknown) {
       console.error(e);
     }
@@ -46,7 +47,7 @@ export class AuthController {
       while (root?.firstChild) {
         root.removeChild(root.firstChild);
       }
-      router.go('/');
+      router.go(Routes.Index);
       store.clear();
     } catch (e: unknown) {
       console.error(e);

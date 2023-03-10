@@ -1,4 +1,4 @@
-import Block, {T} from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './chatMenu.scss';
 import template from './chatMenu.pug';
 import { withStore } from '../../modules/store';

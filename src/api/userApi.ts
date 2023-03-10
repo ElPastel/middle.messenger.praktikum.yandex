@@ -1,4 +1,4 @@
-import http from "../modules/http";
+import http from "../modules/http/http";
 import { Indexed } from "../utils/helpers";
 
 export class UserAPI {
@@ -8,19 +8,19 @@ export class UserAPI {
     }
 
     changeProfile(data: Indexed) {
-        return this.http.put('/user/profile', {data});
+        return this.http.put('/user/profile', { data });
     }
 
     changePassword(data: Indexed) {
-        return this.http.put('/user/password', {data});
+        return this.http.put('/user/password', { data });
     }
 
     changeAvatar(data: Indexed) {
-        return this.http.put('/user/profile/avatar', {data});
+        return this.http.put('/user/profile/avatar', { data });
     }
 
-    userByLogin(data: Indexed): Promise<any> {      
-        return this.http.post('/user/search', {data});
+    userByLogin(data: Indexed): Promise<any> {
+        return this.http.post('/user/search', { data });
     }
 }
 

@@ -1,4 +1,4 @@
-import Block, {T} from '../../modules/block';
+import Block, { T } from '../../modules/block/block';
 import './message.scss';
 import template from './message.pug';
 

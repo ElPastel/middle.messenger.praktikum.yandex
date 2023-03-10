@@ -1,6 +1,6 @@
 import { Routes } from "..";
 import userApi, { UserAPI } from "../api/userApi";
-import router from "../modules/router";
+import router from "../modules/router/router";
 import store from "../modules/store";
 import { closeModal } from "../utils/handlers";
 import { Indexed } from "../utils/helpers";
@@ -25,7 +25,10 @@ export class UserController {
 
   async changePassword(data: Indexed) {
     try {
-      await this.api.changePassword({ oldPassword: data.oldPassword, newPassword: data.newPassword });
+      await this.api.changePassword({
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword
+      });
       closeModal();
     } catch (e: unknown) {
       console.error(e);

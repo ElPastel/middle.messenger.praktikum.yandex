@@ -1,5 +1,5 @@
 import { v4 as makeUUID } from 'uuid';
-import EventBus from './event-bus';
+import EventBus from '../event-bus';
 
 type V = string | number | boolean | Record<string, (e: Event) => void> | Record<string, unknown> | Block<T> | Record<string, any>[];
 export type T = Record<string, V>;
@@ -61,7 +61,7 @@ export default abstract class Block<Props extends T> {
 		this.dispatchComponentDidMount();
 	}
 
-	protected init(): void { 
+	protected init(): void {
 		//
 	}
 
@@ -69,6 +69,7 @@ export default abstract class Block<Props extends T> {
 		this.componentDidMount();
 	}
 
+	// @ts-ignore
 	protected componentDidMount(oldProps?: object): void {
 		//
 	}
@@ -85,6 +86,7 @@ export default abstract class Block<Props extends T> {
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
 
+	// @ts-ignore
 	protected componentDidUpdate(oldProps: Props, newProps: Props): boolean {
 		return true;
 	}
@@ -129,7 +131,7 @@ export default abstract class Block<Props extends T> {
 				this._element.appendChild(block);
 			}
 		}
-		
+
 		this._addEvents();
 
 		const view: HTMLElement | null = document.querySelector('.chat-view');
