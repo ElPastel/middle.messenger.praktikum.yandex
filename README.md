@@ -6,7 +6,7 @@ CozyChat is a web Messenger project uses **Pug** templates and is implemented as
 
 ## Links
 [Netlify](https://cozychat.netlify.app/)
-[Render](https://cozy-chat.onrender.com/messenger)
+[Render](https://cozy-chat.onrender.com/)
 
 [Figma layout](https://www.figma.com/file/iOLdvFrkIuP11QJQK08kOr/Messenger-UI?node-id=0%3A1&t=hFrBn0NgpiOaQb68-0)
 
