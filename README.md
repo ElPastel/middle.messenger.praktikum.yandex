@@ -1,8 +1,6 @@
-Pull request: https://github.com/ElPastel/middle.messenger.praktikum.yandex/pull/5
-
 ## Overview
 
-CozyChat is a web Messenger project uses **Pug** templates and is implemented as SPA.
+CozyChat is a web Messenger project uses **Pug** templates, TypeScript and is implemented as SPA. 
 
 ## Links
 [Netlify](https://cozychat.netlify.app/)
